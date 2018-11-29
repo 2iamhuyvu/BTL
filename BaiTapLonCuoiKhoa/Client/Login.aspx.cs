@@ -22,6 +22,15 @@ public partial class Client_Login : System.Web.UI.Page
         if (checkLogin)
         {
             Session["User"] = data.GetUserByName(txtusername.Text);
+
+            Cart CART = (Cart)Session["Cart"];
+            CART.emailKH =((Member)Session["User"]).member_mail;
+            CART.tenKH = ((Member)Session["User"]).member_fullname;
+            CART.dienthoaiKH = ((Member)Session["User"]).member_phone;
+            CART.idtable = -1;
+            CART.idmember = ((Member)Session["User"]).member_id;
+            CART.tenBan = "";
+            Session["Cart"] = CART;
             Response.Redirect("/TrangChu.aspx");
         }
         else

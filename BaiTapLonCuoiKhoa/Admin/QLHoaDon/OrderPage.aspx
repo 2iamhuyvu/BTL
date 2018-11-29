@@ -1,12 +1,12 @@
-﻿<%@ Page Title="Chi tiết hóa đơn" Language="C#" AutoEventWireup="true" MasterPageFile="~/Admin/MasterPageAdmin.master" CodeFile="OrderDetailPage.aspx.cs" Inherits="Admin_QlOrderDetail_OrderDetailPage" %>
+﻿<%@ Page Title="Danh sách hóa đơn" Language="C#" AutoEventWireup="true" MasterPageFile="~/Admin/MasterPageAdmin.master" CodeFile="OrderPage.aspx.cs" Inherits="Admin_QLHoaDon_OrderPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="titleAdmin" runat="Server">
-    Chi tiết hóa đơn
+    Danh sách hóa đơn
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="LinkPageAdmin" runat="Server">
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentRight" runat="Server">    
-    <h2 style="margin-top: 20px;" id="headerOrderDetail">Danh sách hóa đơn
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentRight" runat="Server">
+    <h2 style="margin-top: 20px; font-size: 24px; text-align: center" id="headerOrderDetail">Danh sách hóa đơn
     </h2>
 
     <table class="table table-bordered table-hover table-striped" style="margin-top: 30px;">
@@ -16,7 +16,9 @@
             <th>Tên khách hàng</th>
             <th>Email khách hàng</th>
             <th>Điện thoại khách hàng</th>
-            <th>Tổng tiền</th>
+            <%--<th>Loại khách khách hàng</th>
+            <th>Loại hóa đơn</th>--%>
+            <th>Tổng tiền (vnđ)</th>
             <th>Thời gian</th>
             <th>Tình trạng</th>
             <th></th>
@@ -30,58 +32,64 @@
                     Response.Write("<tr>");
                     Response.Write("<td>" + i + "</td>");
                     Response.Write("<td><a title='Xem hóa đơn' style='display:block' href='javascript:void(0)' onclick='ModalDetailTable(" + item.ordertable_id + ")'>" + item.ordertable_id + "</a></td>");
-                    Response.Write("<td>" + item.member_fullname + "</td>");
-                    Response.Write("<td>" + item.member_mail + "</td>");
-                    Response.Write("<td>" + item.member_phone + "</td>");
+                    Response.Write("<td>" + item.tenKH + "</td>");
+                    Response.Write("<td>" + item.emailKH + "</td>");
+                    Response.Write("<td>" + item.dienthoaiKH + "</td>");
+                    //Response.Write("<td>" + (item.loaiKH==true? "Có tài khoản":"Không có tài khoản" )+ "</td>");
+                    //Response.Write("<td>" + (item.loaiHD==true? "Hóa đơn theo bàn":"Hóa đơn KH online" )+ "</td>");
                     Response.Write("<td>" + item.TotalMoney + "</td>");
                     Response.Write("<td>" + item.ordertable_timeset.ToString("dd/MM/yyyy") + "</td>");
-                    if (item.ordertable_status??false)
+                    if (item.ordertable_status ?? false)
                     {
                         Response.Write("<td>Đã thanh toán</td>");
                     }
                     else
                     {
-                        Response.Write("<td>Chưa thanh toán</td>");
-                    } 
-                    Response.Write("<td><a title='Xem hóa đơn' class='btn btn-primary' style='display:block;padding:5px 10px;' href='javascript:void(0)' onclick='ModalDetailTable(" + item.ordertable_id + ")'>Xem hóa đơn</a></td>");
+                        Response.Write("<td><button onclick='Thanhtoan(" + item.ordertable_id + ")' class='btn btn-sm' type=button' style='background:#ffc107;padding:5px 10px'>Thanh toán</button></td>");
+                    }
+                    Response.Write("<td>" +
+                                        "<a title='Xem hóa đơn' class='' style='display:block;padding:5px 10px;' href='javascript:void(0)' onclick='ModalDetailTable(" + item.ordertable_id + ")'>" +
+                                        "<i class='fa fa-eye fa-lg'></i>" +
+                                        "</a>" +
+                                    "</td>");
                     Response.Write("</tr>");
                 }
             %>
         </tbody>
     </table>
     <!-- Modal -->
-    <div class="modal fade" id="ModalDetaiTable" style="margin-left: -510px">
-        <div class="modal-dialog" role="dialog" style="width: 1000px;">
+    <div class="modal fade" id="ModalDetaiTable">
+        <div class="modal-dialog" role="dialog" style="max-width: 1100px!important;">
             <!-- Modal content-->
-            <div class="modal-content" style="width: 1000px;">
-                <div class="modal-header" style="background:#ffc107;padding: 10px">
+            <div class="modal-content " style="width: 1100px;">
+                <div class="modal-header" style="background: #ffc107; padding: 10px">
                     <h4 class=" modal-title">Chi tiết Hóa đơn</h4>
                     <button type="button" class="close" onclick="closeModalDetaiTable()">&times;</button>
                 </div>
                 <div class="modal-body" style="padding: 0px">
                 </div>
                 <div class="modal-footer" style="padding: 10px">
-                    <button type="button" class="btn btn-warning btn-sm" style="padding:5px 10px;" onclick="closeModalDetaiTable()">Đòng</button>
+                    <button type="button" class="btn btn-warning btn-sm" style="background: white; padding: 5px 10px;" onclick="closeModalDetaiTable()">Đóng</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        function closeModalDetaiFood() {
-            $("#ModalDetaiFood").modal("hide");
-        }
         function closeModalDetaiTable() {
             $("#ModalDetaiTable").modal("hide");
         }
-        function ModalDetailFood(idfood) {
+        function Thanhtoan(id) {
             $.ajax({
-                type: "POST",
-                url: "OrderDetailPage.aspx/DetailFood",
-                data: { idfood: idfood },
-                dataType: "html",
-                success: function (html) {
-                    $("#ModalDetaiFood .modal-body").html(html);
-                    $("#ModalDetaiFood").modal("show");
+                type: "post",
+                url: "/Admin/QLHoaDon/OrderPage.aspx/ThanhToan",
+                data: "{idodtbl:" + id + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    $.notify("Thanh toán thành công", "success")
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);                    
                 }
             });
         }
@@ -99,20 +107,24 @@
                             <div >
                                 <table class="table" style="margin:0px;">
                                     <tr class="">
-                                        <td class="" style="width:150px;"><span style="font-weight:bold">Mã hóa đơn:</span></td>    
+                                        <td class="" style="width:120px;"><span style="font-weight:bold">Mã hóa đơn:</span></td>    
                                         <td style="width:300px;"><span style="color:red;font-weight:bold">${HD.ordertable_id}</span></td>
-                                        <td class="" style="width:150px;">Thới gian:</td><td>${convertDate(HD.ordertable_timeset)}</td>
+                                        <td class="" style="width:120px;">Thới gian:</td><td style="width:200px;">${convertDate(HD.ordertable_timeset)}</td>
+                                        <td class="" style="width:130px;">Loại mua hàng:</td><td>${HD.loaiHD == true ? 'Đặt bàn tại nhà hàng (' + HD.table_name + ')' : 'Mua hàng online'}</td>
                                     </tr>
                                     <tr class="">
-                                        <td class=""><span style="font-weight:bold">Khách hàng:</span></td><td><span style="font-weight:bold">${HD.member_fullname}</span></td>    
-                                        <td class="">Email:</td><td>${HD.member_mail}</td>
+                                        <td class=""><span style="font-weight:bold">Khách hàng:</span></td><td><span style="font-weight:bold">${HD.tenKH}</span></td>    
+                                        <td class="">Email:</td><td>${HD.emailKH}</td>
+                                        <td >Loại khách hàng:</td><td >${HD.loaiKH == true ? 'KH có tài khoản' : 'KH không có tài khoản'}</td>
                                     </tr>
                                     <tr class="">
-                                        <td class="">Điện thoại:</td><td>${HD.member_phone}</td>    
+                                        <td class="">Điện thoại:</td><td>${HD.dienthoaiKH}</td>    
                                         <td class="">Tình trạng:</td><td>${HD.ordertable_status == true ? 'Đã thanh toán' : 'Chưa thanh toán'}</td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     <tr class="">
-                                        <td class="" colspan="4"><span style="color:green;font-weight:bold;font-size: 18px;">Tổng tiền:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${HD.TotalMoney} (vnđ)</span></td>                                        
+                                        <td class="" colspan="6"><span style="color:green;font-weight:bold;font-size: 18px;">Tổng tiền:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${HD.TotalMoney} (vnđ)</span></td>                                        
                                     </tr>
                                 </table>
                             </div>                             

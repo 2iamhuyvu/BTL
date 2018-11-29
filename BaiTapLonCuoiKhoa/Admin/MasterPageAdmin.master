@@ -8,28 +8,29 @@
         <asp:ContentPlaceHolder ID="titleAdmin" runat="server">
         </asp:ContentPlaceHolder>
     </title>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <base href="../../">
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <base href="../../"/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="Assets/AssetsAdmin/images/icon/favicon.ico">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/font-awesome.min.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/themify-icons.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/metisMenu.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/slicknav.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" type="image/png" href="Assets/AssetsAdmin/images/icon/favicon.ico"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/themify-icons.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/metisMenu.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/slicknav.min.css"/>
     <!-- amchart css -->
     <%--<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />--%>
     <!-- others css -->
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/typography.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/default-css.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/styles.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/responsive.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/table.css">
-    <link rel="stylesheet" href="Assets/AssetsAdmin/css/table.min.css">
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/typography.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/default-css.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/styles.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/responsive.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/table.css"/>
+    <link rel="stylesheet" href="Assets/AssetsAdmin/css/table.min.css"/>
     <!-- modernizr css -->
+    <link href="../Assets/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
     <script src="Assets/AssetsAdmin/js/vendor/modernizr-2.8.3.min.js"></script>
 
 </head>
@@ -46,7 +47,7 @@
                 <div class="sidebar-header">
                     <div class="logo">
                         <a href="/Admin/Dashboard.aspx">
-                            <img src="Assets/AssetsAdmin/images/icon/logo.png" alt="logo"></a>
+                            <img src="Assets/AssetsAdmin/images/icon/logo.png" alt="logo"/></a>
                     </div>
                 </div>
                 <div class="main-menu">
@@ -93,15 +94,15 @@
                                         
                                     </ul>
                                 </li>
-                                <li>
+                               <%-- <li>
                                     <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
                                         <span>Order Tables</span></a>
                                     <ul class="collapse">
                                         <li><a href="/Admin/QLOrderTable/ListOrderTable.aspx">List OrderTable</a></li>
-                                        <%--<li><a href="/Admin/QLOrderTable/AddTOrderable.aspx">Add OrderTable</a></li>--%>
+                                        <li><a href="/Admin/QLOrderTable/AddTOrderable.aspx">Add OrderTable</a></li>
                                         
                                     </ul>
-                                </li>
+                                </li>--%>
 
                                 <li>
                                     <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-birthday-cake"></i>
@@ -221,7 +222,7 @@
         <script src="Assets/AssetsAdmin/js/metisMenu.min.js"></script>
         <script src="Assets/AssetsAdmin/js/jquery.slimscroll.min.js"></script>
         <script src="Assets/AssetsAdmin/js/jquery.slicknav.min.js"></script>
-
+        <script src="../Assets/js/notify.js"></script>
         <%--        <!-- start chart js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
         <!-- start highcharts js -->
@@ -237,7 +238,7 @@
         <!-- others plugins -->
         <script src="Assets/AssetsAdmin/js/plugins.js"></script>
         <script src="Assets/AssetsAdmin/js/scripts.js"></script>
-
+        <script src="../Assets/fontawesome/js/fontawesome.min.js"></script>
 
     </div>
 </body>

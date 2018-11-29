@@ -12,12 +12,16 @@ public class OrderVM
     public DateTime ordertable_timeset { get; set; }    
     public Boolean? ordertable_status { get; set; }
     public int? ordertable_iduser { get; set; }
+    public int? ordertable_idtable { get; set; }
 
     public string table_name { get; set; }
 
-    public string member_mail { get; set; }
-    public string member_phone { get; set; }
-    public string member_fullname { get; set; }
+    public string tenKH { get; set; }
+    public string emailKH { get; set; }
+    public string dienthoaiKH { get; set; }
+    public bool? loaiHD { get; set; }
+
+    public bool? loaiKH { get; set; }
 
     public Double? TotalMoney { get; set; }
 

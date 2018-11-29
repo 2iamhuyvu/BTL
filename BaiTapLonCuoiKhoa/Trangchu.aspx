@@ -5,31 +5,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Colorlib Template - EatWell</title>
-    <base href="Assets/">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <base href="Assets/" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link href="css/fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
+    <link rel="stylesheet" href="css/jquery.timepicker.css" />
+    <link rel="stylesheet" href="css/icomoon.css" />
+    <link href="fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
     <link href="css/StyleCustom.css" rel="stylesheet" />
+    <style>
+        #btnCart:hover {
+            z-index: 999 !important;
+            background-color: #b6ff00 !important;
+        }
+
+        #listFoodCart tr th, td {
+            font-size: 14px;
+            color: black;
+        }
+
+        #listFoodCart tr th {
+            font-weight: bold;
+        }
+
+        .form-control {
+            background: white !important;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 30px !important;
+            padding: 5px !important
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            margin-bottom: 2px !important
+        }
+    </style>
 </head>
 <body data-spy="scroll" data-target="#site-navbar" data-offset="200">
-    <form id="form1" runat="server"  action="/Trangchu.aspx">
+    <form id="form1" runat="server" action="/Trangchu.aspx">
         <div>
+            <a id="btnCart" onclick="ViewCart()" title="Xem giỏ hàng" href="javascript:void(0)" style="position: fixed; width: 80px; background: #ffd800; height: 80px; border-radius: 50%; right: 20px; top: 100px; text-align: center; line-height: 80px; color: blue; font-weight: bold">Giỏ hàng</a>
             <nav class="navbar navbar-expand-lg navbar-dark site_navbar bg-dark site-navbar-light" id="site-navbar">
                 <div class="container">
                     <a class="navbar-brand" href="/TrangChu.aspx">EatWell</a>
@@ -56,7 +84,7 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Profile</a>
                                         <a class="dropdown-item" href="#">Change password</a>
-                                        <asp:LinkButton ID="Logout" runat="server" CausesValidation="false" OnClick="LogOut_Click" Text="Log out" CssClass="dropdown-item"/>
+                                        <asp:LinkButton ID="Logout" runat="server" CausesValidation="false" OnClick="LogOut_Click" Text="Log out" CssClass="dropdown-item" />
                                     </div>
                                 </div>
                             </li>
@@ -92,7 +120,7 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-6 site-animate img" data-animate-effect="fadeInRight">
-                            <img src="images/about_img_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
+                            <img src="images/about_img_1.jpg" alt="Free Template by colorlib.com" class="img-fluid" />
                         </div>
                     </div>
                 </div>
@@ -120,20 +148,20 @@
                                     var listFoods = new DataUtil().getListFood();
                                     foreach (var f in listFoods)
                                     {
-                              
-                                        Response.Write("<div class='item'>");
-                                            Response.Write("<div class='media d-block mb-4 text-center site-media site-animate border-0'>");
-                                                Response.Write("<img style='height:250px' src='../../Assets/images/"+f.food_avatar+"' class='img-fluid' />");
 
-                                                Response.Write("<div class='media-body p-md-5 p-4'>");
-                                                    Response.Write("<h5 class='text-primary'>" + f.food_price + "</h5>");
-                                                    Response.Write("<h5 class='mt-0 h4'>" + f.food_name + "</h5>");
-                                                    Response.Write("<p class='mb-4'>" + f.food_description + "</p>");
-                                                    Response.Write("<p class='mb-0'><a href='#' class='btn btn-primary btn-sm'>Order Now!</a></p>");
-                                                Response.Write("</div>");
-                                            Response.Write("</div>");
+                                        Response.Write("<div class='item'>");
+                                        Response.Write("<div class='media d-block mb-4 text-center site-media site-animate border-0'>");
+                                        Response.Write("<img style='height:250px;cursor: pointer;' onclick='funcOrderNow(" + f.food_id + ")' src='../../Assets/images/" + f.food_avatar + "' class='img-fluid' />");
+
+                                        Response.Write("<div class='media-body p-md-5 p-4'>");
+                                        Response.Write("<h5 class='text-primary'>" + f.food_price + "</h5>");
+                                        Response.Write("<h5 class='mt-0 h4'>" + f.food_name + "</h5>");
+                                        Response.Write("<p class='mb-4'>" + f.food_description + "</p>");
+                                        Response.Write("<p class='mb-0'><a href='javascript:void(0)' class='btn btn-primary btn-sm' onclick='funcOrderNow(" + f.food_id + ")'>Order Now!</a></p>");
                                         Response.Write("</div>");
-                                
+                                        Response.Write("</div>");
+                                        Response.Write("</div>");
+
 
                                     }
                                 %>
@@ -254,7 +282,6 @@
                                         </div>
                                     </div>
                                 </div>--%>
-
                             </div>
                         </div>
 
@@ -294,7 +321,7 @@
                                     <div class="row">
                                         <div class="col-md-6 site-animate">
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Salted Fried Chicken</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -303,7 +330,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_2.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Italian Sauce Mushroom</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -312,7 +339,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_3.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Fried Potato w/ Garlic</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -323,7 +350,7 @@
                                         </div>
                                         <div class="col-md-6 site-animate">
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_2.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Italian Sauce Mushroom</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -332,7 +359,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Salted Fried Chicken</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -341,7 +368,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_3.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_3.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Fried Potato w/ Garlic</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -356,7 +383,7 @@
                                         <div class="col-md-6 site-animate">
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_3.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_3.jpg" class="img-fluid mr-3" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Fried Potato w/ Garlic</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -365,7 +392,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Salted Fried Chicken</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -374,7 +401,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_2.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Italian Sauce Mushroom</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -386,7 +413,7 @@
                                         <div class="col-md-6 site-animate">
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_3.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Fried Potato w/ Garlic</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -395,7 +422,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_2.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Italian Sauce Mushroom</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -404,7 +431,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Salted Fried Chicken</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -421,7 +448,7 @@
                                         <div class="col-md-6 site-animate">
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_2.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Italian Sauce Mushroom</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -430,7 +457,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Salted Fried Chicken</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -439,7 +466,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_3.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Fried Potato w/ Garlic</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -451,7 +478,7 @@
                                         <div class="col-md-6 site-animate">
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_3.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Fried Potato w/ Garlic</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -460,7 +487,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_2.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Italian Sauce Mushroom</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -469,7 +496,7 @@
                                             </div>
 
                                             <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com">
+                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
                                                 <div class="media-body">
                                                     <h5 class="mt-0">Salted Fried Chicken</h5>
                                                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
@@ -747,17 +774,17 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="m_fname">First Name</label>
-                                                <input type="text" class="form-control" id="m_fname">
+                                                <input type="text" class="form-control" id="m_fname" />
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="m_lname">Last Name</label>
-                                                <input type="text" class="form-control" id="m_lname">
+                                                <input type="text" class="form-control" id="m_lname" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12 form-group">
                                                 <label for="m_email">Email</label>
-                                                <input type="email" class="form-control" id="m_email">
+                                                <input type="email" class="form-control" id="m_email" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -772,18 +799,18 @@
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="m_phone">Phone</label>
-                                                <input type="text" class="form-control" id="m_phone">
+                                                <input type="text" class="form-control" id="m_phone" />
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="m_date">Date</label>
-                                                <input type="text" class="form-control" id="m_date">
+                                                <input type="text" class="form-control" id="m_date" />
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="m_time">Time</label>
-                                                <input type="text" class="form-control" id="m_time">
+                                                <input type="text" class="form-control" id="m_time" />
                                             </div>
                                         </div>
 
@@ -796,7 +823,7 @@
 
                                         <div class="row">
                                             <div class="col-md-12 form-group">
-                                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Reserve Now">
+                                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Reserve Now" />
                                             </div>
                                         </div>
 
@@ -819,25 +846,436 @@
                 </svg>
             </div>
 
-
-            <script src="js/jquery.min.js"></script>
-            <script src="js/popper.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/jquery.easing.1.3.js"></script>
-            <script src="js/jquery.waypoints.min.js"></script>
-            <script src="js/owl.carousel.min.js"></script>
-            <script src="js/jquery.magnific-popup.min.js"></script>
-
-            <script src="js/bootstrap-datepicker.js"></script>
-            <script src="js/jquery.timepicker.min.js"></script>
-
-            <script src="js/jquery.animateNumber.min.js"></script>
-
-
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-            <script src="js/main.js"></script>
-
         </div>
     </form>
+    <div class="modal fade" id="ModalOrderNow">
+        <div class="modal-dialog" role="dialog" style="max-width: 800px!important;">
+            <!-- Modal content-->
+            <div class="modal-content" style="width: 800px!important;">
+                <div class="modal-header" style="background: #ffc107; padding: 10px">
+                    <h4 class=" modal-title">Thêm món ăn vào giỏ hàng</h4>
+                    <button type="button" class="close" onclick="closeModalOrderNow()">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 0px">
+                </div>
+                <div class="modal-footer" style="padding: 10px; justify-content: center!important">
+                    <button type="button" class="btn btn-primary btn-sm" style="font-weight: bold; font-size: 14px; padding: 5px 10px; border-radius: 5px; border: 1px solid dodgerblue; color: black; float: left; background-color: dodgerblue" onclick="AddToCart()">Thêm vào giỏ hàng</button>
+                    <button type="button" class="btn btn-default btn-sm" style="font-weight: bold; font-size: 14px; padding: 5px 10px; float: right" onclick="closeModalOrderNow()">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalViewCart">
+        <div class="modal-dialog" role="dialog" style="max-width: 1300px!important;">
+            <!-- Modal content-->
+            <div class="modal-content" style="width: 1300px!important;">
+                <div class="modal-header" style="background: #ffc107; padding: 10px">
+                    <h4 class=" modal-title" style="font-size: 22px;">Thông tin giỏ hàng</h4>
+                    <button type="button" class="close" onclick="closeModalViewCart()">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 0px">
+                    <div class="modal-body1"></div>
+                    <div style="padding: 10px">
+                        <span style="color: black; font-size: 16px;">Chọn hình thức:</span>
+                        <br />
+                        <label style="color: black; font-size: 16px; cursor: pointer; margin-left: 50px">
+                            Mua hàng online
+                            <input type="radio" name="hinhthuc" value="0" checked="checked" /></label>
+                        <label style="color: black; font-size: 16px; cursor: pointer; margin-left: 50px">
+                            Đặt bàn tại nhà hàng
+                            <input type="radio" name="hinhthuc" value="1" /></label>
+                        <select id="selectTableid" style="display: none">
+                            <option value="">--Chọn bàn--</option>
+                            <% var litbl = new DataUtil().dsTable();
+                                foreach (var item in litbl)
+                                {
+                                    Response.Write("<option value='" + item.table_id + "'>" + item.table_name + "</option>");
+                                }
+                            %>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding: 10px; justify-content: center!important">
+                    <button type="button" class="btn btn-sm" style="font-weight: bold; font-size: 14px; padding: 5px 10px; border-radius: 5px; border: 1px solid green; color: black; float: left; background-color: dodgerblue" onclick="XacNhanMuaHang()">Xác nhận mua hàng</button>
+                    <button type="button" class="btn btn-sm" style="font-weight: bold; font-size: 14px; padding: 5px 10px; float: right" onclick="closeModalViewCart()">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="fontawesome/js/fontawesome.min.js"></script>
+    <script src="js/notify.js"></script>
+    <%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>--%>
+    <script src="js/main.js"></script>
+    <script>
+        // Huy
+        $("input[name='hinhthuc']").click(function () {
+            if (parseInt($("input[name='hinhthuc']:checked").val()) == 1) {
+                $("#selectTableid").show();
+            }
+            else {
+                $("#selectTableid").hide();
+                changeTableCart(-1);
+            }
+        })
+        $("#selectTableid").change(function () {
+            changeTableCart(parseInt($("#selectTableid").val()));
+        })
+        function changeTableCart(idtbl) {
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/changeTableCart",
+                data: "{idtbl:" + idtbl + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    CART = rs.d
+                }
+            });
+        }
+        function closeModalOrderNow() {
+            $("#ModalOrderNow").modal("hide");
+        }
+        function closeModalViewCart() {
+            $("#ModalViewCart").modal("hide");
+        }
+        var USER = JSON.parse('<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((Member)Session["User"]) %>');
+        var CART = JSON.parse('<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((Cart)Session["Cart"]) %>');
+        function ViewCart() {
+            if (CART.ListFood.length <= 0) {
+                $.notify("Giỏ hàng chưa có món ăn nào", "error")
+            }
+            else {
+                LoadViewCart();
+                $("#ModalViewCart").modal("show");
+            }
+        }
+        function LoadViewCart() {
+            var html = `     
+                    <div style="padding:5px;">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 style="font-size:16px;text-align:center;color:blue">Danh sách các món</h3>
+                                <table class="table" id="listFoodCart">
+                                    <tr>
+                                        <th></th>
+                                        <th style="width:200px">Tên món ăn</th>
+                                        <th>Giá gốc (vnđ)</th>
+                                        <th>Giảm giá (%)</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền (vnđ)</th>
+                                        <th></th>
+                                    </tr>
+                                    <tbody>
+                    `;
+            let list = CART.ListFood;
+            $.each(list, function (index, item) {
+                html += `
+                                    <tr id="tridfood_${item.foodid}">
+                                        <td><img src="../../Assets/images/${item.food_avatar}" width="80px"></td>
+                                        <td>${item.food_name}</td>
+                                        <td>${item.food_price}</td>
+                                        <td>${item.food_sale}</td>
+                                        <td class="tdFoodPrice">
+                                            <button class="btn btn-default btn-sm" type="button" onclick="descrease_sl_cart(${item.foodid})" style="margin-top: -3px;display:inline-block;padding:5px 10px;"> - </button>
+                                            <input type="number" class="food_quantity_cart" onchange="changefood_quantity_cart(${item.foodid})" min="1" value="${item.quantity}" style="width:80px; display:inline-block;padding:0px 10px"/>
+                                            <button class="btn btn-default btn-sm"type="button"onclick="increase_sl_cart(${item.foodid})" style="margin-top: -3px;display:inline-block;padding:5px 10px;"> + </button>
+                                        </td>
+                                        <td class="tdThanhtien">${parseInt(item.thanhtien)}</td>
+                                        <td><button type="button" class="btn btn-default btn-sm" onclick="XoaKkhoiCart(${item.foodid})" style="padding:5px 10px;font-weight:bold">Xóa</button></td>
+                                    </tr>                    
+                    `
+            });
+            html += `            </tbody> 
+                                </table>                                 
+                            </div>
+                            <div class="col-md-3">
+                                <h5 style="font-size:16px;text-align:center;color:blue">Thông tin khách hàng</h3>`;
+            if (CART.tenKH != "") {
+                html += `                        
+                        <span style="color: black;font-size:14px;">Khách hàng:     <strong style="color:green;font-size:20px;">${CART.tenKH}</strong></span><br/>
+                        <span style="color: black;font-size:14px;">Email:     <strong>${CART.emailKH}</strong></span><br/>
+                        <span style="color: black;font-size:14px;">Điện thoại:     <strong>${CART.dienthoaiKH}</strong></span><br/>                                                
+                        <p style="color: black;font-size:14px;margin-top:15px; ">Tổng tiền (vnđ):     <strong style="color:red;font-size:16px;" id="totalCart">${getTotalCart()}</strong></p>
+                    `
+                if (USER == null) {
+                    html += `<p style="text-align:center"><a style="font-size:14px;padding:5px 10px;background:blue;color:black;font-weight:bold"  href="/Client/Login.aspx" class="btn btn-sm">Đăng nhập</a></p>`
+                }
+            } else {
+                html += `<span style = "color: red;font-size:14px;"> Chưa có thông tin khách hàng </span> <br />
+                            <form id="infoKH">
+                                <div class="form-group">
+                                    <label style="color: black;font-size:14px;" for="tenKH">Tên khách hàng <span style="color:red;font-weight:bold;font-size:14px">*</span></label>
+                                    <input type="text" id="tenKH" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label style="color: black;font-size:14px;" for="emailKH">Email <span style="color:red;font-weight:bold;font-size:14px">*</span></label>
+                                    <input type="email" id="emailKH" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label style="color: black;font-size:14px;" for="dienthoaiKH">Điện thoại <span style="color:red;font-weight:bold;font-size:14px">*</span></label>
+                                    <input type="text" id="dienthoaiKH" class="form-control">
+                                </div>
+                            </form>
+                            <p style="margin-top:10px;color:black">hoặc <a style="font-size:14px;padding:5px 10px;background:blue;color:black;font-weight:bold"  href="/Client/Login.aspx" class="btn btn-sm">Đăng nhập</a></p>
+                         <p style="color: black;font-size:14px;margin-top:15px; ">Tổng tiền (vnđ):     <strong style="color:red;font-size:16px;" id="totalCart">${getTotalCart()}</strong></p>                             
+                    `;
+            }
+            html += `       <div>
+                        </div>                         
+                
+                    </div>                    
+                    </div>                    
+                </div>
+                `;
+            $("#ModalViewCart .modal-body1").html(html);
+            if (CART.idtable == -1) {
+                $("input[name='hinhthuc'][value='0']").prop("checked", true);
+                $("#selectTableid").val("");
+                $("#selectTableid").hide();
+            }
+            else {
+                $("#selectTableid").show();
+                $("#selectTableid").val(CART.idtable);
+            }
+        }
+        function CheckFormKH() {
+            if ($("#tenKH").val().trim() == "" || $("#emailKH").val().trim() == "" || $("#dienthoaiKH").val().trim() == "")
+                return 0;
+            else {
+                let regEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                if (!regEmail.test($("#emailKH").val().trim()))
+                    return -1;
+                else {
+                    let regDienthoai = /^(0)[1-9]{1}[0-9]{8,9}$/
+                    if (!regDienthoai.test($("#dienthoaiKH").val().trim()))
+                        return -2;
+                }
+            }
+            return 1;
+        }
+        function XacNhanMuaHang() {
+            if (USER == null) {
+                if (CheckFormKH() == 1) {
+                    if ((parseInt($("input[name='hinhthuc']:checked").val()) == 1) && $("#selectTableid").val() == "") {
+                        $.notify("Hãy chọn hình thức mua hàng", "error")
+                    } else {
+                        $.ajax({
+                            type: "post",
+                            url: "/Trangchu.aspx/XacNhanMuaHang",
+                            data: "{tenKH:'" + $("#tenKH").val().trim() + "',emailKH:'" + $("#emailKH").val().trim() + "',dienthoaiKH:'" + $("#dienthoaiKH").val().trim() + "'}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (rs) {
+                                CART = rs.d
+                                $.notify("Xác nhận mua thành công", "success")
+                                $("#ModalViewCart").modal("hide");
+                            }
+                        });
+                    }
+                } else {
+                    if (CheckFormKH() == 0)
+                        $.notify("Thiếu thông tin khách hàng", "error")
+                    else if (CheckFormKH() == -1) {
+                        $.notify("Sai định dạng email", "error")
+                    }
+                    else {
+                        $.notify("Sai định dạng số điện thoại", "error")
+                    }
+                }
+            }
+            else {
+                if ((parseInt($("input[name='hinhthuc']:checked").val()) == 1) && $("#selectTableid").val() == "") {
+                    $.notify("Hãy chọn hình thức mua hàng", "error")
+                } else {
+                    $.ajax({
+                        type: "post",
+                        url: "/Trangchu.aspx/XacNhanMuaHang",
+                        data: "{tenKH:'" + CART.tenKH + "',emailKH:'" + CART.emailKH + "',dienthoaiKH:'" + CART.dienthoaiKH + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (rs) {
+                            CART = rs.d
+                            $.notify("Xác nhận mua thành công", "success")
+                            $("#ModalViewCart").modal("hide");
+                        }
+                    });
+                }
+            }
+        }
+        function funcOrderNow(idfood) {
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/getFoodOrderNow",
+                data: "{idfood:" + idfood + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    var f = rs.d;
+                    var html = `
+                        <div style="padding:10px; background:#d6fd9aab;">                            
+                            <div class="row">                                
+                                <div class="col-md-4">                                        
+                                    <img style="border-radius:50px;" width="100%" src="../../Assets/images/${f.food_avatar}"/>
+                                </div>
+                                <div class="col-md-8" style="position:relative">
+                                    <span style="font-size:13px;position:absolute;width:80px;height:40px;color:black;line-height:40px;background:aqua;right:10px;top:10px;text-align:center;border-radius:50%">Sale ${f.food_sale} %</span>
+                                    <h3 style="font-weight:bold;font-size:20px;">${f.food_name}</h3>
+                                    <input type="hidden" id="foodid" name="foodid" value="${f.food_id}">
+                                    <span style="color:black;font-size:14px;">${f.food_description}</span>
+                                    <br />
+                                    <p style="margin:5px 0px;">
+                                        <span style="color:black;font-size:14px;">Đơn giá (vnđ):     <span style="color:green;font-weight:bold;font-size:14px;">${f.food_price * (100 - f.food_sale) / 100}</span></span>
+                                        <strike style="color:black;font-size:14px;margin-left:50px">Giá cũ (vnđ):     <span style="color:red;font-weight:bold;font-size:14px;">${f.food_price}</span></strike>
+                                    </p>
+                                    <div>
+                                        <span style="color:black;font-size:14px;">Số lượng:</span> 
+                                        <button class="btn btn-default btn-sm" type="button" onclick="descrease_sl()" id="descrease_sl" style="margin-top: -3px;display:inline-block;padding:5px 10px;"> - </button>
+                                        <input type="number" id="food_quantity" min="1" value="1" style="display:inline-block;padding:0px 10px"/>
+                                        <button class="btn btn-default btn-sm"type="button"onclick="increase_sl()" id="increase_sl" style="margin-top: -3px;display:inline-block;padding:5px 10px;"> + </button>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    $("#ModalOrderNow .modal-body").html(html);
+                    $("#ModalOrderNow").modal("show");
+                }
+            });
+        }
+        function descrease_sl_cart(idfood) {
+            var sl = $("#tridfood_" + idfood + " .food_quantity_cart").val();
+            if (sl == "")
+                $("#tridfood_" + idfood + " .food_quantity_cart").val("1");
+            if (parseInt(sl) > 1) {
+                $("#tridfood_" + idfood + " .food_quantity_cart").val(parseInt(sl) - 1);
+            }
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/ChangeQuantityFood",
+                data: "{idfood:" + idfood + ",soluong:" + parseInt($("#tridfood_" + idfood + " .food_quantity_cart").val()) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    CART = rs.d
+                    let thisF = CART.ListFood.find(function (item) {
+                        return item.foodid == idfood;
+                    });
+                    $("#tridfood_" + idfood + " .tdThanhtien").text(parseInt(thisF.thanhtien));
+                    $("#totalCart").text(getTotalCart);
+                }
+            });
+        }
+        function increase_sl_cart(idfood) {
+            var sl = $("#tridfood_" + idfood + " .food_quantity_cart").val();
+            if (sl == "")
+                $("#tridfood_" + idfood + " .food_quantity_cart").val("1");
+            else $("#tridfood_" + idfood + " .food_quantity_cart").val(parseInt(sl) + 1);
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/ChangeQuantityFood",
+                data: "{idfood:" + idfood + ",soluong:" + parseInt($("#tridfood_" + idfood + " .food_quantity_cart").val()) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    CART = rs.d
+                    let thisF = CART.ListFood.find(function (item) {
+                        return item.foodid == idfood;
+                    });
+                    $("#tridfood_" + idfood + " .tdThanhtien").text(parseInt(thisF.thanhtien));
+                    $("#totalCart").text(getTotalCart);
+                }
+            });
+        }
+        function getTotalCart() {
+            let total = 0;
+            $.each(CART.ListFood, function (index, item) {
+                total += item.thanhtien;
+            })
+            return total;
+        }
+        function changefood_quantity_cart(idfood) {
+            if ($("#tridfood_" + idfood + " .food_quantity_cart").val() <= 0) {
+                $("#tridfood_" + idfood + " .food_quantity_cart").val("1");
+            }
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/ChangeQuantityFood",
+                data: "{idfood:" + idfood + ",soluong:" + parseInt($("#tridfood_" + idfood + " .food_quantity_cart").val()) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    CART = rs.d
+                    let thisF = CART.ListFood.find(function (item) {
+                        return item.foodid == idfood;
+                    });
+                    $("#tridfood_" + idfood + " .tdThanhtien").text(parseInt(thisF.thanhtien));
+                    $("#totalCart").text(getTotalCart);
+                }
+            });
+        }
+        function XoaKkhoiCart(idfood) {
+            $("#tridfood_" + idfood).remove();
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/XoaKkhoiCart",
+                data: "{idfood:" + idfood + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    CART = rs.d
+                    $.notify("Đã xóa", "success")
+                    if (CART.ListFood.length <= 0) {
+                        $.notify("Giỏ hàng chưa có món ăn nào", "error");
+                        $("#ModalViewCart").modal("hide");
+                    }
+                }
+            });
+        }
+        function descrease_sl() {
+            var sl = $("#food_quantity").val();
+            if (sl == "")
+                $("#food_quantity").val("1");
+            if (parseInt(sl) > 1) {
+                $("#food_quantity").val(parseInt(sl) - 1);
+            }
+        }
+        function increase_sl() {
+            var sl = $("#food_quantity").val();
+            if (sl == "")
+                $("#food_quantity").val("1");
+            else $("#food_quantity").val(parseInt(sl) + 1);
+        }
+        function AddToCart() {
+            if ($("#food_quantity").val() <= 0) {
+                $("#food_quantity").val("1");
+            }
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/AddToCart",
+                data: "{idfood:" + parseInt($('#foodid').val()) + ",soluong:" + parseInt($("#food_quantity").val()) + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (rs) {
+                    $.notify("Thêm vào giỏ hàng thành công", "success");
+                    $("#ModalOrderNow").modal("hide");
+                    CART = rs.d
+                }
+            });
+        }
+
+        // endHuy
+    </script>
 </body>
 </html>

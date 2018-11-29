@@ -17,6 +17,7 @@ public class OrderDetail
     public Double? food_price { get; set; }
     public int? food_sale{ get; set; }
     public string food_name { get; set; }
+    public string food_avatar { get; set; }    
     public Double? thanhtien { get; set; }
     public OrderDetail()
     {

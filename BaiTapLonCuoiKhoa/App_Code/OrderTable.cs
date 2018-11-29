@@ -14,11 +14,15 @@ public class OrderTable
         // TODO: Add constructor logic here
         //
     }
-    public int ordertable_id { get; set; }
-    public int ordertable_iduser { get; set; }
+    public int? ordertable_id { get; set; }
+    public int? ordertable_iduser { get; set; }
     public DateTime ordertable_timeset { get; set; }
-    public int ordertable_idtable { get; set; }
-    public bool ordertable_status { get; set; }
-
+    public int? ordertable_idtable { get; set; }
+    public bool? ordertable_status { get; set; }
+    public string tenKH { get; set; }
+    public string emailKH { get; set; }
+    public string dienthoaiKH { get; set; }
+    public bool? loaiHD { get; set; }
+    public bool? loaiKH { get; set; }
 
 }
