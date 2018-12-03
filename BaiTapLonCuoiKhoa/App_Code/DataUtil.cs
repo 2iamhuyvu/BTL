@@ -12,7 +12,7 @@ using System.Data.Odbc;
 public class DataUtil
 {
     SqlConnection con;
-    string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
     //string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";        
     public DataUtil()
     {

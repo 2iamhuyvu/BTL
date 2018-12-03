@@ -82,7 +82,7 @@
                                         <asp:Label runat="server" ID="nameuser"></asp:Label>
                                         <i class="fa fa-angle-down"></i></h4>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Profile</a>
+                                        <a class="dropdown-item" href="/Client/Profile.aspx">Profile</a>
                                         <a class="dropdown-item" href="#">Change password</a>
                                         <asp:LinkButton ID="Logout" runat="server" CausesValidation="false" OnClick="LogOut_Click" Text="Log out" CssClass="dropdown-item" />
                                     </div>
