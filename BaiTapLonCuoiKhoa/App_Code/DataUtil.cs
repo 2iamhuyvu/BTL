@@ -893,60 +893,69 @@ public class DataUtil
         con.Close();
         return listOrderTable;
     }
-    public string dstbod(string ds,string ts, string tr,int lb)
+    public string dstbod(string ds, string ts, string tr, int lb)
     {
-
-        //string sqlsltbo = "select * from qlTable where table_id !=( select ordertable_idtable from OrderTable where ordertable_dateset='"+DateTime.Parse( ds).ToString("yyyy-MM-dd")+"' and ((ordertable_timeset>='"+TimeSpan.Parse(ts)+ "' and ordertable_timeset<='" + TimeSpan.Parse(ts) + "') or (ordertable_timereturn>='" + TimeSpan.Parse(tr) + "' and ordertable_timereturn<='" + TimeSpan.Parse(tr) + "'))) and table_description="+lb+" ";
-        string sl=" select ordertable_idtable from OrderTable where ordertable_dateset = '"+DateTime.Parse( ds).ToString("yyyy-MM-dd")+"' and((ordertable_timeset >= '"+TimeSpan.Parse(ts)+ "' and ordertable_timeset <= '" + TimeSpan.Parse(ts) + "') or(ordertable_timereturn >= '" + TimeSpan.Parse(tr) + "' and ordertable_timereturn <= '" + TimeSpan.Parse(tr) + "'))";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sl, con);
-        SqlDataReader dr = cmd.ExecuteReader();
-
-        int id;
-        if (dr.Read())
+        if (ds == "" || ts == "" || tr == "")
         {
-            id = (int)dr["ordertable_idtable"];
-            
-
+            return "chưa nhập đủ thời gian";
         }
         else
         {
-            id = 0;
-        }
-        
-        
-        
-        con.Close();
-        string sqlsltbo = "select * from qlTable where table_id !="+id+" and table_description=" + lb + " ";
-        con.Close();
-        con.Open();
-        SqlCommand cmd1 = new SqlCommand(sqlsltbo, con);
-        SqlDataReader dr1 = cmd1.ExecuteReader();
 
-        string st = "<select id = 'tb' class='form - control'>";
-        if (dr1.Read())
-        {
-            con.Close();
+
+
+            //string sqlsltbo = "select * from qlTable where table_id !=( select ordertable_idtable from OrderTable where ordertable_dateset='"+DateTime.Parse( ds).ToString("yyyy-MM-dd")+"' and ((ordertable_timeset>='"+TimeSpan.Parse(ts)+ "' and ordertable_timeset<='" + TimeSpan.Parse(ts) + "') or (ordertable_timereturn>='" + TimeSpan.Parse(tr) + "' and ordertable_timereturn<='" + TimeSpan.Parse(tr) + "'))) and table_description="+lb+" ";
+            string sl = " select ordertable_idtable from OrderTable where ordertable_dateset = '" + DateTime.Parse(ds).ToString("yyyy-MM-dd") + "' and((ordertable_timeset >= '" + TimeSpan.Parse(ts) + "' and ordertable_timeset <= '" + TimeSpan.Parse(ts) + "') or(ordertable_timereturn >= '" + TimeSpan.Parse(tr) + "' and ordertable_timereturn <= '" + TimeSpan.Parse(tr) + "'))";
             con.Open();
-            SqlCommand cmd2 = new SqlCommand(sqlsltbo, con);
-            SqlDataReader dr2 = cmd1.ExecuteReader();
-            while (dr2.Read())
+            SqlCommand cmd = new SqlCommand(sl, con);
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            int id;
+            if (dr.Read())
             {
-                st += "<option value = " + (int)dr2["table_id"] + " > " + (string)dr2["table_name"] + "</option>";
+                id = (int)dr["ordertable_idtable"];
 
 
             }
+            else
+            {
+                id = 0;
+            }
+
+
+
+            con.Close();
+            string sqlsltbo = "select * from qlTable where table_id !=" + id + " and table_description=" + lb + " ";
+            con.Close();
+            con.Open();
+            SqlCommand cmd1 = new SqlCommand(sqlsltbo, con);
+            SqlDataReader dr1 = cmd1.ExecuteReader();
+
+            string st = "<select id = 'tb' class='form-control'>";
+            if (dr1.Read())
+            {
+                con.Close();
+                con.Open();
+                SqlCommand cmd2 = new SqlCommand(sqlsltbo, con);
+                SqlDataReader dr2 = cmd1.ExecuteReader();
+                while (dr2.Read())
+                {
+                    st += "<option value = " + (int)dr2["table_id"] + " > " + (string)dr2["table_name"] + "</option>";
+
+
+                }
+
+            }
+            else
+            {
+                st += "<option >Hết bàn </option>";
+            }
+
+            st += "</select>";
+            return st;
+            con.Close();
 
         }
-        else
-        {
-            st += "<option >Hết bàn </option>";
-        }
-        
-        st += "</select>";
-        return st;
-        con.Close();
-
     }
 
 

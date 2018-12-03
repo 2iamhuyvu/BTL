@@ -52,6 +52,7 @@ public partial class Tranchu : System.Web.UI.Page
         DataUtil dt = new DataUtil();
         int lb1 = int.Parse(lb);
         //Food food = new Food();
+        
         string st= dt.dstbod(ds, ts, tr, lb1);
 
 

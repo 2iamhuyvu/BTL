@@ -792,8 +792,10 @@
                                             <div class="col-md-6 form-group">
                                                 <label for="m_people">Loại bàn</label>
                                                 <select name="" id="lb" class="form-control">
+                                                    <option value="0">-----Chọn loại bàn-----</option>
                                                     <%
                                                         var listTable = new DataUtil().dslb();
+                                                        
                                             foreach (var tb in listTable)
                                             {
                                                 Response.Write("<option >"+tb.table_description+"</option>");                                           
@@ -804,12 +806,12 @@
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="m_phone">Bàn</label>
-                                                <select name="" id="tb" class="form-control">
-                                                    <option value="1">ban 1</option>
-                                                    <option value="2">ban 2</option>
-                                                    <option value="3">ban 3</option>
-                                                    
+                                                <div id="tb">
+                                                    <select   class="form-control">
+                                                   
                                                 </select>
+                                                </div>
+                                                
                                             </div>
                                         </div>
 
