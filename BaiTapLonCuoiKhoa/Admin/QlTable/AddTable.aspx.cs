@@ -46,7 +46,7 @@ public partial class Admin_OrderTable_AddTable : System.Web.UI.Page
         {
             table tb = new table();
             tb.table_name = txtnametb.Text;
-            tb.table_description = txtmato.Text;
+            tb.table_description =int.Parse( txtmato.Text);
             data.AddTable(tb);
             mss.Text = "Update success!";
             mss.ForeColor = System.Drawing.Color.Green;

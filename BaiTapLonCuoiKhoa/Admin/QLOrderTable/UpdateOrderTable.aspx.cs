@@ -23,7 +23,9 @@ public partial class Admin_OrderTable_UpdateOrderTable : System.Web.UI.Page
             txtidotb.Text = tb.ordertable_id.ToString();
             txtuser.Text = tb.ordertable_iduser.ToString();
             txtidb.Text = tb.ordertable_idtable.ToString();
-            dt.Value = tb.ordertable_timeset.ToString("yyyy-MM-dd");
+            ds.Value = tb.ordertable_dateset.ToString("yyyy-MM-dd");
+            ts.Value = tb.ordertable_timeset.ToString();
+            tr.Value = tb.ordertable_timereturn.ToString();
             if (tb.ordertable_status == true)
             {
                 rdodtt.Checked = true;
@@ -58,8 +60,10 @@ public partial class Admin_OrderTable_UpdateOrderTable : System.Web.UI.Page
 
             var otb = new OrderTable()
             {
-                ordertable_iduser = Convert.ToInt16( txtuser.Text),
-                ordertable_timeset = Convert.ToDateTime( dt.Value.ToString()),
+                ordertable_iduser = Convert.ToInt16(txtuser.Text),
+                ordertable_timeset = TimeSpan.Parse(ts.Value.ToString()),
+                ordertable_timereturn = TimeSpan.Parse(tr.Value.ToString()),
+                ordertable_dateset = DateTime.Parse(ds.Value.ToString()),
                 ordertable_idtable = Convert.ToInt16(txtidb.Text),
                 ordertable_id = Convert.ToInt16(Session["idotb"].ToString()),
                 ordertable_status = tttt

@@ -38,12 +38,14 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 111px;" aria-sort="ascending" >ID OrderTable</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 94px;" >ID User</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 226px;" >Ngày</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 226px;" >Ngày đặt</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 226px;" >Time đặt</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 226px;" >Time trả</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 94px;" >ID Bàn</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 94px;" >Tình trạng</th>
                                             
                                             
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 54px;" >Xóa</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 54px;" >Xóa/Sửa</th>
                                             <%--<th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 109px;" aria-label="Type Date: activate to sort column ascending">Type</th>--%>
                                             <%--<th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 77px;" aria-label="salary: activate to sort column ascending">salary</th>--%>
                                         </tr>
@@ -57,8 +59,10 @@
 
                                                 Response.Write("<td tabindex=0  class=sorting_1>"+tb.ordertable_id+"</td>");
                                                 Response.Write("<td>"+tb.ordertable_iduser+"</td>");
+                                                Response.Write("<td>"+tb.ordertable_dateset.ToString("yyyy-MM-dd")+"</td>");
                                                 Response.Write("<td>"+tb.ordertable_timeset+"</td>");
-                                                Response.Write("<td>"+tb.ordertable_id+"</td>");
+                                                Response.Write("<td>"+tb.ordertable_timereturn+"</td>");
+                                                Response.Write("<td>"+tb.ordertable_idtable+"</td>");
                                                 if(tb.ordertable_status == true)
                                                 {
                                                     Response.Write("<td>Đã thanh toán</td>");

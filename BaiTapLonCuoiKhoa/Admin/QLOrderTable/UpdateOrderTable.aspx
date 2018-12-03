@@ -28,7 +28,21 @@
                         <label for="example-text-input" class="col-form-label">Ngày tháng Oder<label style="color: red">(*)</label></label>
                         <br />
                         
-                        <input type="date" runat="server" id="dt"  class="date"/>
+                        <input type="date" runat="server" id="ds"  class="date"/>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="example-text-input" class="col-form-label">Ngày tháng Oder<label style="color: red">(*)</label></label>
+                        <br />
+                        
+                        <input type="time" runat="server" id="ts"  class="date"/>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="example-text-input" class="col-form-label">Ngày tháng Oder<label style="color: red">(*)</label></label>
+                        <br />
+                        
+                        <input type="time" runat="server" id="tr"  class="date"/>
                         
                     </div>
                     <div class="form-group">

@@ -23,15 +23,8 @@ public partial class Admin_QlTable_UpdateTable : System.Web.UI.Page
             Session["idtb"] = id;
             txtidtb.Text = tb.table_id.ToString();
             txtnametb.Text = tb.table_name;
-            txtmota.Text = tb.table_description;
-            if (tb.table_status==true)
-            {
-                rdoddd.Checked = true;
-            }
-            else
-            {
-                rdocdd.Checked = true;
-            }
+            txtmota.Text = tb.table_description.ToString();
+            
             
         }
     }
@@ -57,8 +50,8 @@ public partial class Admin_QlTable_UpdateTable : System.Web.UI.Page
             var tb = new table()
             {
                 table_name = txtnametb.Text,
-                table_description = txtmota.Text,
-                table_status =ttdd,
+                table_description = int.Parse(txtmota.Text),
+               // table_status =ttdd,
                 table_id = Convert.ToInt16(Session["idtb"].ToString())
             };
             data.suatb(tb);

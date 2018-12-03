@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group">
                         <label for="example-text-input" class="col-form-label">Mô tả <label style="color: red">(*)</label></label>
-                        <asp:TextBox runat="server" ID="txtmato" placeholder="Example: bàn to hay nhỏ, màu gì" CssClass="form-control" />
+                        <asp:TextBox runat="server" ID="txtmato" placeholder="Bàn mấy người " CssClass="form-control" />
                         <asp:RequiredFieldValidator ID="remota" runat="server" ErrorMessage="The field is required" ControlToValidate="txtmato" Display="Dynamic" ForeColor="Red" />
                     </div>
                     

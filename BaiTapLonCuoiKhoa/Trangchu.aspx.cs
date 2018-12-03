@@ -45,6 +45,19 @@ public partial class Tranchu : System.Web.UI.Page
         Session["Cart"] = null;
         Response.Redirect("TrangChu.aspx");
     }
+    #region trong
+    [WebMethod(EnableSession = true)]
+    public static string sltb(string ds,string ts,string tr,string lb)
+    {
+        DataUtil dt = new DataUtil();
+        int lb1 = int.Parse(lb);
+        //Food food = new Food();
+        string st= dt.dstbod(ds, ts, tr, lb1);
+
+
+        return st;
+    }
+    #endregion
 
     #region Huy
 
@@ -150,7 +163,7 @@ public partial class Tranchu : System.Web.UI.Page
             ordertable_idtable = cart.idtable ?? -1,
             ordertable_iduser = cart.idmember ?? -1,
             ordertable_status = false,
-            ordertable_timeset=DateTime.Now,
+            ordertable_timeset=TimeSpan.Parse("5:30"),
             dienthoaiKH= dienthoaiKH,
             emailKH=emailKH,
             tenKH=tenKH,

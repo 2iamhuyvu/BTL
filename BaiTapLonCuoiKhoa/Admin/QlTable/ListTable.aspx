@@ -38,9 +38,9 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 111px;" aria-sort="ascending" >ID bàn</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 226px;" >Tên bàn</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 94px;" >Trạng thái</th>
+                                            <%--<th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 94px;" >Trạng thái</th>--%>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 54px;" >Mô tả</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 54px;" >Xóa</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 54px;" >Xóa/Sửa</th>
                                             <%--<th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 109px;" aria-label="Type Date: activate to sort column ascending">Type</th>--%>
                                             <%--<th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 77px;" aria-label="salary: activate to sort column ascending">salary</th>--%>
                                         </tr>
@@ -54,14 +54,7 @@
 
                                                 Response.Write("<td tabindex=0  class=sorting_1>"+tb.table_id+"</td>");
                                                 Response.Write("<td>"+tb.table_name+"</td>");
-                                                 if(tb.table_status == true)
-                                                {
-                                                    Response.Write("<td>Đã được đặt</td>");
-                                                }
-                                                else
-                                                {
-                                                    Response.Write("<td>Chưa được đặt</td>");
-                                                }
+                                                 
 
                                                 Response.Write("<td>"+tb.table_description+"</td>");
                                                 Response.Write("<td><a href='javascript:void(0)' onclick='funcXoa("+tb.table_id+")'>Xóa</a> | <a href='/Admin/QLTable/UpdateTable.aspx?idtable="+tb.table_id+"'>Sửa</a></td>");

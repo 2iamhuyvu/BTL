@@ -16,6 +16,6 @@ public class table
     }
     public int table_id { get; set; }
     public string table_name { get; set; }
-    public bool table_status { get; set; }
-    public string table_description { get; set; }
+    
+    public int table_description { get; set; }
 }
