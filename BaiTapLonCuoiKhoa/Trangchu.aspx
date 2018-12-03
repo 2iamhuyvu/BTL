@@ -80,10 +80,10 @@
                                     <img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />
                                     <h4 class="user-name dropdown-toggle nav-link" data-toggle="dropdown">
                                         <asp:Label runat="server" ID="nameuser"></asp:Label>
-                                        <i class="fa fa-angle-down"></i></h4>
+                                       </h4>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="/Client/Profile.aspx">Profile</a>
-                                        <a class="dropdown-item" href="#">Change password</a>
+                                        <a class="dropdown-item" href="/Client/ChangePassword.aspx">Change password</a>
                                         <asp:LinkButton ID="Logout" runat="server" CausesValidation="false" OnClick="LogOut_Click" Text="Log out" CssClass="dropdown-item" />
                                     </div>
                                 </div>

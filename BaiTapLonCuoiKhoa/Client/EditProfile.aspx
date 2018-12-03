@@ -19,14 +19,14 @@
                     <div class="collapse navbar-collapse" id="site-nav">
                         <ul class="navbar-nav ml-auto">
                             <li id="avatar" runat="server">
-                                <div class="user-profile pull-right show" style="margin-top: 35px;">
+                                <div class="user-profile pull-right" style="margin-top: 35px;">
                                     <img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />
                                     <h4 class="user-name dropdown-toggle nav-link" data-toggle="dropdown">
                                         <asp:Label runat="server" ID="nameuser"></asp:Label>
                                         <i class="fa fa-angle-down"></i></h4>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="/Client/Profile.aspx">Profile</a>
-                                        <a class="dropdown-item" href="#">Change password</a>
+                                        <a class="dropdown-item" href="/Client/ChangePassword.aspx">Change password</a>
                                         <asp:LinkButton ID="Logout" runat="server" CausesValidation="false" OnClick="LogOut_Click" Text="Log out" CssClass="dropdown-item" />
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                 </div>
             </nav>
         </div>
-        <div class="col-12 mt-5">
+        <div class="col-12 mt-5" style="background-image: url(/Assets/images/bg_3.jpg); margin: 0 !important; padding: 3rem!important;">
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">Update profile </h4>
@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <label for="inputPassword" class="">Password</label>
                         <asp:TextBox runat="server" ID="txtpassword" CssClass="form-control" TextMode="Password" />
-                        <%--<asp:RequiredFieldValidator ID="repassword" runat="server" ErrorMessage="The field is required" ForeColor="Red" ControlToValidate="txtpassword" Display="Dynamic"></asp:RequiredFieldValidator>--%>
+                        <asp:RequiredFieldValidator ID="repassword" runat="server" ErrorMessage="The field is required" ForeColor="Red" ControlToValidate="txtpassword" Display="Dynamic"></asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="regpassword" runat="server" ErrorMessage="Username in the range of 6 to 15 numbers" ControlToValidate="txtpassword" ValidationExpression=".{6,15}" ForeColor="Red" Display="Dynamic"></asp:RegularExpressionValidator>
                     </div>
                     <div class="form-group">
