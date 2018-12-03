@@ -8,6 +8,12 @@
     background-image: url(/Assets/images/bg_3.jpg);
 }
 
+.navbar-brand {
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+
+
 .login-box {
     display: -webkit-box;
     display: -ms-flexbox;

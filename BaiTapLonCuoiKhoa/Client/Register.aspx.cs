@@ -30,17 +30,17 @@ public partial class Client_Register : System.Web.UI.Page
             };
             if(data.CheckRegister(user.member_fullname, user.member_mail, user.member_phone))
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Thông báo", "alert('Sign up fail! Username or email or phone exists!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Sign up fail! Username or email or phone exists!')", true);
             }
             else
             {
                 data.AddNewUser(user);
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Thông báo", "alert('Sign up successful! Let login right now!')", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Sign up successful! Let login right now!')", true);
             }
         }
         catch (Exception)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Thông báo", "alert('Sign up fail! Let try again')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Sign up fail! Let try again')", true);
 
         }
     }

@@ -11,7 +11,8 @@
 }
 
 body {
-    margin: 0
+    margin: 0;
+    font-family: "Raleway", sans-serif;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
@@ -3949,13 +3950,12 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 .navbar {
     position: relative;
     min-height: 50px;
-    margin-bottom: 20px;
     border: 1px solid transparent
 }
 
 @media (min-width:768px) {
     .navbar {
-        border-radius: 4px
+        height:75px;
     }
 }
 
@@ -4055,7 +4055,11 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     padding: 15px;
     font-size: 18px;
     line-height: 20px;
-    height: 20px
+    height: 20px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .1em;
 }
 
     .navbar-brand:hover, .navbar-brand:focus {
@@ -6104,8 +6108,11 @@ button.close {
     display: none !important
 }
 
-.show {
-    display: block !important
+.user-profile .dropdown-menu a {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
 .invisible {

@@ -22,7 +22,6 @@ public partial class Client_Login : System.Web.UI.Page
         if (checkLogin)
         {
             Session["User"] = data.GetUserByName(txtusername.Text);
-
             Cart CART = (Cart)Session["Cart"];
             CART.emailKH =((Member)Session["User"]).member_mail;
             CART.tenKH = ((Member)Session["User"]).member_fullname;
@@ -35,7 +34,7 @@ public partial class Client_Login : System.Web.UI.Page
         }
         else
         {
-
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Sign in fail! Username or email invalid!')", true);
         }
     }
 
