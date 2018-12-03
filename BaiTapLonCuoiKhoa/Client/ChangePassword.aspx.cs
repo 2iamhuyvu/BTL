@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,20 +11,25 @@ public partial class Client_ChangePassword : System.Web.UI.Page
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        var member = (Member)Session["User"];
-        if (member == null)
+
+        if (!IsPostBack)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Please login first!')", true);
-            Response.Redirect("/Client/Login.aspx");
+            var user = (Member)Session["User"];
+            if (user == null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Please login first!')", true);
+                Response.Redirect("/Client/Login.aspx");
+            }
+            else
+            {
+                var member = data.GetUser(user.member_id);
+                nameuser.Text = member.member_fullname;
+                avatarImageTop.Attributes["src"] = member.member_avatar;
+            }
         }
         else
         {
-            nameuser.Text = member.member_fullname;
-            //amail.HRef = "mailto:" + member.member_mail;
-            //lbfullname.Text = member.member_fullname;
-            //lbmail.Text = member.member_mail;
-            //lbphone.Text = member.member_phone;
-            //lbusername.Text = member.member_username;
+            msg.Text = "";
         }
     }
     protected void LogOut_Click(Object sender, EventArgs e)
@@ -36,24 +42,20 @@ public partial class Client_ChangePassword : System.Web.UI.Page
     {
         try
         {
-
+            var member = (Member)Session["User"];
             var user = new Member()
             {
-                //member_fullname = txtfullname.Text,
-                //member_mail = txtemail.Text,
-                //member_phone = txtphone.Text,
-                //member_status = Convert.ToInt16(ddlstatus.SelectedValue.ToString()), ///Active
-                //member_type = Convert.ToInt16(ddltype.SelectedValue.ToString()),
+                member_id = member.member_id,
+                member_password = Encryptor.MD5Hash(txtpassword.Text)
             };
-            data.UpdateUser(user);
-            //msg.Text = "Update success!";
-            //msg.ForeColor = System.Drawing.Color.Green;
-            //ShowInfoUser();
+            data.UpdatePassUser(user);
+            msg.Text = "Update success!";
+            msg.ForeColor = System.Drawing.Color.Green;
         }
         catch (Exception ex)
         {
-            //msg.Text = "Update Fail. Erorr: " + ex.Message + ". Let try!";
-            //msg.ForeColor = System.Drawing.Color.Red;
+            msg.Text = "Update Fail. Erorr: " + ex.Message + ". Let try!";
+            msg.ForeColor = System.Drawing.Color.Red;
         }
     }
 }

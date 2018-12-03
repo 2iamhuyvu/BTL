@@ -20,7 +20,8 @@
                         <ul class="navbar-nav ml-auto">
                             <li id="avatar" runat="server">
                                 <div class="user-profile pull-right" style="margin-top: 35px;">
-                                    <img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />
+                                    <asp:Image runat="server" CssClass="avatar user-thumb" ID="avatarImageTop" />
+                                    <%--<img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />--%>
                                     <h4 class="user-name dropdown-toggle nav-link" data-toggle="dropdown">
                                         <asp:Label runat="server" ID="nameuser"></asp:Label>
                                         <i class="fa fa-angle-down"></i></h4>
@@ -41,8 +42,6 @@
                 <div class="card-body">
                     <h4 class="header-title">Update profile </h4>
                     <asp:Label ID="msg" runat="server" />
-
-
                     <div class="form-group">
                         <label for="example-search-input" class="col-form-label">
                             User name
@@ -68,28 +67,27 @@
                         <label for="example-tel-input" class="col-form-label">
                             Telephone
                             <label style="color: red">(*)</label></label>
-                        <asp:TextBox runat="server" ID="txtphone" placeholder="Example: 0336515294" CssClass="form-control" TextMode="Phone" />
+                        <asp:TextBox runat="server" ID="txtphone" placeholder="Example: 0336515294" CssClass="form-control" TextMode="Number" />
                         <asp:RegularExpressionValidator ID="regphone" runat="server" ErrorMessage="Phone in the range of 9 to 11 numbers" Display="Dynamic" ControlToValidate="txtphone" ForeColor="Red" ValidationExpression=".{9,11}" />
                         <asp:RequiredFieldValidator ID="rephone" runat="server" ErrorMessage="The field is required" Display="Dynamic" ControlToValidate="txtphone" ForeColor="Red" />
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword" class="">Password</label>
-                        <asp:TextBox runat="server" ID="txtpassword" CssClass="form-control" TextMode="Password" />
-                        <asp:RequiredFieldValidator ID="repassword" runat="server" ErrorMessage="The field is required" ForeColor="Red" ControlToValidate="txtpassword" Display="Dynamic"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="regpassword" runat="server" ErrorMessage="Username in the range of 6 to 15 numbers" ControlToValidate="txtpassword" ValidationExpression=".{6,15}" ForeColor="Red" Display="Dynamic"></asp:RegularExpressionValidator>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword" class="">Confirm Password</label>
-                        <asp:TextBox runat="server" ID="txtconfirmpassword" CssClass="form-control" TextMode="Password" />
-                        <asp:CompareValidator ID="compassword" runat="server" ControlToCompare="txtpassword" ControlToValidate="txtconfirmpassword" ErrorMessage="Password not match" ForeColor="Red"></asp:CompareValidator>
+                        <label for="example-tel-input" class="col-form-label">
+                            Avatar
+                            <%--<label style="color: red">(*)</label>--%>
+                        </label>
+                        <div class="avatarDiv">
+                            <input id="oFile" type="file" runat="server" name="oFile" />
+                            <img src="" alt="Alternate Text" id="avatarUpdate" runat="server" class="avatarCss"/>
+                        </div>
                     </div>
                     <asp:Button CssClass="btn btn-primary mt-4 pr-4 pl-4" runat="server" ID="btnUpdate" Text="UPDATE" OnClick="btnUpdate_Click" />
                 </div>
             </div>
         </div>
     </form>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../Client/js/jquery.min.js"></script>
+    <script src="../Client/js/popper.min.js"></script>
+    <script src="../Client/js/bootstrap.min.js"></script>
 </body>
 </html>

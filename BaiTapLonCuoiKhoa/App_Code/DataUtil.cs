@@ -124,6 +124,7 @@ public class DataUtil
             mb.member_password = (string)dr["member_password"];
             mb.member_phone = (string)dr["member_phone"];
             mb.member_username = (string)dr["member_username"];
+            mb.member_avatar = (string)dr["member_avatar"];
 
             listMember.Add(mb);
 
@@ -138,7 +139,7 @@ public class DataUtil
     /// <param name="member"></param>
     public void AddNewUser(Member member)
     {
-        string sql = "insert into Member values(@fullname,@phone, @mail, @username, @password, @status, @type)";
+        string sql = "insert into Member values(@fullname,@phone, @mail, @username, @password, @status, @type, @avatar)";
         con.Open();
         SqlCommand cmd = new SqlCommand(sql, con);
         cmd.Parameters.AddWithValue("fullname", member.member_fullname);
@@ -148,6 +149,7 @@ public class DataUtil
         cmd.Parameters.AddWithValue("password", member.member_password);
         cmd.Parameters.AddWithValue("status", member.member_status);
         cmd.Parameters.AddWithValue("type", member.member_type);
+        cmd.Parameters.AddWithValue("avatar", member.member_avatar);
 
         cmd.ExecuteNonQuery();
         con.Close();
@@ -180,6 +182,7 @@ public class DataUtil
             mb.member_password = (string)dr["member_password"];
             mb.member_phone = (string)dr["member_phone"];
             mb.member_username = (string)dr["member_username"];
+            mb.member_avatar = (string)dr["member_avatar"];
         }
         con.Close();
         return mb;
@@ -207,6 +210,7 @@ public class DataUtil
             mb.member_password = (string)dr["member_password"];
             mb.member_phone = (string)dr["member_phone"];
             mb.member_username = (string)dr["member_username"];
+            mb.member_avatar = (string)dr["member_avatar"];
         }
         con.Close();
         return mb;
@@ -219,7 +223,7 @@ public class DataUtil
     /// <param name="member"></param>
     public void UpdateUser(Member member)
     {
-        string sql = "update Member set member_fullname=@fullname, member_mail=@mail, member_phone=@phone, member_status=@status, member_type=@type where member_id=@id";
+        string sql = "update Member set member_fullname=@fullname, member_mail=@mail, member_phone=@phone, member_status=@status, member_type=@type, member_avatar=@avatar where member_id=@id";
         con.Open();
         SqlCommand cmd = new SqlCommand(sql, con);
         cmd.Parameters.AddWithValue("fullname", member.member_fullname);
@@ -227,6 +231,20 @@ public class DataUtil
         cmd.Parameters.AddWithValue("mail", member.member_mail);
         cmd.Parameters.AddWithValue("status", member.member_status);
         cmd.Parameters.AddWithValue("type", member.member_type);
+        cmd.Parameters.AddWithValue("avatar", member.member_avatar);
+        cmd.Parameters.AddWithValue("id", member.member_id);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+
+    public void UpdatePassUser(Member member)
+    {
+        string sql = "update Member set member_password=@password where member_id=@id";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sql, con);
+        cmd.Parameters.AddWithValue("password", member.member_password);
         cmd.Parameters.AddWithValue("id", member.member_id);
 
         cmd.ExecuteNonQuery();

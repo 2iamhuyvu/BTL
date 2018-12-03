@@ -11,32 +11,35 @@ public partial class Tranchu : System.Web.UI.Page
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        var member = (Member)Session["User"];
-        if (member != null)
+        if (!IsPostBack)
         {
-            nameuser.Text = member.member_fullname;
-            avatar.Style.Add("display", "block");
-            login.Style.Add("display", "none");
-        }
-        else
-        {
-        }
-        //Huy
-        if ((Cart)Session["Cart"] == null)
-        {
-            Cart CART = new Cart()
+            var user = (Member)Session["User"];
+            if (user != null)
             {
-                ListFood = new List<OrderDetail>(),
-                emailKH = Session["User"] == null ? "" : ((Member)Session["User"]).member_mail,
-                tenKH = Session["User"] == null ? "" : ((Member)Session["User"]).member_fullname,
-                dienthoaiKH = Session["User"] == null ? "" : ((Member)Session["User"]).member_phone,
-                idtable = -1,
-                idmember = Session["User"] == null ? -1 : ((Member)Session["User"]).member_id,
-                tenBan = "",
-            };
-            Session["Cart"] = CART;
+                var member = data.GetUser(user.member_id);
+                nameuser.Text = member.member_fullname;
+                avatarImage.Attributes["src"] = member.member_avatar;
+                avatar.Style.Add("display", "block");
+                login.Style.Add("display", "none");
+            }
+            //Huy
+            if ((Cart)Session["Cart"] == null)
+            {
+                Cart CART = new Cart()
+                {
+                    ListFood = new List<OrderDetail>(),
+                    emailKH = Session["User"] == null ? "" : ((Member)Session["User"]).member_mail,
+                    tenKH = Session["User"] == null ? "" : ((Member)Session["User"]).member_fullname,
+                    dienthoaiKH = Session["User"] == null ? "" : ((Member)Session["User"]).member_phone,
+                    idtable = -1,
+                    idmember = Session["User"] == null ? -1 : ((Member)Session["User"]).member_id,
+                    tenBan = "",
+                };
+                Session["Cart"] = CART;
+            }
+            //endHuy
         }
-        //endHuy
+
     }
 
     protected void LogOut_Click(Object sender, EventArgs e)
@@ -138,7 +141,7 @@ public partial class Tranchu : System.Web.UI.Page
         cart.idtable = idtbl;
         HttpContext.Current.Session["Cart"] = cart;
         return cart;
-    }    
+    }
     [WebMethod(EnableSession = true)]
     [System.Web.Script.Services.ScriptMethod()]
     public static Cart XacNhanMuaHang(string tenKH, string emailKH, string dienthoaiKH)
@@ -150,17 +153,17 @@ public partial class Tranchu : System.Web.UI.Page
             ordertable_idtable = cart.idtable ?? -1,
             ordertable_iduser = cart.idmember ?? -1,
             ordertable_status = false,
-            ordertable_timeset=DateTime.Now,
-            dienthoaiKH= dienthoaiKH,
-            emailKH=emailKH,
-            tenKH=tenKH,
-            loaiKH=cart.idmember>0?true:false,
-            loaiHD=cart.idtable>0?true:false,            
+            ordertable_timeset = DateTime.Now,
+            dienthoaiKH = dienthoaiKH,
+            emailKH = emailKH,
+            tenKH = tenKH,
+            loaiKH = cart.idmember > 0 ? true : false,
+            loaiHD = cart.idtable > 0 ? true : false,
         };
         int idordertbl = dt.ThemOrderTable(odtbl);
         if (idordertbl > 0)
         {
-            foreach(var item in cart.ListFood)
+            foreach (var item in cart.ListFood)
             {
                 OrderDetail orderDetail = item;
                 orderDetail.ordertableid = idordertbl;

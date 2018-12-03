@@ -297,3 +297,15 @@
 .user-profile .dropdown-menu {
     right: 0;
 }
+
+.avatar-image {
+    width: 162px;
+    height: 125px;
+}
+.avatarDiv{
+    width: 100px;
+    height: 100px;
+}
+.avatarCss{
+    width: 100%;
+}

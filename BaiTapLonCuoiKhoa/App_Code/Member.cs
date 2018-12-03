@@ -31,4 +31,5 @@ public class Member
     public string member_password { get; set; }
     public int member_status { get; set; }
     public int member_type { get; set; }
+    public string member_avatar { get; set; }
 }

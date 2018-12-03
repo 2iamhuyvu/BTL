@@ -77,7 +77,8 @@
                             <li class="nav-item" id="login" runat="server"><a href="/Client/Login.aspx" class="nav-link">Sign in</a></li>
                             <li id="avatar" runat="server" style="display: none">
                                 <div class="user-profile pull-right">
-                                    <img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />
+                                    <asp:Image runat="server" CssClass="avatar user-thumb" ID="avatarImage"/>
+                                    <%--<img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />--%>
                                     <h4 class="user-name dropdown-toggle nav-link" data-toggle="dropdown">
                                         <asp:Label runat="server" ID="nameuser"></asp:Label>
                                        </h4>
