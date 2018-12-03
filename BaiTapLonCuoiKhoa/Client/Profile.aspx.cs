@@ -7,22 +7,29 @@ using System.Web.UI.WebControls;
 
 public partial class Client_Profile : System.Web.UI.Page
 {
+    DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        var member = (Member)Session["User"];
-        if (member == null)
+        if (!IsPostBack)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Please login first!')", true);
-            Response.Redirect("/Client/Login.aspx");
-        }
-        else
-        {
-            nameuser.Text = member.member_fullname;
-            amail.HRef = "mailto:"+member.member_mail;
-            lbfullname.Text = member.member_fullname;
-            lbmail.Text = member.member_mail;
-            lbphone.Text = member.member_phone;
-            lbusername.Text = member.member_username;
+            var user = (Member)Session["User"];
+            if (user == null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Please login first!')", true);
+                Response.Redirect("/Client/Login.aspx");
+            }
+            else
+            {
+                var member = data.GetUser(user.member_id);
+                nameuser.Text = member.member_fullname;
+                amail.HRef = "mailto:" + member.member_mail;
+                lbfullname.Text = member.member_fullname;
+                lbmail.Text = member.member_mail;
+                lbphone.Text = member.member_phone;
+                lbusername.Text = member.member_username;
+                avatarImageTop.Attributes["src"] = member.member_avatar;
+                avatarImage.Attributes["src"] = member.member_avatar;
+            }
         }
     }
 

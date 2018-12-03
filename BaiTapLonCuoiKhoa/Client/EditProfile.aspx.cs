@@ -4,26 +4,34 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.Services;
 
 public partial class Client_EditProfile : System.Web.UI.Page
 {
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        var member = (Member)Session["User"];
-        if (member == null)
+        if (!IsPostBack)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Please login first!')", true);
-            Response.Redirect("/Client/Login.aspx");
-        }
-        else
-        {
-            nameuser.Text = member.member_fullname;
-            txtemail.Text = member.member_mail;
-            txtfullname.Text = member.member_fullname;
-            txtusername.Text = member.member_username;
-            txtphone.Text = member.member_phone;
+            var user = (Member)Session["User"];
+            if (user == null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Please login first!')", true);
+                Response.Redirect("/Client/Login.aspx");
+            }
+            else
+            {
+                var member = data.GetUser(user.member_id);
+                nameuser.Text = member.member_fullname;
+                txtemail.Text = member.member_mail;
+                txtfullname.Text = member.member_fullname;
+                txtusername.Text = member.member_username;
+                txtphone.Text = member.member_phone;
+                avatarImageTop.Attributes["src"] = member.member_avatar;
+                avatarUpdate.Attributes["src"] = member.member_avatar;
 
+            }
         }
     }
 
@@ -38,24 +46,26 @@ public partial class Client_EditProfile : System.Web.UI.Page
     {
         try
         {
-
+            var pic = Request.Files["oFile"];
+            var member = (Member)Session["User"];
             var user = new Member()
             {
                 member_fullname = txtfullname.Text,
                 member_mail = txtemail.Text,
                 member_phone = txtphone.Text,
-                //member_status = Convert.ToInt16(ddlstatus.SelectedValue.ToString()), ///Active
-                //member_type = Convert.ToInt16(ddltype.SelectedValue.ToString()),
+                member_status = 1,
+                member_type = 0,
+                member_id = member.member_id
             };
             data.UpdateUser(user);
-            msg.Text = "Update success!";
-            msg.ForeColor = System.Drawing.Color.Green;
-            //ShowInfoUser();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Update success!')", true);
+            Response.Redirect("/Client/Profile.aspx");
         }
         catch (Exception ex)
         {
-            msg.Text = "Update Fail. Erorr: " + ex.Message + ". Let try!";
-            msg.ForeColor = System.Drawing.Color.Red;
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Update fail!')", true);
         }
     }
+
+   
 }

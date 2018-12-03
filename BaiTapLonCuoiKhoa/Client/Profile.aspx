@@ -20,9 +20,10 @@
                         <ul class="navbar-nav ml-auto">
                             <li id="avatar" runat="server">
                                 <div class="user-profile pull-right">
-                                    <img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />
+                                    <asp:Image runat="server" CssClass="avatar user-thumb" ID="avatarImageTop"/>
+                                    <%--<img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />--%>
                                     <h4 class="user-name dropdown-toggle nav-link" data-toggle="dropdown">
-                                        <asp:Label runat="server" ID="nameuser"></asp:Label>
+                                        <asp:Label runat="server" ID="nameuser" ></asp:Label>
                                         <i class="fa fa-angle-down"></i></h4>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="/Client/Profile.aspx">Profile</a>
@@ -48,8 +49,9 @@
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-3 col-lg-3 " align="center">
-                                        <img alt="User Pic" src="../Assets/images/avatar.jpg" class="img-circle img-responsive" style="width: 162px; height: 125px" />
+                                    <div class="col-md-3 col-lg-3 " style="text-align:center;">
+                                        <asp:Image runat="server" CssClass="img-circle img-responsive" ID="avatarImage"/>
+                                        <%--<img alt="User Pic" src="../Assets/images/avatar.jpg" class="img-circle img-responsive avatar-image" style="" runat="server" ID="avatar"/>--%>
                                     </div>
                                     <div class=" col-md-9 col-lg-9 ">
                                         <table class="table table-user-information">

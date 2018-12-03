@@ -19,11 +19,12 @@ public partial class Client_Login : System.Web.UI.Page
         var passwordHash = Encryptor.MD5Hash(txtpassword.Text);
         var type = 0; /// type 0 is user
         var checkLogin = data.CheckLogin(txtusername.Text, passwordHash, type);
+
         if (checkLogin)
         {
             Session["User"] = data.GetUserByName(txtusername.Text);
             Cart CART = (Cart)Session["Cart"];
-            CART.emailKH =((Member)Session["User"]).member_mail;
+            CART.emailKH = ((Member)Session["User"]).member_mail;
             CART.tenKH = ((Member)Session["User"]).member_fullname;
             CART.dienthoaiKH = ((Member)Session["User"]).member_phone;
             CART.idtable = -1;

@@ -12,8 +12,6 @@
                 <form id="formupdateuser" runat="server" action="/Admin/QlMembers/UpdateMember.aspx">
                     <h4 class="header-title">Update user </h4>
                     <asp:Label ID="msg" runat="server" />
-
-
                     <div class="form-group">
                         <label for="example-search-input" class="col-form-label">
                             User name
