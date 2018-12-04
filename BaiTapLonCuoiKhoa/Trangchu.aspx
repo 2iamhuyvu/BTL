@@ -22,12 +22,7 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <link href="css/StyleCustom.css" rel="stylesheet" />
-    <style>
-        #btnCart:hover {
-            z-index: 999 !important;
-            background-color: #b6ff00 !important;
-        }
-
+    <style>        
         #listFoodCart tr th, td {
             font-size: 14px;
             color: black;
@@ -56,8 +51,9 @@
 </head>
 <body data-spy="scroll" data-target="#site-navbar" data-offset="200">
     <form id="form1" runat="server" action="/Trangchu.aspx">
-        <div>
-            <a id="btnCart" onclick="ViewCart()" title="Xem giỏ hàng" href="javascript:void(0)" style="position: fixed; width: 80px; background: #ffd800; height: 80px; border-radius: 50%; right: 20px; top: 100px; text-align: center; line-height: 80px; color: blue; font-weight: bold">Giỏ hàng</a>
+        <span id="on_top" style="width:50px;height:50px;bottom:30px;right:20px;position:fixed;display:none;background:#ccc;border-radius:50%;cursor:pointer" title="Đầu trang"><img style="width:100%" src="images/btop.jpg" /></span>
+        <span id="btnCart"onclick="ViewCart()" style="width:70px;height:70px;z-index:9;top:60px;right:20px;position:fixed;border-radius:50%;cursor:pointer" title="Xem giỏ hàng"><img style="width:100%" src="images/giohang.png" /></span>        
+        <div>            
             <nav class="navbar navbar-expand-lg navbar-dark site_navbar bg-dark site-navbar-light" id="site-navbar">
                 <div class="container">
                     <a class="navbar-brand" href="/TrangChu.aspx">EatWell</a>
@@ -77,11 +73,11 @@
                             <li class="nav-item" id="login" runat="server"><a href="/Client/Login.aspx" class="nav-link">Sign in</a></li>
                             <li id="avatar" runat="server" style="display: none">
                                 <div class="user-profile pull-right">
-                                    <asp:Image runat="server" CssClass="avatar user-thumb" ID="avatarImage"/>
+                                    <asp:Image runat="server" CssClass="avatar user-thumb" ID="avatarImage" />
                                     <%--<img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />--%>
                                     <h4 class="user-name dropdown-toggle nav-link" data-toggle="dropdown">
                                         <asp:Label runat="server" ID="nameuser"></asp:Label>
-                                       </h4>
+                                    </h4>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="/Client/Profile.aspx">Profile</a>
                                         <a class="dropdown-item" href="/Client/ChangePassword.aspx">Change password</a>
@@ -165,124 +161,7 @@
 
 
                                     }
-                                %>
-
-                                <%--<div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$19.50</h5>
-                                            <h5 class="mt-0 h4">Beef with Sausage</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$29.50</h5>
-                                            <h5 class="mt-0 h4">Egg with Garlic </h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$11.50</h5>
-                                            <h5 class="mt-0 h4">Beef Ribs</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$33.50</h5>
-                                            <h5 class="mt-0 h4">Beef with Sauce</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$12.50</h5>
-                                            <h5 class="mt-0 h4">Fresh Salmon Fish</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$53.50</h5>
-                                            <h5 class="mt-0 h4">Beef Ribs</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$22.50</h5>
-                                            <h5 class="mt-0 h4">Beef with Sauce</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$39.50</h5>
-                                            <h5 class="mt-0 h4">Fresh Salmon Fish</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item">
-                                    <div class="media d-block mb-4 text-center site-media site-animate border-0">
-                                        <img src="images/offer_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                        <div class="media-body p-md-5 p-4">
-                                            <h5 class="text-primary">$39.50</h5>
-                                            <h5 class="mt-0 h4">Beef Ribs</h5>
-                                            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                            <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Order Now!</a></p>
-                                        </div>
-                                    </div>
-                                </div>--%>
+                                %>                                
                             </div>
                         </div>
 
@@ -777,7 +656,7 @@
                                                 <label for="m_fname">Ngày đặt</label>
                                                 <input type="date" class="form-control" id="ds" />
                                             </div>
-                                            
+
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
@@ -796,27 +675,26 @@
                                                     <option value="0">-----Chọn loại bàn-----</option>
                                                     <%
                                                         var listTable = new DataUtil().dslb();
-                                                        
-                                            foreach (var tb in listTable)
-                                            {
-                                                Response.Write("<option >"+tb.table_description+"</option>");                                           
-                                               
-                                            }
-                                                        %>
+
+                                                        foreach (var tb in listTable)
+                                                        {
+                                                            Response.Write("<option >" + tb.table_description + "</option>");
+
+                                                        }
+                                                    %>
                                                 </select>
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="m_phone">Bàn</label>
                                                 <div id="tb">
-                                                    <select   class="form-control">
-                                                   
-                                                </select>
+                                                    <select class="form-control">
+                                                    </select>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
-                                        
+
 
                                         <div class="row">
                                             <div class="col-md-12 form-group">
@@ -883,7 +761,7 @@
                             <input type="radio" name="hinhthuc" value="1" /></label>
                         <select id="selectTableid" style="display: none">
                             <option value="">--Chọn bàn--</option>
-                            <% var litbl = new DataUtil().dsTable();
+                            <% var litbl = new DataUtil().dsTableNull();
                                 foreach (var item in litbl)
                                 {
                                     Response.Write("<option value='" + item.table_id + "'>" + item.table_name + "</option>");
@@ -1271,7 +1149,19 @@
                 }
             });
         }
-
+        $(document).ready(function(){
+	        $(window).scroll(function(){
+		        if ($(this).scrollTop() > 100) {
+			        $('#on_top').fadeIn();
+		        } else {
+			        $('#on_top').fadeOut();
+		        }
+	        });
+	        $('#on_top').click(function(){
+		        $("html, body").animate({ scrollTop: 0 }, 600);
+		        return false;
+	        });
+        });
         // endHuy
         // trong
         $("#lb").change(function () {
@@ -1289,12 +1179,12 @@
                     $("#tb").html(dt.d);
 
                 },
-                error: function(){
+                error: function () {
                     //alert ("Phải nhập đầy đủ thông tin order");
-            }
+                }
             });
         })
-        
+
         // endtrong
     </script>
 </body>

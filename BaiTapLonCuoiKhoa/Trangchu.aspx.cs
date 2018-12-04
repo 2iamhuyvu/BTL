@@ -77,7 +77,21 @@ public partial class Tranchu : System.Web.UI.Page
     [System.Web.Script.Services.ScriptMethod()]
     public static Cart AddToCart(int idfood, int soluong)
     {
-        DataUtil dt = new DataUtil();
+        DataUtil dt = new DataUtil();        
+        if ((Cart)HttpContext.Current.Session["Cart"] == null)
+        {
+            Cart CART = new Cart()
+            {
+                ListFood = new List<OrderDetail>(),
+                emailKH = HttpContext.Current.Session["User"] == null ? "" : ((Member)HttpContext.Current.Session["User"]).member_mail,
+                tenKH = HttpContext.Current.Session["User"] == null ? "" : ((Member)HttpContext.Current.Session["User"]).member_fullname,
+                dienthoaiKH = HttpContext.Current.Session["User"] == null ? "" : ((Member)HttpContext.Current.Session["User"]).member_phone,
+                idtable = -1,
+                idmember = HttpContext.Current.Session["User"] == null ? -1 : ((Member)HttpContext.Current.Session["User"]).member_id,
+                tenBan = "",
+            };
+            HttpContext.Current.Session["Cart"] = CART;
+        }
         Cart cart = (Cart)HttpContext.Current.Session["Cart"];
         List<OrderDetail> list = cart.ListFood;
         foreach (var item in list)
@@ -167,21 +181,13 @@ public partial class Tranchu : System.Web.UI.Page
             ordertable_idtable = cart.idtable ?? -1,
             ordertable_iduser = cart.idmember ?? -1,
             ordertable_status = false,
-<<<<<<< HEAD
             ordertable_timeset=TimeSpan.Parse("5:30"),
             dienthoaiKH= dienthoaiKH,
             emailKH=emailKH,
             tenKH=tenKH,
             loaiKH=cart.idmember>0?true:false,
-            loaiHD=cart.idtable>0?true:false,            
-=======
-            ordertable_timeset = DateTime.Now,
-            dienthoaiKH = dienthoaiKH,
-            emailKH = emailKH,
-            tenKH = tenKH,
-            loaiKH = cart.idmember > 0 ? true : false,
-            loaiHD = cart.idtable > 0 ? true : false,
->>>>>>> 07f7e2a85e9fbb98d0bd6fc54d6d46ccd49f9dbd
+            loaiHD=cart.idtable>0?true:false,
+            ordertable_dateset = DateTime.Now,             
         };
         int idordertbl = dt.ThemOrderTable(odtbl);
         if (idordertbl > 0)

@@ -12,17 +12,17 @@ using System.Data.Odbc;
 public class DataUtil
 {
     SqlConnection con;
-    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+    string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
     //string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";        
     public DataUtil()
     {
         con = new SqlConnection(sqlcon);
     }
 
-    public List<table> dsTable()
+    public List<table> dsTableNull()
     {
         List<table> listTable = new List<table>();
-        string sqlslTable = "select * from qlTable";
+        string sqlslTable = "select * from qlTable where table_status=0";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlslTable, con);
         SqlDataReader dr = cmd.ExecuteReader();
@@ -457,16 +457,179 @@ public class DataUtil
     #endregion
 
     #region Huy
+    //Contact
+    public List<Contact> GetDSContact()
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {
+            List<Contact> list = new List<Contact>();
+            string query = "select * from Contact";
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                Contact c = new Contact();
 
+                c.idContact = (int)dr["idContact"];
+                c.name = (string)dr["name"];
+                c.email = (string)dr["email"];
+                c.message = (string)dr["message"];
+                c.thoigiangui = (DateTime)dr["thoigiangui"];
+                if (dr["noidungTraloi"] != System.DBNull.Value)
+                {
+                    c.noidungTraloi = (string)dr["noidungTraloi"];
+                }
+                if (dr["thoigianTraloi"] != System.DBNull.Value)
+                {
+                    c.thoigianTraloi = (DateTime)dr["thoigianTraloi"];
+                }
+                if (dr["tinhtrangTraloi"] != System.DBNull.Value)
+                {
+                    c.tinhtrangTraloi = (Boolean)dr["tinhtrangTraloi"];
+                }
+                list.Add(c);
+            }
+            conn.Close();
+            return list;
+        }
+    }    
+    public bool ReplyLienHe(int idLienHe, string EmailLienHe, string SbEmail, string ContentEmail)
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {            
+            bool rs= MailProvider.sendEmail(ContentEmail, SbEmail, EmailLienHe);
+            if (rs)
+            {
+                string query = "update  Contact set noidungTraloi='" + ContentEmail + "' ,thoigianTraloi='" + DateTime.Now + "',tinhtrangTraloi='true' where idContact=" + idLienHe;
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return true;
+            }
+            return false;
+        }
+    }
+    public void XoaLienHe(int idLienHe)
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {
+            string query = "delete from Contact where idContact=" + idLienHe;
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();            
+        }
+    }
+
+    public List<OrderVM> TimHoaDon(DateTime ngaybd, DateTime ngaykt, int ttthanhtoan)
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {
+            DateTime defaultdate = new DateTime();
+            List<OrderVM> listRS = new List<OrderVM>();
+            if (ngaybd > defaultdate || ngaykt > defaultdate || ttthanhtoan != -1)
+            {
+                string query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_status=" + ttthanhtoan + " and odtbl.ordertable_dateset >='" + ngaybd + "' and odtbl.ordertable_dateset <='" + ngaykt + "'";
+                if (ngaybd == defaultdate && ngaykt > defaultdate && ttthanhtoan != -1)
+                    query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_status=" + ttthanhtoan + "' and odtbl.ordertable_dateset <='" + ngaykt + "'";
+                if (ngaybd > defaultdate && ngaykt == defaultdate && ttthanhtoan != -1)
+                    query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_status=" + ttthanhtoan + " and odtbl.ordertable_dateset >='" + ngaybd + "'";
+                if (ngaybd > defaultdate && ngaykt > defaultdate && ttthanhtoan == -1)
+                    query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where ordertable_dateset >='" + ngaybd + "' and odtbl.ordertable_dateset <='" + ngaykt + "'";
+                if (ngaybd == defaultdate && ngaykt == defaultdate && ttthanhtoan != -1)
+                    query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_status=" + ttthanhtoan;
+                if (ngaybd > defaultdate && ngaykt == defaultdate && ttthanhtoan == -1)
+                    query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_dateset >='" + ngaybd + "'";
+                if (ngaybd == defaultdate && ngaykt > defaultdate && ttthanhtoan == -1)
+                    query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_dateset <='" + ngaykt + "'";
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    OrderVM tbVM = new OrderVM();
+                    tbVM.ordertable_id = (int)dr["ordertable_id"];
+                    tbVM.ordertable_status = (Boolean)dr["ordertable_status"];
+                    if (dr["ordertable_iduser"] != System.DBNull.Value)
+                    {
+                        tbVM.ordertable_iduser = (int)(dr["ordertable_iduser"] ?? -1);
+                    }
+                    tbVM.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+                    if (dr["ordertable_idtable"] != System.DBNull.Value)
+                    {
+                        tbVM.ordertable_idtable = (int)(dr["ordertable_idtable"]);
+                    }
+                    if (dr["tenKH"] != System.DBNull.Value)
+                    {
+                        tbVM.tenKH = (string)dr["tenKH"];
+                    }
+                    if (dr["emailKH"] != System.DBNull.Value)
+                    {
+                        tbVM.emailKH = (string)(dr["emailKH"]);
+                    }
+                    if (dr["dienthoaiKH"] != System.DBNull.Value)
+                    {
+                        tbVM.dienthoaiKH = (string)(dr["dienthoaiKH"]);
+                    }
+                    if (dr["table_name"] != System.DBNull.Value)
+                    {
+                        tbVM.table_name = (string)(dr["table_name"]);
+                    }
+                    if (dr["loaiHD"] != System.DBNull.Value)
+                    {
+                        tbVM.loaiHD = (bool)(dr["loaiHD"]);
+                    }
+                    if (dr["loaiKH"] != System.DBNull.Value)
+                    {
+                        tbVM.loaiKH = (bool)(dr["loaiKH"] ?? false);
+                    }
+                    tbVM.TotalMoney = 0;
+                    tbVM.ListOrderDetail = this.dsOrderDetailByTable((int)dr["ordertable_id"]);
+                    var li = tbVM.ListOrderDetail;
+                    if (li.Count > 0)
+                    {
+                        Double t = 0;
+                        foreach (var item in li)
+                        {
+                            t += (Double)(item.quantity * item.food_price * (Double)(100 - item.food_sale) / 100);
+                        }
+                        tbVM.TotalMoney = t;
+                    }
+                    listRS.Add(tbVM);
+                }
+                conn.Close();
+                dr.Close();
+            }
+            return listRS;
+        }
+    }
     public void ThanhToanOrderTbl(int idodtbl)
     {
         using (var conn = new SqlConnection(sqlcon))
         {
             string query = "update  OrderTable set ordertable_status='true' where ordertable_id=" + idodtbl;
+            string query1 = "select top 1 ordertable_idtable from OrderTable where ordertable_id=" + idodtbl;
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
+            SqlCommand cmd1 = new SqlCommand(query1, conn);
+            SqlDataReader dr1 = cmd1.ExecuteReader();
+            int idtbl = -1;
+            if (dr1.Read())
+            {
+                idtbl = (int)dr1["ordertable_idtable"];
+            }
+            conn.Close();
+            conn.Open();
+            if (idtbl != -1)
+            {
+                string query3 = "update  qlTable set table_status='false' where table_id=" + idtbl;
+                SqlCommand cmd3 = new SqlCommand(query3, conn);
+                cmd3.ExecuteNonQuery();
+            }
             cmd.ExecuteNonQuery();
-            conn.Close();            
+            conn.Close();
         }
     }
     public List<OrderDetail> dsOrderDetail()
@@ -547,7 +710,7 @@ public class DataUtil
                     food_price = (Double)dr["food_price"],
                     food_sale = (int)dr["food_sale"],
                     food_avatar = (string)dr["f.food_avatar"]
-            };
+                };
                 od.thanhtien = od.quantity * od.food_price * (Double)(100 - od.food_sale) / 100;
                 list.Add(od);
 
@@ -563,7 +726,7 @@ public class DataUtil
         {
             string query = "insert into OrderDetail values(@foodid,@quantity,@ordertableid)";
             conn.Open();
-            SqlCommand cmd = new SqlCommand(query, conn);            
+            SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("foodid", od.foodid);
             cmd.Parameters.AddWithValue("quantity", od.quantity);
             cmd.Parameters.AddWithValue("ordertableid", od.ordertableid);
@@ -603,7 +766,7 @@ public class DataUtil
                 {
                     tbVM.ordertable_iduser = (int)(dr["ordertable_iduser"] ?? -1);
                 }
-                tbVM.ordertable_timeset = (DateTime)dr["ordertable_timeset"];
+                tbVM.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
                 if (dr["ordertable_idtable"] != System.DBNull.Value)
                 {
                     tbVM.ordertable_idtable = (int)(dr["ordertable_idtable"]);
@@ -656,7 +819,7 @@ public class DataUtil
         using (var conn = new SqlConnection(sqlcon))
         {
             List<OrderVM> listRS = new List<OrderVM>();
-            string query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id";
+            string query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id";
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
             SqlDataReader dr = cmd.ExecuteReader();
@@ -669,7 +832,7 @@ public class DataUtil
                 {
                     tbVM.ordertable_iduser = (int)(dr["ordertable_iduser"] ?? -1);
                 }
-                tbVM.ordertable_timeset = (DateTime)dr["ordertable_timeset"];
+                tbVM.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
                 if (dr["ordertable_idtable"] != System.DBNull.Value)
                 {
                     tbVM.ordertable_idtable = (int)(dr["ordertable_idtable"]);
@@ -722,7 +885,7 @@ public class DataUtil
     {
         using (var conn = new SqlConnection(sqlcon))
         {
-            string query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_id=" + idorderTable;
+            string query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_dateset,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join Member m on odtbl.ordertable_iduser= m.member_id left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_id=" + idorderTable;
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
             SqlDataReader dr = cmd.ExecuteReader();
@@ -735,7 +898,7 @@ public class DataUtil
                 {
                     tbVM.ordertable_iduser = (int)(dr["ordertable_iduser"] ?? -1);
                 }
-                tbVM.ordertable_timeset = (DateTime)dr["ordertable_timeset"];
+                tbVM.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
                 if (dr["ordertable_idtable"] != System.DBNull.Value)
                 {
                     tbVM.ordertable_idtable = (int)(dr["ordertable_idtable"]);
@@ -780,17 +943,18 @@ public class DataUtil
             conn.Close();
             return tbVM;
         }
-    }    
+    }
 
     public int ThemOrderTable(OrderTable odtbl)
-    {    
+    {
         using (var conn = new SqlConnection(sqlcon))
-        {     
-            string query = "insert into OrderTable values(@ordertable_iduser,@ordertable_timeset,@ordertable_idtable,@ordertable_status,@tenKH,@emailKH,@dienthoaiKH,@loaiKH,@loaiHD)";
+        {
+            string query = "insert into OrderTable (ordertable_iduser,ordertable_dateset,ordertable_timeset,ordertable_idtable,ordertable_status,tenKH,emailKH,dienthoaiKH,loaiKH,loaiHD) values(@ordertable_iduser,@ordertable_dateset,@ordertable_timeset,@ordertable_idtable,@ordertable_status,@tenKH,@emailKH,@dienthoaiKH,@loaiKH,@loaiHD)";
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("ordertable_iduser", odtbl.ordertable_iduser);
             cmd.Parameters.AddWithValue("ordertable_timeset", odtbl.ordertable_timeset);
+            cmd.Parameters.AddWithValue("ordertable_dateset", odtbl.ordertable_dateset);
             cmd.Parameters.AddWithValue("ordertable_idtable", odtbl.ordertable_idtable);
             cmd.Parameters.AddWithValue("ordertable_status", odtbl.ordertable_status);
             cmd.Parameters.AddWithValue("tenKH", odtbl.tenKH);
@@ -799,9 +963,14 @@ public class DataUtil
             cmd.Parameters.AddWithValue("loaiHD", odtbl.loaiHD);
             cmd.Parameters.AddWithValue("loaiKH", odtbl.loaiKH);
             cmd.ExecuteNonQuery();
-
+            if (odtbl.ordertable_idtable != -1)
+            {
+                string query2 = "update  qlTable set table_status='true' where table_id=" + odtbl.ordertable_idtable;
+                SqlCommand cmd2 = new SqlCommand(query2, conn);
+                cmd2.ExecuteNonQuery();
+            }
             string query1 = "select top 1 * from OrderTable order by ordertable_timeset desc";
-            SqlCommand cmd1 = new SqlCommand(query1, conn);            
+            SqlCommand cmd1 = new SqlCommand(query1, conn);
             SqlDataReader dr = cmd1.ExecuteReader();
             int idOrderTbl = -1;
             while (dr.Read())
@@ -825,7 +994,7 @@ public class DataUtil
         while (dr.Read())
         {
             table tb = new table();
-            
+
             tb.table_description = (int)dr["table_description"];
 
             listTable.Add(tb);

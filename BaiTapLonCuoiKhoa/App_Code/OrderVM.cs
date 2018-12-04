@@ -9,7 +9,9 @@ using System.Web;
 public class OrderVM
 {
     public int? ordertable_id { get; set; }
-    public DateTime ordertable_timeset { get; set; }    
+    public DateTime ordertable_dateset { get; set; }
+    public TimeSpan ordertable_timeset { get; set; }
+    public TimeSpan ordertable_timereturn { get; set; }
     public Boolean? ordertable_status { get; set; }
     public int? ordertable_iduser { get; set; }
     public int? ordertable_idtable { get; set; }

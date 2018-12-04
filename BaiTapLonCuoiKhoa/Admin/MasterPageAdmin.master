@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="Assets/AssetsAdmin/css/metisMenu.css" />
     <link rel="stylesheet" href="Assets/AssetsAdmin/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="Assets/AssetsAdmin/css/slicknav.min.css" />
+    <link href="Assets/css/jquery.timepicker.css" rel="stylesheet" />
     <!-- amchart css -->
     <%--<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />--%>
     <!-- others css -->
@@ -112,7 +113,13 @@
                                         <li><a href="/Admin/QLHoaDon/OrderDetailPage.aspx">Danh sách chi tiết hóa đơn</a></li>
                                     </ul>
                                 </li>
-
+                                 <li>
+                                    <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-birthday-cake"></i>
+                                        <span>Quản lý liên hệ</span></a>
+                                    <ul class="collapse">
+                                        <li><a href="/Admin/QLContact/ListContact.aspx">Danh sách liên hệ</a></li>                                        
+                                    </ul>
+                                </li>
                                 <li>
                                     <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i><span>Pages</span></a>
                                     <ul class="collapse">
@@ -223,6 +230,7 @@
         <script src="Assets/AssetsAdmin/js/metisMenu.min.js"></script>
         <script src="Assets/AssetsAdmin/js/jquery.slimscroll.min.js"></script>
         <script src="Assets/AssetsAdmin/js/jquery.slicknav.min.js"></script>
+        <script src="Assets/js/jquery.timepicker.min.js"></script>
         <script src="../Assets/js/notify.js"></script>
         <%--        <!-- start chart js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
