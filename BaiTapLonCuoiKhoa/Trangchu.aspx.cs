@@ -9,10 +9,15 @@ using System.Web.UI.WebControls;
 public partial class Tranchu : System.Web.UI.Page
 {
     DataUtil data = new DataUtil();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         if (!IsPostBack)
         {
+            //trong
+            var cko= Session["cko"] = false;
+            //end trong
             var user = (Member)Session["User"];
             if (user != null)
             {
@@ -49,17 +54,153 @@ public partial class Tranchu : System.Web.UI.Page
         Response.Redirect("TrangChu.aspx");
     }
     #region trong
+    
+
     [WebMethod(EnableSession = true)]
     public static string sltb(string ds,string ts,string tr,string lb)
     {
-        DataUtil dt = new DataUtil();
-        int lb1 = int.Parse(lb);
-        //Food food = new Food();
+        if (ds!=""||ts!=""||tr!="")
+        {
+            
+            DataUtil dt = new DataUtil();
+            int lb1 = int.Parse(lb);
+            //Food food = new Food();
+
+            string st = dt.dstbod(ds, ts, tr, lb1);
+
+
+            return st;
+        }
+        else
+        {
+            return "";
+        }
         
-        string st= dt.dstbod(ds, ts, tr, lb1);
+    }
+    [WebMethod(EnableSession = true)]
+    public static string ckeds(string ds)
+    {
+        if (ds == "")
+        {
+            return "chưa nhập ngày đặt";
+
+        }
+        else
+        {
+            return "";
+        }
+        
+
+       
+    }
+    [WebMethod(EnableSession = true)]
+    public static string ckd(string ds,string ts, string tr)
+    {
+
+        var tn = DateTime.Now;
+        var to = DateTime.Parse(ds);
+        if (tn > to)
+        {
+            return "ngày chọn không hợp lệ";
+        }
+        else
+        {
+            if (ts!=""||tr!="")
+            {
+                if (TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
+                {
+                    return "thời gian đặt và trả không hợp lệ";
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            else
+            {
+                return "";
+            }
+            
+        }
 
 
-        return st;
+    }
+    [WebMethod(EnableSession = true)]
+    public static string ckedsts(string ds, string ts, string tr)
+    {
+        if (ds == "" && ts != "")
+        {
+            return "chưa nhập đặt ngày";
+
+        }
+        else
+        {
+            if (ds != "" && ts == "")
+            {
+                return "bạn chưa nhập time đặt bàn ";
+
+            }
+            else
+            {
+                if (ds == "" && ts == "")
+                {
+                    return "Bạn chưa nhập ngày và giờ đặt bàn";
+                }
+                else
+                {
+                    if (TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
+                    {
+                        return "thời gian đặt và trả không hợp lệ";
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+            }
+        }
+
+
+    }
+    [WebMethod(EnableSession = true)]
+    public static string ckedststr(string ds, string ts, string tr)
+    {
+
+        if (ds==""||ts==""||tr=="")
+        {
+            return "Bạn phải nhập đủ thời gian đặt và trả";
+
+        }
+        else
+        {
+            return "";
+        }
+
+
+    }
+    [WebMethod(EnableSession = true)]
+    public static string cko(string ds, string ts, string tr, string lb,string tb )
+    {
+        
+        if (ds == "" || ts == "" || tr == ""||lb=="")
+        {
+            return "0";
+            
+        }
+        else
+        {
+            var tn = DateTime.Now;
+            var to = DateTime.Parse(ds);
+            if (tn > to || TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
+            {
+                return "1";
+            }
+            else
+            {
+                return "true";
+            }
+        }
+
     }
     #endregion
 
@@ -187,7 +328,7 @@ public partial class Tranchu : System.Web.UI.Page
             tenKH=tenKH,
             loaiKH=cart.idmember>0?true:false,
             loaiHD=cart.idtable>0?true:false,
-            ordertable_dateset = DateTime.Now,             
+            ordertable_dateset = DateTime.Now,                                
         };
         int idordertbl = dt.ThemOrderTable(odtbl);
         if (idordertbl > 0)

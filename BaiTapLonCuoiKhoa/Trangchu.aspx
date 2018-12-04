@@ -97,7 +97,7 @@
                         <div class="col-md-12">
                             <h1 class="site-heading site-animate mb-3">Welcome To EatWell</h1>
                             <h2 class="h5 site-subheading mb-5 site-animate">Come and eat well with our delicious &amp; healthy foods.</h2>
-                            <p><a href="https://colorlib.com/" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal">Reservation</a></p>
+                            <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Reservation</a></p>
                         </div>
                     </div>
                 </div>
@@ -666,16 +666,16 @@
                                             <div class="col-md-6 form-group">
                                                 <label for="m_email">Time return</label>
                                                 <input type="time" class="form-control" id="tr" />
+                                                
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="m_people">Loại bàn</label>
                                                 <select name="" id="lb" class="form-control">
-                                                    <option value="0">-----Chọn loại bàn-----</option>
+                                                    
                                                     <%
                                                         var listTable = new DataUtil().dslb();
-
                                                         foreach (var tb in listTable)
                                                         {
                                                             Response.Write("<option >" + tb.table_description + "</option>");
@@ -698,7 +698,10 @@
 
                                         <div class="row">
                                             <div class="col-md-12 form-group">
-                                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Reserve Now" />
+                                                <label id="omsg" style="color:red;"></label>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+                                                <input id="ordertb" type="button" class="btn btn-primary btn-lg btn-block" value="Reserve Now" />
                                             </div>
                                         </div>
 
@@ -1164,11 +1167,13 @@
         });
         // endHuy
         // trong
+       
         $("#lb").change(function () {
             var ds = $("#ds").val();
             var ts = $("#ts").val();
             var tr = $("#tr").val();
             var lb = $("#lb").val();
+            $("#omsg").css("color", "red");
             $.ajax({
                 type: "post",
                 url: "/Trangchu.aspx/sltb",
@@ -1184,7 +1189,134 @@
                 }
             });
         })
+        $("#ts").change(function () {
+            $("#tr").val("");
+            $("#lb").val("");
+            var ds = $("#ds").val();
+            $("#omsg").css("color", "red");
+            //alert(ds);
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/ckeds",
+                data: "{'ds':'" + ds + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (dt) {
+                    //alert("hihi");
+                    $("#omsg").html(dt.d);
 
+                },
+                error: function () {
+                    alert ("loi");
+                }
+            });
+        })
+        $("#ds").change(function () {
+            var ds = $("#ds").val();
+            var ts = $("#ts").val();
+            var tr = $("#tr").val();
+            $("#omsg").css("color", "red");
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/ckd",
+                data: "{'ds':'" + ds + "','ts':'" + ts + "','tr':'" + tr + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (dt) {
+                    $("#omsg").html(dt.d);
+
+                },
+                error: function () {
+                    //alert ("Phải nhập đầy đủ thông tin order");
+                }
+            });
+        })
+        $("#tr").change(function () {
+            var ds = $("#ds").val();
+            var ts = $("#ts").val();
+            var tr = $("#tr").val();
+            
+            $("#lb").val("");
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/ckedsts",
+                data: "{'ds':'" + ds + "','ts':'" + ts + "','tr':'" + tr + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (dt) {
+                    //alert("hihi");
+                    $("#omsg").html(dt.d);
+
+                },
+                error: function () {
+                    //alert ("Phải nhập đầy đủ thông tin order");
+                }
+            });
+        })
+        $("#lb").change(function () {
+            var ds = $("#ds").val();
+            var ts = $("#ts").val();
+            var tr = $("#tr").val();
+            
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/ckedststr",
+                data: "{'ds':'" + ds + "','ts':'" + ts + "','tr':'" + tr + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (dt) {
+                    $("#omsg").html(dt.d);
+
+                },
+                error: function () {
+                    alert ("Phải nhập đầy đủ thông tin order");
+                }
+            });
+        })
+        $("#ordertb").click(function () {
+           
+            var ds = $("#ds").val();
+            var ts = $("#ts").val();
+            var tr = $("#tr").val();
+            var lb = $("#lb").val();
+            var tb = $("#tb").val();
+            $("#omsg").css("color", "red");
+            
+            $.ajax({
+                type: "post",
+                url: "/Trangchu.aspx/cko",
+                data: "{'ds':'" + ds + "','ts':'" + ts + "','tr':'" + tr + "','lb':'" + lb + "','tb':'" + tb + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (dt) {
+                    if (dt.d=="0") {
+                        $("#omsg").html("Chưa điền đủ thông tin cần đặt bàn");
+                    }
+                    else {
+                        if (dt.d=="1") {
+                            $("#omsg").html("Dữ liệu nhập vào không thỏa mãn");
+                        }
+                        else {
+                            $("#ds").val("");
+                            $("#ts").val("");
+                            $("#tr").val("");
+                            $("#lb").val("");
+                            $("#tb").val("");
+
+                            $("#omsg").html("Bàn bạn đặt đã được thêm vào giỏ hàng");
+                            $("#omsg").css("color", "green");
+                            $("#tb").html("");
+                        }
+                        
+                    }
+
+                },
+                error: function () {
+                    alert("Phải nhập đầy đủ thông tin order");
+                }
+            });
+            
+        })
         // endtrong
     </script>
 </body>
