@@ -148,6 +148,7 @@ public partial class Tranchu : System.Web.UI.Page
                 }
                 else
                 {
+                    
                     if (TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
                     {
                         return "thời gian đặt và trả không hợp lệ";

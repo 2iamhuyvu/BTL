@@ -23,6 +23,13 @@
                         <asp:RequiredFieldValidator ID="reNameTable" runat="server" ErrorMessage="The field is required" ControlToValidate="txtnametb" Display="Dynamic" ForeColor="Red" />
                         
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="example-text-input" class="col-form-label">Mô Tả Table<label style="color: red">(*)</label></label>
+                        <asp:TextBox runat="server" ID="txtmota"  CssClass="form-control" /> 
+                        <asp:RequiredFieldValidator ID="remotaa" runat="server" ErrorMessage="The field is required" ControlToValidate="txtmota" Display="Dynamic" ForeColor="Red" />
+                        
+                    </div>
                     <div class="form-group">
                         <label for="example-text-input" class="col-form-label">Trạng thái bàn<label style="color: red">(*)</label></label>
                         <br />
@@ -30,12 +37,6 @@
                         <br />
                         <input type="radio" name="tt" value="chưa được đặt" runat="server" id="rdocdd"/> Bàn chưa được đặt
                         
-                        
-                    </div>
-                    <div class="form-group">
-                        <label for="example-text-input" class="col-form-label">Mô Tả Table<label style="color: red">(*)</label></label>
-                        <asp:TextBox runat="server" ID="txtmota"  CssClass="form-control" /> 
-                        <asp:RequiredFieldValidator ID="remotaa" runat="server" ErrorMessage="The field is required" ControlToValidate="txtmota" Display="Dynamic" ForeColor="Red" />
                         
                     </div>
 
