@@ -12,8 +12,8 @@ using System.Data.Odbc;
 public class DataUtil
 {
     SqlConnection con;
-    string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
-    //string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";        
+    //string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
     public DataUtil()
     {
         con = new SqlConnection(sqlcon);
@@ -251,6 +251,18 @@ public class DataUtil
         con.Close();
     }
 
+    public void UpdatePassUserByEmail(string pass,string email)
+    {
+        string sql = "update Member set member_password=@password where member_mail=@mail";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sql, con);
+        cmd.Parameters.AddWithValue("password", pass);
+        cmd.Parameters.AddWithValue("mail", email);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
 
 
     public bool CheckLogin(string username, string password, int type)
@@ -283,6 +295,24 @@ public class DataUtil
         cmd.Parameters.AddWithValue("username", username);
         cmd.Parameters.AddWithValue("mail", mail);
         cmd.Parameters.AddWithValue("phone", phone);
+
+        Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+        con.Close();
+
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
+
+
+    public bool CheckMail(string mail)
+    {
+        string sql = "select * from Member where member_mail = @mail";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sql, con);
+
+        cmd.Parameters.AddWithValue("mail", mail);
 
         Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
         con.Close();

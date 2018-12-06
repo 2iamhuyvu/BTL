@@ -47,7 +47,7 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            var listTable = new DataUtil().dsTable();
+                                            var listTable = new DataUtil().dsTableNull();
                                             foreach (var tb in listTable)
                                             {
                                                 Response.Write("<tr role=row class=odd>");

@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="Client_Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ForgotPassword.aspx.cs" Inherits="Client_ForgotPassword" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>DDHT || SIGN IN</title>
+    <title>DDHT || Forgot password</title>
     <base href="../Assets/AssetsAdmin/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="images/icon/favicon.ico">
@@ -29,7 +29,7 @@
 
     <link href="/Assets/css/StyleCustom.css" rel="stylesheet" />
 </head>
-<body data-spy="scroll" data-target="#site-navbar" data-offset="5">
+<body>
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark site_navbar bg-dark site-navbar-light login-page" id="site-navbar">
             <div class="container">
@@ -40,42 +40,36 @@
     <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
-                <form id="form1" runat="server" action="/Client/Login.aspx">
+                <form runat="server" action="/Client/ForgotPassword.aspx">
                     <div class="login-form-head">
-                        <h4>Sign In</h4>
-                        <p>Hello there, Sign in and start using website</p>
+                        <h4>Forgot Password</h4>
+                        <p>Hey! Forgot Password Your Password ? Reset Now</p>
                     </div>
                     <div class="login-form-body">
                         <div class="form-gp">
-                            <label for="txtusername">Email or Username</label>
-                            <asp:TextBox runat="server" ID="txtusername" CssClass="form-control" Text="" />
-                            <i class="ti-email"></i>
+                            <asp:Label ID="msg" runat="server" />
                         </div>
                         <div class="form-gp">
-                            <label for="txtpassword">Password</label>
-                            <asp:TextBox runat="server" ID="txtpassword" CssClass="form-control" TextMode="Password" />
-                            <i class="ti-lock"></i>
+                            <label for="exampleInputEmail1">Email</label>
+                            <asp:TextBox runat="server" ID="txtemail" />
+                            <i class="ti-email"></i>
+                        </div>
+                        <div class="submit-btn-area mt-5">
+                            <asp:Button CssClass="btn btn-primary" runat="server" ID="btnReset" Text="RESET" OnClick="btnReset_Click" />
                         </div>
                         <div class="row mb-4 rmber-area">
                             <div class="col-6">
                             </div>
                             <div class="col-6 text-right">
-                                <a href="/Client/ForgotPassword.aspx">Forgot Password?</a>
+                                <a href="/Client/Login.aspx">Reset done? Let Login</a>
                             </div>
                         </div>
-                        <div class="submit-btn-area">
-                            <asp:Button CssClass="btn btn-primary" runat="server" ID="btnLogin" Text="SIGN IN" OnClick="btnLogin_Click"/>
-                        </div>
-                        <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Don't have an account? <a href="/Client/Register.aspx">Sign up</a></p>
-                        </div>
+
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- login area end -->
-
     <!-- jquery latest version -->
     <script src="js/vendor/jquery-2.2.4.min.js"></script>
     <!-- bootstrap 4 js -->
