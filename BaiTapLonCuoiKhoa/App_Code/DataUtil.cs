@@ -13,11 +13,9 @@ public class DataUtil
 {
     SqlConnection con;
     //string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
-<<<<<<< HEAD
-    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
-=======
+
     string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";        
->>>>>>> f01479ebb983aa56c7ff7c3ba4910187853bafd9
+
     public DataUtil()
     {
         con = new SqlConnection(sqlcon);
