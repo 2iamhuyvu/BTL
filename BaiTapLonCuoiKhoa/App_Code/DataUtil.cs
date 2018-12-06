@@ -13,7 +13,11 @@ public class DataUtil
 {
     SqlConnection con;
     //string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+<<<<<<< HEAD
     string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+=======
+    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";        
+>>>>>>> f01479ebb983aa56c7ff7c3ba4910187853bafd9
     public DataUtil()
     {
         con = new SqlConnection(sqlcon);
@@ -40,11 +44,33 @@ public class DataUtil
         con.Close();
         return listTable;
     }
+    public List<table> dsTable()
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+
 
 
     public void AddTable(table tb)
     {
-        string sqladdtb = "insert into qlTable values(@nametb,@mota)";
+        string sqladdtb = "insert into qlTable values(@nametb,"+0+",@mota)";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqladdtb, con);
         cmd.Parameters.AddWithValue("nametb", tb.table_name);
@@ -77,7 +103,7 @@ public class DataUtil
             tb = new table();
             tb.table_id = (int)dr["table_id"];
             tb.table_name = (string)dr["table_name"];
-            //tb.table_status = (bool)dr["table_status"];
+            tb.table_status = (bool)dr["table_status"];
             tb.table_description = (int)dr["table_description"];
 
 
@@ -88,11 +114,11 @@ public class DataUtil
     }
     public void suatb(table tb)
     {
-        string sqlsuqtb = "update  qlTable set table_name=@table_name,table_description=@table_description where table_id=@table_id";
+        string sqlsuqtb = "update  qlTable set table_name=@table_name,table_status=@table_status,table_description=@table_description where table_id=@table_id";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlsuqtb, con);
         cmd.Parameters.AddWithValue("table_name", tb.table_name);
-        //cmd.Parameters.AddWithValue("table_status", tb.table_status);
+        cmd.Parameters.AddWithValue("table_status", tb.table_status);
         cmd.Parameters.AddWithValue("table_description", tb.table_description);
         cmd.Parameters.AddWithValue("table_id", tb.table_id);
 
@@ -1072,6 +1098,7 @@ public class DataUtil
         string sqlsuotb = "update  OrderTable set ordertable_iduser=@ordertable_iduser,ordertable_dateset=@ordertable_dateset,ordertable_timeset=@ordertable_timeset,ordertable_timereturn=@ordertable_timereturn,ordertable_idtable=@ordertable_idtable,ordertable_status=@ordertable_status where ordertable_id=@ordertable_id";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlsuotb, con);
+        
         cmd.Parameters.AddWithValue("ordertable_iduser", otb.ordertable_iduser);
         cmd.Parameters.AddWithValue("ordertable_dateset", otb.ordertable_dateset);
         cmd.Parameters.AddWithValue("ordertable_timeset", otb.ordertable_timeset);
@@ -1099,6 +1126,34 @@ public class DataUtil
             tb.ordertable_timeset = (TimeSpan)dr["ordertable_timeset"];
             tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
             tb.ordertable_idtable = (int)dr["ordertable_idtable"];
+            tb.ordertable_status = (bool)dr["ordertable_status"];
+
+
+
+
+            listOrderTable.Add(tb);
+
+        }
+        con.Close();
+        return listOrderTable;
+    }
+    public List<OrderTable> dsOrderTableMa(int ma)
+    {
+        List<OrderTable> listOrderTable = new List<OrderTable>();
+        string sqlslOrderTable = "select * from OrderTable where ordertable_idtable=@ma ";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslOrderTable, con);
+        cmd.Parameters.AddWithValue("ma", ma);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            OrderTable tb = new OrderTable();
+            tb.ordertable_id = (int)dr["ordertable_id"];
+            tb.ordertable_iduser = (int)dr["ordertable_iduser"];
+            tb.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+            tb.ordertable_timeset = (TimeSpan)dr["ordertable_timeset"];
+            tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
+            //tb.ordertable_idtable = (int)dr["ordertable_idtable"];
             tb.ordertable_status = (bool)dr["ordertable_status"];
 
 
