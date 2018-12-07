@@ -74,7 +74,6 @@
                     <div class="form-group">
                         <label for="example-tel-input" class="col-form-label">
                             Avatar
-                            <%--<label style="color: red">(*)</label>--%>
                         </label>
                         <div class="avatarDiv">
                             <input id="oFile" type="file" runat="server" name="oFile" />

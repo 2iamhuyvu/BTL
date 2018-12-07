@@ -26,6 +26,7 @@ public partial class Admin_QlMembers_UpdateMember : System.Web.UI.Page
             txtusername.Text = member.member_username;
             ddltype.SelectedValue = member.member_type.ToString();
             ddlstatus.SelectedValue = member.member_status.ToString();
+            avatarUpdate.Attributes["src"] = member.member_avatar;
         }
     }
 
@@ -33,7 +34,7 @@ public partial class Admin_QlMembers_UpdateMember : System.Web.UI.Page
     {
         try
         {
-
+            HttpPostedFile file = Request.Files["oFile"];
             var user = new Member()
             {
                 member_fullname = txtfullname.Text,

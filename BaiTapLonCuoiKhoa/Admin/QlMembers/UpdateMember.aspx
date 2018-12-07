@@ -9,7 +9,7 @@
     <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
-                <form id="formupdateuser" runat="server" action="/Admin/QlMembers/UpdateMember.aspx">
+                <form id="formupdateuser" runat="server" action="/Admin/QlMembers/UpdateMember.aspx" enctype="multipart/form-data">
                     <h4 class="header-title">Update user </h4>
                     <asp:Label ID="msg" runat="server" />
                     <div class="form-group">
@@ -40,6 +40,15 @@
                         <asp:TextBox runat="server" ID="txtphone" placeholder="Example: 0336515294" CssClass="form-control" TextMode="Phone" />
                         <asp:RegularExpressionValidator ID="regphone" runat="server" ErrorMessage="Username in the range of 9 to 11 numbers" Display="Dynamic" ControlToValidate="txtphone" ForeColor="Red" ValidationExpression=".{9,11}" />
                         <asp:RequiredFieldValidator ID="rephone" runat="server" ErrorMessage="The field is required" Display="Dynamic" ControlToValidate="txtphone" ForeColor="Red" />
+                    </div>
+                    <div class="form-group">
+                        <label for="example-tel-input" class="col-form-label">
+                            Avatar
+                        </label>
+                        <div class="avatarDiv">
+                            <input id="myFile" type="file" runat="server" name="myFile" />
+                            <img src="" alt="Alternate Text" id="avatarUpdate" runat="server" class="avatarCss" />
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Type</label>

@@ -133,7 +133,7 @@ public class DataUtil
     public List<Member> GetListMembers()
     {
         List<Member> listMember = new List<Member>();
-        string sqlslTable = "select * from Member";
+        string sqlslTable = "SELECT * FROM MEMBER;";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlslTable, con);
         SqlDataReader dr = cmd.ExecuteReader();
