@@ -1192,13 +1192,16 @@
         $("#ts").change(function () {
             $("#tr").val("");
             $("#lb").val("");
+            
+            var ts = $("#ts").val();
+            
             var ds = $("#ds").val();
             $("#omsg").css("color", "red");
             //alert(ds);
             $.ajax({
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
-                data: "{'ds':'" + ds + "'}",
+                data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {

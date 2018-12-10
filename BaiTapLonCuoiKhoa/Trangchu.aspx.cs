@@ -78,7 +78,7 @@ public partial class Tranchu : System.Web.UI.Page
         
     }
     [WebMethod(EnableSession = true)]
-    public static string ckeds(string ds)
+    public static string ckeds(string ds ,string ts)
     {
         if (ds == "")
         {
@@ -87,6 +87,21 @@ public partial class Tranchu : System.Web.UI.Page
         }
         else
         {
+            DateTime tn = DateTime.Now.Date;
+            var todn = DateTime.Now.TimeOfDay;
+            TimeSpan tso = TimeSpan.Parse(ts);
+            DateTime to = DateTime.Parse(ds).Date;
+            if (tn == to)
+            {
+                if (TimeSpan.Compare(tso,todn)<0)
+                {
+                    return "thời gian đặt không hợp lệ";
+                }
+                else
+                {
+                    return "";
+                }
+            }
             return "";
         }
         
@@ -97,9 +112,10 @@ public partial class Tranchu : System.Web.UI.Page
     public static string ckd(string ds,string ts, string tr)
     {
 
-        var tn = DateTime.Now;
-        var to = DateTime.Parse(ds);
-        if (tn > to)
+        DateTime tn = DateTime.Now.Date;
+        
+        DateTime to = DateTime.Parse(ds).Date;
+        if (tn>to)
         {
             return "ngày chọn không hợp lệ";
         }
@@ -190,16 +206,26 @@ public partial class Tranchu : System.Web.UI.Page
         }
         else
         {
-            var tn = DateTime.Now;
-            var to = DateTime.Parse(ds);
-            if (tn > to || TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
+            DateTime tn = DateTime.Now.Date;
+            var todn = DateTime.Now.TimeOfDay;
+            TimeSpan tso = TimeSpan.Parse(ts);
+            DateTime to = DateTime.Parse(ds).Date;
+            if (tn==to && (TimeSpan.Compare(tso, todn) < 0))
             {
                 return "1";
             }
             else
             {
-                return "true";
+                if (tn > to || TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
+                {
+                    return "1";
+                }
+                else
+                {
+                    return "true";
+                }
             }
+            
         }
 
     }
