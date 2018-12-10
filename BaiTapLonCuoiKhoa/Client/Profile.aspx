@@ -49,6 +49,7 @@
                                     <h3 class="panel-title">Profile</h3>
                                 </div>
                                 <div class="panel-body">
+                                    <asp:Label ID="msg" runat="server" />
                                     <div class="row">
                                         <div class="col-md-3 col-lg-3 " style="text-align: center;">
                                             <asp:Image runat="server" CssClass="img-circle img-responsive" ID="avatarImage" />

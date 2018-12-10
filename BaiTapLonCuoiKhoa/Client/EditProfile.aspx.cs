@@ -46,7 +46,6 @@ public partial class Client_EditProfile : System.Web.UI.Page
     {
         try
         {
-            var pic = Request.Files["oFile"];
             string avatar = "";
             var member = (Member)Session["User"];
             if (Page.IsValid && FileUpload.HasFile)

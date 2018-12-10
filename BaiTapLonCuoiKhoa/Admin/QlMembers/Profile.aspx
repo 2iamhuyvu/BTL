@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPageAdmin.master" AutoEventWireup="true" CodeFile="Profile.aspx.cs" Inherits="Admin_QlMembers_Profile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="titleAdmin" runat="Server">
+    DDHT || Profile
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="LinkPageAdmin" runat="Server">
 </asp:Content>
@@ -13,7 +14,8 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Profile</h3>
                         </div>
-                        <div class="panel-body">
+                        <asp:Label runat="server" ID="msg" />
+                        <div class="panel-body" style="padding-top: 10px;">
                             <div class="row">
                                 <div class="col-md-3 col-lg-3 " style="text-align: center;">
                                     <asp:Image runat="server" CssClass="img-circle img-responsive" ID="avatarImage" />
