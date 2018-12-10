@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPageAdmin.master" AutoEventWireup="true" CodeFile="UpdateMember.aspx.cs" Inherits="Admin_QlMembers_UpdateMember" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPageAdmin.master" AutoEventWireup="true" CodeFile="UpdateProfile.aspx.cs" Inherits="Admin_QlMembers_UpdateProfile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="titleAdmin" runat="Server">
-    DDTH || Update user
+    DDHT || Update profile
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="LinkPageAdmin" runat="Server">
 </asp:Content>
@@ -9,7 +9,7 @@
     <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title">Update user </h4>
+                <h4 class="header-title">Update profile </h4>
                 <asp:Label ID="msg" runat="server" />
                 <div class="form-group">
                     <label for="example-search-input" class="col-form-label">
@@ -36,8 +36,8 @@
                     <label for="example-tel-input" class="col-form-label">
                         Telephone
                             <label style="color: red">(*)</label></label>
-                    <asp:TextBox runat="server" ID="txtphone" placeholder="Example: 0336515294" CssClass="form-control" TextMode="Phone" />
-                    <asp:RegularExpressionValidator ID="regphone" runat="server" ErrorMessage="Username in the range of 9 to 11 numbers" Display="Dynamic" ControlToValidate="txtphone" ForeColor="Red" ValidationExpression=".{9,11}" />
+                    <asp:TextBox runat="server" ID="txtphone" placeholder="Example: 0336515294" CssClass="form-control" TextMode="Number" />
+                    <asp:RegularExpressionValidator ID="regphone" runat="server" ErrorMessage="Phone in the range of 9 to 11 numbers" Display="Dynamic" ControlToValidate="txtphone" ForeColor="Red" ValidationExpression=".{9,11}" />
                     <asp:RequiredFieldValidator ID="rephone" runat="server" ErrorMessage="The field is required" Display="Dynamic" ControlToValidate="txtphone" ForeColor="Red" />
                 </div>
                 <div class="form-group">
@@ -45,26 +45,15 @@
                         Avatar
                     </label>
                     <div class="avatarDiv">
-                        <asp:FileUpload ID="FileUpload" runat="server" />
-                        <img src="" alt="Alternate Text" id="avatarUpdate" runat="server" class="avatarCss" style="width: 95px; height: 150px;"/>
+                        <asp:FileUpload ID="FileUpload" runat="server"/>
+                        <img src="" alt="Alternate Text" id="avatarUpdate" runat="server" class="avatarCss" style="width: 95px; height: 150px; margin: 10px;" />
+                        <div class="abc"></div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label">Type</label>
-                    <asp:DropDownList ID="ddltype" runat="server" CssClass="form-control">
-                        <asp:ListItem Enabled="true" Text="Member" Value="0"></asp:ListItem>
-                        <asp:ListItem Text="Admin" Value="1"></asp:ListItem>
-                    </asp:DropDownList>
+                    <asp:Button CssClass="btn btn-primary mt-4 pr-4 pl-4" runat="server" ID="btnUpdate" Text="UPDATE" OnClick="btnUpdate_Click" />
+
                 </div>
-                <div class="form-group">
-                    <label class="col-form-label">Status</label>
-                    <asp:DropDownList ID="ddlstatus" runat="server" CssClass="form-control">
-                        <asp:ListItem Enabled="true" Text="Active" Value="0"></asp:ListItem>
-                        <asp:ListItem Text="Stop" Value="1"></asp:ListItem>
-                        <asp:ListItem Text="Locked" Value="2"></asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-                <asp:Button CssClass="btn btn-primary mt-4 pr-4 pl-4" runat="server" ID="btnUpdate" Text="UPDATE" OnClick="btnUpdate_Click" />
             </div>
         </div>
     </div>

@@ -78,7 +78,7 @@
                                                 {
                                                     Response.Write("<td>Tráng miệng</td>");
                                                 }
-                                                Response.Write("<td><a href='javascript:void(0)' onclick='funcXoa("+f.food_id+")'>Xóa</a> | <a href='Admin/QFood/EditFood.aspx?IdFood="+f.food_id+"'>Sửa</a></td>");
+                                                Response.Write("<td><a href='javascript:void(0)' onclick='funcXoa("+f.food_id+")'>Xóa</a> | <a href='/Admin/QFood/EditFood.aspx?IdFood="+f.food_id+"'>Sửa</a></td>");
 
                                                 Response.Write("</tr>");
 
