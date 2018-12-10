@@ -1320,6 +1320,7 @@
             });
             
         })
+		// DeMO DUC
         //demo1
         // endtrong
     </script>
