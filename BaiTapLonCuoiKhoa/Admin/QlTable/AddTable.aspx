@@ -26,9 +26,12 @@
                 </div>
 
                 <asp:Button CssClass="btn btn-primary mt-4 pr-4 pl-4" runat="server" ID="btnsubmit" Text="ADD" OnClick="btnsubmit_Click" />
+                
+                
             </div>
-
+            <a  href="ListTable.aspx" style="text-align:center; font-size:30px; padding-bottom:10px;">List Table</a>
         </div>
     </div>
+    
 </asp:Content>
 

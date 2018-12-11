@@ -48,6 +48,7 @@
 
                 <br />
             </div>
+            <a  href="ListTable.aspx" style="text-align:center; font-size:30px; padding-bottom:10px;">List Table</a>
             <%--<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="listtb" >Danh sách bàn</button>--%>
         </div>
     </div>

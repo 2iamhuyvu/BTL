@@ -27,7 +27,20 @@
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="dataTable3_filter" class="dataTables_filter">
-                                    <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable3"></label>
+                                    <label>Ngày đặt bàn:
+                                        <select name="" id="n" class="form-control" onchange="slotbn()">
+                                            <option>ALL</option>
+                                        <%
+                                                        var listngay = new DataUtil().dsngay();
+                                            
+                                                        foreach (var tb in listngay)
+                                                        {
+                                                            Response.Write("<option >" + tb.ordertable_dateset.ToString("yyyy-MM-dd") + "</option>");
+
+                                                        }
+                                         %>
+                                         </select>   
+                                            </label>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +63,7 @@
                                             <%--<th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 77px;" aria-label="salary: activate to sort column ascending">salary</th>--%>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbn">
                                         <%
                                             var listOrderTable = new DataUtil().dsOrderTable();
                                             foreach (var tb in listOrderTable)
@@ -208,16 +221,34 @@
                 $.ajax({
                     type: "POST",
                     url: "/Admin/QlOrderTable/ListOrderTable.aspx/XoaTable",
-                    data: "{idtable:"+id+"}",
+                    data: "{idtable:" + id + "}",
                     contentType: "application/json; charset=utf-8",
                     //dataType: "json",
                     success: function (msg) {
                         alert(msg.d);
-                        location.reload(); 
+                        location.reload();
                     }
                 });
             }
-        }
+        };
+        function slotbn() {
+            var n = $("#n").val();
+            //alert(lb);
+            $.ajax({
+                type: "post",
+                url: "/Admin/QlOrderTable/ListOrderTable.aspx/slotable",
+                data: "{'n':'" + n + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (dt) {
+                    //alert(dt.d);
+                    $("#tbn").html(dt.d);
+                },
+                error: function () {
+                    alert("loi");
+                }
+            });
+        };
      </script>
 </asp:Content>
 

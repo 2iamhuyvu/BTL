@@ -27,7 +27,20 @@
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="dataTable3_filter" class="dataTables_filter">
-                                    <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable3"></label>
+                                    <label>Loại Bàn:
+                                        <select name="" id="lb2" class="form-control" onchange="sltbl()">
+                                            <option>ALL</option>
+                                        <%
+                                                        var listLTable = new DataUtil().dslb();
+                                            
+                                                        foreach (var tb in listLTable)
+                                                        {
+                                                            Response.Write("<option >" + tb.table_description + "</option>");
+
+                                                        }
+                                         %>
+                                         </select>   
+                                            </label>
                                 </div>
                             </div>
                         </div>
@@ -46,8 +59,9 @@
                                             <%--<th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 77px;" aria-label="salary: activate to sort column ascending">salary</th>--%>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <%
+                                    <tbody id="tbl" >
+                                        
+                                            <%
                                             var listTable = new DataUtil().dsTable();
                                             foreach (var tb in listTable)
                                             {
@@ -73,6 +87,8 @@
                                                
                                             }
                                         %>
+                                        
+                                        
                                        <%-- <tr role="row" class="odd">
                                             <td tabindex="0" class="sorting_1">Airi Satou</td>
                                             <td>Accountant</td>
@@ -177,7 +193,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="text/javascript">
         function funcXoa(id) {
             var kq = confirm("Bạn có muỗn xóa không")
             if (kq) {
@@ -194,7 +210,31 @@
                 });
 
             }
-        }
+        };
+        
+        function sltbl () {
+            var lb = $("#lb2").val();
+            //alert(lb);
+
+            
+            $.ajax({
+                type: "post",
+                url: "/admin/qltable/listtable.aspx/sltable",
+                data: "{'lb':'" + lb + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (dt) {
+                    //alert(dt.d);
+                    $("#tbl").html(dt.d);
+
+                },
+                error: function () {
+                    alert("loi");
+                }
+            });
+        };
+
+        
 
     </script>
 </asp:Content>
