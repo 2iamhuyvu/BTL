@@ -78,6 +78,15 @@
                                         </ul>
                                     </li>
 
+                                    <li>
+                                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-users"></i>
+                                            <span>FoodType</span></a>
+                                        <ul class="collapse">
+                                            <li><a href="/Admin/QFoodType/ListFoodType.aspx">List FoodType</a></li>
+                                            <li><a href="/Admin/QFoodType/AddFoodType.aspx">Add FoodType</a></li>
+                                        </ul>
+                                    </li>
+
 
                                     <li>
                                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-birthday-cake"></i>
@@ -216,7 +225,9 @@
                 </footer>
                 <!-- footer area end-->
             </div>
+
         </form>
+
         <!-- page container area end -->
         <!-- offset area start -->
 

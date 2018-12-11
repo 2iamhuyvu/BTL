@@ -386,6 +386,7 @@ public class DataUtil
         con.Close();
         return li;
     }
+
     public void DeleteFood(int idFood)
     {
         string strSql = "delete from Food where food_id=@idFood";
@@ -483,11 +484,123 @@ public class DataUtil
         con.Close();
     }
 
-    // Select theo THẺ lOẠI MÓN ĂN
-    public List<Food> getListFoodDiscount(int foodtype_id)
+    //FOOD_TYPE
+    public void AddFoodType(FoodType ft)
+    {
+        string strSql = "insert into FoodType values(@name)";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("name", ft.foodtype_name);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    public FoodType get1FoodType(int foodtype_id)
+    {
+        List<FoodType> li_ft = new List<FoodType>();
+        string strSql = "select * from FoodType where foodtype_id=@id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("id", foodtype_id);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+
+        FoodType ft = new FoodType(); ;
+        while (dr.Read())
+        {
+            ft.foodtype_id = (int)dr["foodtype_id"];
+            ft.foodtype_name = (string)dr["foodtype_name"];
+        }
+        con.Close();
+        return ft;
+    }
+
+    public void EditFoodType(FoodType ft)
+    {
+        string strSql = "update FoodType set foodtype_name=@name where foodtype_id=@id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("name", ft.foodtype_name);
+        cmd.Parameters.AddWithValue("id", ft.foodtype_id);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    public void DeleteFoodType(int foodtype_id)
+    {
+        string strSql = "delete from Food where foodtype_id=@id delete from FoodType where foodtype_id=@id ";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("id", foodtype_id);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    // Client
+    public List<Food> getListFoodDiscount()
+    {
+        List<Food> li = new List<Food>();
+        string strSql = "select * from Food where food_sale > 0";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            li.Add(f);
+        }
+        con.Close();
+        return li;
+    }
+    public List<Food> getNewListFood()
+    {
+        List<Food> li = new List<Food>();
+        string strSql = "SELECT * FROM Food ORDER BY food_id DESC";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            li.Add(f);
+        }
+        con.Close();
+        return li;
+    }
+    public List<Food> getList_FoodLimit6()
     {
         List<Food> liFoDiscount = new List<Food>();
-        string strSql = "select * from Food where foodtype_id=@foodtype_id";
+        string strSql = "SELECT TOP 6 * FROM Food";
         con.Open();
 
         SqlCommand cmd = new SqlCommand(strSql, con);
@@ -507,6 +620,97 @@ public class DataUtil
         }
         con.Close();
         return liFoDiscount;
+    }
+    // Select theo THẺ lOẠI MÓN ĂN
+
+    //public void DeleteFood(int idFood)
+    //{
+    //    string strSql = "delete from Food where food_id=@idFood";
+    //    con.Open();
+    //    SqlCommand cmd = new SqlCommand(strSql, con);
+
+    //    cmd.Parameters.AddWithValue("idFood", idFood);
+    //    cmd.ExecuteNonQuery();
+
+    //    con.Close();
+    //}
+
+    public List<Food> getListFood_FoodType(int foodtype_id)
+    {
+        List<Food> liFoDiscount = new List<Food>();
+        string strSql = "select * from Food where foodtype_id=@foodtype_id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("foodtype_id", foodtype_id);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            liFoDiscount.Add(f);
+        }
+        con.Close();
+        return liFoDiscount;
+    }
+    public List<Food> getListFood_Search(string key)
+    {
+        List<Food> liF = new List<Food>();
+        string strSql = "SELECT * FROM Food where food_name LIKE '%'+@SearchText+'%'";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("SearchText", key);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            liF.Add(f);
+        }
+        con.Close();
+        return liF;
+    }
+
+    public List<FoodType> getListFood_SearchFType(string key)
+    {
+        List<FoodType> liF = new List<FoodType>();
+        string strSql = "SELECT * FROM FoodType where foodtype_name LIKE '%'+@SearchText+'%'";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("SearchText", key);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            FoodType f = new FoodType();
+            f.foodtype_id = (int)dr["foodtype_id"];
+            f.foodtype_name = (string)dr["foodtype_name"];
+
+            liF.Add(f);
+        }
+        con.Close();
+        return liF;
     }
     #endregion
 

@@ -12,12 +12,8 @@ public partial class Admin_QFood_EditFood : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-
             ShowInfoFood();
-            
         }
-        
-
     }
 
     private void ShowInfoFood()
@@ -32,7 +28,11 @@ public partial class Admin_QFood_EditFood : System.Web.UI.Page
             txtName.Text = food.food_name;
             txtGia.Text = food.food_price.ToString();
             txtKhuyenmai.Text = food.food_sale.ToString();
-            txtAvt.Text = food.food_avatar;
+
+            //ImageEdit = "03122018_105525_SA_huong duong.jpg";
+
+            ImageEdit.ImageUrl = food.food_avatar;
+
             txtMieuta.Text = food.food_description;
 
             ddlFoodTypeID.DataSource = data.getListFoodType();
@@ -51,26 +51,54 @@ public partial class Admin_QFood_EditFood : System.Web.UI.Page
     {
         try
         {
-            var food = new Food()
+
+            int id1 = Convert.ToInt16(Session["IdFood"]);
+            var food1 = data.get1Food(id1);
+
+            Food food = new Food();
+
+            food.food_name = txtName.Text;
+            food.food_price = double.Parse(txtGia.Text);
+            food.food_sale = int.Parse(txtKhuyenmai.Text);
+
+            if (Page.IsValid && FileUpload1.HasFile)
             {
-                food_name = txtName.Text,
-                food_price = double.Parse(txtGia.Text),
-                food_sale = int.Parse(txtKhuyenmai.Text),
-                food_avatar = txtAvt.Text,
-                food_description = txtMieuta.Text,
-                foodtype_id = Convert.ToInt16(ddlFoodTypeID.SelectedValue.ToString()), 
-                food_id = Convert.ToInt16(Session["IdFood"].ToString())
-            };
+                string fileName = "../../Assets/images/" + DateTime.Now.ToString("ddMMyyyy_hhmmss_tt_") + FileUpload1.FileName;
+                string filePath = MapPath(fileName);
+                FileUpload1.SaveAs(filePath);
+                //Image1.ImageUrl = fileName;
+                food.food_avatar = fileName;
+            }
+            else
+            {
+                food.food_avatar = food1.food_avatar;
+            }
+
+
+            //food.food_avatar = txtAvt.Text;
+            food.food_description = txtMieuta.Text;
+            food.foodtype_id = int.Parse(ddlFoodTypeID.SelectedValue.ToString());
+
+            food.food_id = int.Parse(Session["IdFood"].ToString());
+
             data.EditFood(food);
 
             msg.Text = "Update success!";
             msg.ForeColor = System.Drawing.Color.Green;
-           ShowInfoFood();
+            ShowInfoFood();
         }
         catch (Exception ex)
         {
             msg.Text = "Update Fail. Erorr: " + ex.Message + ". Let try!";
             msg.ForeColor = System.Drawing.Color.Red;
         }
+    }
+
+    protected void btnLammoi_Click(object sender, EventArgs e)
+    {
+        txtName.Text = "";
+        txtGia.Text = "";
+        txtKhuyenmai.Text = "";
+        txtMieuta.Text = "";
     }
 }

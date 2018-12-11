@@ -1,10 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPageAdmin.master" AutoEventWireup="true" CodeFile="ListFood.aspx.cs" Inherits="Admin_QFood_ListFood" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/MasterPageAdmin.master" AutoEventWireup="true" CodeFile="ListFoodType.aspx.cs" Inherits="Admin_QFoofType_ListFoodType" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="titleAdmin" Runat="Server">
-    Danh sách món ăn
+    Danh sách thể loại món ăn
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="LinkPageAdmin" Runat="Server">
-
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentRight" Runat="Server">
     <div class="col-12 mt-5">
@@ -15,7 +14,7 @@
                     <div id="dataTable3_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <%--<div class="dataTables_length" id="dataTable3_length">
+                                <div class="dataTables_length" id="dataTable3_length">
                                     <label>
                                         Show
                                         <select name="dataTable3_length" aria-controls="dataTable3" class="custom-select custom-select-sm form-control form-control-sm">
@@ -25,16 +24,17 @@
                                             <option value="100">100</option>
                                         </select>
                                         entries</label>
-                                </div>--%>
+                                </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="dataTable3_filter" class="dataTables_filter" style="line-height: 30px;">
                                     <label style="display: inline-flex;">
                                         Search:<form>
-                                                    <input type="text" id="txtkey" onchange="ABC()" class="form-control form-control-sm" placeholder="Search..." aria-controls="dataTable3">
+                                                    <input type="text" id="txtkey" onchange="ABCD()" class="form-control form-control-sm" placeholder="Search..." aria-controls="dataTable3">
                                                     <i class="ti-search" ></i>
                                                 </form>
                                     </label>
+
                                 </div>
                             </div>
                         </div>
@@ -45,39 +45,20 @@
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 226px;" aria-sort="ascending" aria-label="Fullname: activate to sort column descending">ID</th>
                                             <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 111px;" aria-label="Phone: activate to sort column ascending">Tên</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 94px;" aria-label="Mail: activate to sort column ascending">Giá (vnđ)</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 54px;" aria-label="Username: activate to sort column ascending">Giảm giá (%)</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 109px;" aria-label="Type Date: activate to sort column ascending">Ảnh</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 77px;" aria-label="salary: activate to sort column ascending">Miêu tả</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 109px;" aria-label="Type Date: activate to sort column ascending">Loại</th>
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 109px;" aria-label="Type Date: activate to sort column ascending"></th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable3" rowspan="1" colspan="1" style="width: 94px;" aria-label="Mail: activate to sort column ascending"></th>
+                                            
                                         </tr>
                                     </thead>
-                                    <tbody id="cud1">
+                                    <tbody  id="cud1">
                                         <%
-                                            var listFoods = new DataUtil().getListFood();
-                                            foreach (var f in listFoods)
+                                            var listFoodType = new DataUtil().getListFoodType();
+                                            foreach (var ft in listFoodType)
                                             {
                                                 Response.Write("<tr role=row class=odd>");
-                                                Response.Write("<td tabindex=0  class=sorting_1>" + f.food_id + "</td>");
-                                                Response.Write("<td>" + f.food_name + "</td>");
-                                                Response.Write("<td>" + f.food_price + "</td>");
-                                                Response.Write("<td>" + f.food_sale + "</td>");
-                                                Response.Write("<td><img  src='../../Assets/images/"+f.food_avatar+"' height='100' width='100' /></td>");
-                                                Response.Write("<td>" + f.food_description + "</td>");
-                                                if (f.foodtype_id == 1)
-                                                {
-                                                    Response.Write("<td>Hải sản</td>");
-                                                }
-                                                else if(f.foodtype_id == 2)
-                                                {
-                                                    Response.Write("<td>Đặc sản</td>");
-                                                }
-                                                else
-                                                {
-                                                    Response.Write("<td>Tráng miệng</td>");
-                                                }
-                                                Response.Write("<td><a href='javascript:void(0)' onclick='funcXoa("+f.food_id+")'>Xóa</a> | <a href='/Admin/QFood/EditFood.aspx?IdFood="+f.food_id+"'>Sửa</a></td>");
+                                                Response.Write("<td tabindex=0  class=sorting_1>" + ft.foodtype_id + "</td>");
+                                                Response.Write("<td>" + ft.foodtype_name + "</td>");
+
+                                                Response.Write("<td><a href='javascript:void(0)' onclick='funcXoa("+ft.foodtype_id+")' >Xóa</a> | <a href='/Admin/QFoodType/EditFoodType.aspx?IdFoodType="+ft.foodtype_id+"'>Sửa</a></td>");
 
                                                 Response.Write("</tr>");
 
@@ -113,29 +94,28 @@
     </div>
     <script>
         function funcXoa(id) {
-            var kt = confirm("Bạn chắc chắn xóa chứ ?")
+            var kt = confirm("Bạn có chắc muốn xóa không?");
             if (kt) {
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/QFood/ListFood.aspx/XoaFood",
-                    data: "{idFood:"+id+"}",
+                    url: "/Admin/QFoodType/ListFoodType.aspx/XoaFoodType",
+                    data: "{IdFoodType:" + id + "}",
                     contentType: "application/json; charset=utf-8",
                     //dataType: "json",
                     success: function (msg) {
                         alert(msg.d);
-                        location.reload(); 
+                        location.reload();
                     }
                 });
             }
         }
 
-        function ABC() {
-
+        function ABCD() {
             $.ajax({
 
                 type: "POST",
                 data: "{'keywords':'" + $("#txtkey").val() + "'}",
-                url: "/Admin/QFood/ListFood.aspx/TimKiem",
+                url: "/Admin/QFoodType/ListFoodType.aspx/TimKiemFType",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
 
@@ -145,42 +125,19 @@
                     var f = data.d;
 
                     var html = '';
-                    //var h = '';
-                    //$("#txtkey").value() = $("#txtkey").val();
+
                     $.each(f, function (index, item) {
-
-                        item.h = '';
-                        if (item.food_id == 1)
-                        {
-                            item.h = 'Hải sản';
-                        }
-                        else if (item.food_id == 2)
-                        {
-                            item.h = `Đặc sản`
-                        }
-                        else
-                        {
-                            item.h = `Tráng miệng`
-                        }
-
-                        //alert(h);
 
                         html += `
 
                             <tr role=row class ="odd">
-	                            <td tabindex=0  class ="sorting_1">${item.food_id}</td>
-	                            <td>${item.food_name}</td>
-	                            <td>${item.food_price}</td>
-	                            <td>${item.food_sale}</td>
-	                            <td><img  src='../../Assets/images/${item.food_avatar}' height='100' width='100' /></td>
-	                            <td>${item.food_description}</td>
+	                            <td tabindex=0  class ="sorting_1">${item.foodtype_id}</td>
+	                            <td>${item.foodtype_name}</td>
 
-                                <td>${item.h}</td>
-
-	                            <td><a href='javascript:void(0)' onclick='funcXoa(${item.food_id})'>Xóa</a> | <a href='Admin/QFood/EditFood.aspx?IdFood=${item.food_id}'>Sửa</a></td>");
+	                            <td><a href='javascript:void(0)' onclick='funcXoa(${item.foodtype_id})'>Xóa</a> | <a href='Admin/QFoodType/EditFoodType.aspx?IdFoodType=${item.foodtype_id}'>Sửa</a></td>");
 
                             </tr>
-                    `
+                        `
                     });
                     $("#cud2").html(html);
                     $("#cud1").hide();
@@ -189,8 +146,6 @@
             });
 
         };
-
-       
-     </script>
+    </script>
 </asp:Content>
 
