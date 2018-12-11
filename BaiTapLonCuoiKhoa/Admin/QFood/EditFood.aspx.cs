@@ -33,6 +33,7 @@ public partial class Admin_QFood_EditFood : System.Web.UI.Page
 
             ImageEdit.ImageUrl = food.food_avatar;
 
+            //txtAvt.Text = food.food_avatar;
             txtMieuta.Text = food.food_description;
 
             ddlFoodTypeID.DataSource = data.getListFoodType();
@@ -75,16 +76,27 @@ public partial class Admin_QFood_EditFood : System.Web.UI.Page
             }
 
 
-            //food.food_avatar = txtAvt.Text;
+            ////food.food_avatar = txtAvt.Text;
             food.food_description = txtMieuta.Text;
             food.foodtype_id = int.Parse(ddlFoodTypeID.SelectedValue.ToString());
 
             food.food_id = int.Parse(Session["IdFood"].ToString());
 
+            //var food = new Food()
+            //{
+            //    food_name = txtName.Text,
+            //    food_price = double.Parse(txtGia.Text),
+            //    food_sale = int.Parse(txtKhuyenmai.Text),
+            //    food_avatar = txtAvt.Text,
+            //    food_description = txtMieuta.Text,
+            //    foodtype_id = Convert.ToInt16(ddlFoodTypeID.SelectedValue.ToString()),
+            //    food_id = Convert.ToInt16(Session["IdFood"].ToString())
+            //};
             data.EditFood(food);
 
             msg.Text = "Update success!";
             msg.ForeColor = System.Drawing.Color.Green;
+            ShowInfoFood();
             ShowInfoFood();
         }
         catch (Exception ex)

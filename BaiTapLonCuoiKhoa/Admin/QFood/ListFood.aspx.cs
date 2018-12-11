@@ -11,10 +11,10 @@ public partial class Admin_QFood_ListFood : System.Web.UI.Page
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!IsPostBack)
-        //{
-        //    List<Food> getListMembers = data.getListFood();
-        //}
+        if (!IsPostBack)
+        {
+            List<Food> getListMembers = data.getListFood();
+        }
     }
 
     [WebMethod]

@@ -7,7 +7,11 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentRight" Runat="Server">
         <div class="col-12 mt-5">
         <div class="card">
+<<<<<<< HEAD
             
+=======
+            <form action="/Admin/QLOrderTable/UpdateOrderTable.aspx" runat="server">
+>>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
                 <div class="card-body">
                     <h4 class="header-title">Update this OrderTable </h4>
                     <asp:Label ID="mss" runat="server" />
@@ -69,7 +73,11 @@
                     <br />
                 </div>
                 <%--<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="listtb" >Danh sách bàn</button>--%>
+<<<<<<< HEAD
            
+=======
+            </form>
+>>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
 
         </div>
     </div>

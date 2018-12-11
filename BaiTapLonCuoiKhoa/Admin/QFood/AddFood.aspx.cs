@@ -70,6 +70,10 @@ public partial class Admin_QFood_AddFood : System.Web.UI.Page
             //f.food_avatar = txtAvt.Text;
 
             f.food_description = txtMieuta.Text;
+            //f.food_avatar = txtAvt.Text;
+
+            f.food_description = txtMieuta.Text;
+
             //f.foodtype_id = int.Parse(txtKieu.Text);
             f.foodtype_id = int.Parse(ddlFoodTypeID.SelectedValue);
 
@@ -83,7 +87,6 @@ public partial class Admin_QFood_AddFood : System.Web.UI.Page
         {
             msg.Text = "Có lỗi xảy ra: " + ex.Message;
         }
-
 
     }
 

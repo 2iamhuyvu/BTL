@@ -14,7 +14,7 @@ public class DataUtil
     SqlConnection con;
     //string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
 
-    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";        
+    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
 
     public DataUtil()
     {
@@ -68,7 +68,7 @@ public class DataUtil
 
     public void AddTable(table tb)
     {
-        string sqladdtb = "insert into qlTable values(@nametb,"+0+",@mota)";
+        string sqladdtb = "insert into qlTable values(@nametb," + 0 + ",@mota)";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqladdtb, con);
         cmd.Parameters.AddWithValue("nametb", tb.table_name);
@@ -275,7 +275,7 @@ public class DataUtil
         con.Close();
     }
 
-    public void UpdatePassUserByEmail(string pass,string email)
+    public void UpdatePassUserByEmail(string pass, string email)
     {
         string sql = "update Member set member_password=@password where member_mail=@mail";
         con.Open();
@@ -386,7 +386,6 @@ public class DataUtil
         con.Close();
         return li;
     }
-
     public void DeleteFood(int idFood)
     {
         string strSql = "delete from Food where food_id=@idFood";
@@ -635,6 +634,7 @@ public class DataUtil
     //    con.Close();
     //}
 
+    //public List<Food> getListFood_FoodType(int foodtype_id)
     public List<Food> getListFood_FoodType(int foodtype_id)
     {
         List<Food> liFoDiscount = new List<Food>();
@@ -662,6 +662,37 @@ public class DataUtil
         con.Close();
         return liFoDiscount;
     }
+    // Select theo THẺ lOẠI MÓN ĂN
+    public List<Food> getListFoodDiscount(int foodtype_id)
+    {
+        List<Food> liFoDiscount = new List<Food>();
+        string strSql = "select * from Food where foodtype_id=@foodtype_id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("foodtype_id", foodtype_id);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            liFoDiscount.Add(f);
+        }
+        con.Close();
+        return liFoDiscount;
+    }
+
+
+
     public List<Food> getListFood_Search(string key)
     {
         List<Food> liF = new List<Food>();
@@ -751,12 +782,12 @@ public class DataUtil
             conn.Close();
             return list;
         }
-    }    
+    }
     public bool ReplyLienHe(int idLienHe, string EmailLienHe, string SbEmail, string ContentEmail)
     {
         using (var conn = new SqlConnection(sqlcon))
-        {            
-            bool rs= MailProvider.sendEmail(ContentEmail, SbEmail, EmailLienHe);
+        {
+            bool rs = MailProvider.sendEmail(ContentEmail, SbEmail, EmailLienHe);
             if (rs)
             {
                 string query = "update  Contact set noidungTraloi='" + ContentEmail + "' ,thoigianTraloi='" + DateTime.Now + "',tinhtrangTraloi='true' where idContact=" + idLienHe;
@@ -777,7 +808,7 @@ public class DataUtil
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.ExecuteNonQuery();
-            conn.Close();            
+            conn.Close();
         }
     }
 
@@ -1300,7 +1331,7 @@ public class DataUtil
         string sqlsuotb = "update  OrderTable set ordertable_iduser=@ordertable_iduser,ordertable_dateset=@ordertable_dateset,ordertable_timeset=@ordertable_timeset,ordertable_timereturn=@ordertable_timereturn,ordertable_idtable=@ordertable_idtable,ordertable_status=@ordertable_status where ordertable_id=@ordertable_id";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlsuotb, con);
-        
+
         cmd.Parameters.AddWithValue("ordertable_iduser", otb.ordertable_iduser);
         cmd.Parameters.AddWithValue("ordertable_dateset", otb.ordertable_dateset);
         cmd.Parameters.AddWithValue("ordertable_timeset", otb.ordertable_timeset);
