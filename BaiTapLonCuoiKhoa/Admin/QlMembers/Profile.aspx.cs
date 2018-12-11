@@ -13,28 +13,32 @@ public partial class Admin_QlMembers_Profile : System.Web.UI.Page
         if (!IsPostBack)
         {
             var user = (Member)Session["UserAdmin"];
-            var member = data.GetUser(user.member_id);
-            amail.HRef = "mailto:" + member.member_mail;
-            lbfullname.Text = member.member_fullname;
-            lbmail.Text = member.member_mail;
-            lbphone.Text = member.member_phone;
-            lbusername.Text = member.member_username;
-            avatarImage.Attributes["src"] = member.member_avatar;
-            if (Session["Msg"] != null && !string.IsNullOrEmpty(Session["Msg"].ToString()))
+            if(user != null)
             {
-                var msgCode = Convert.ToInt16(Session["MsgCode"].ToString());
-                if(msgCode == 1)
+                var member = data.GetUser(user.member_id);
+                amail.HRef = "mailto:" + member.member_mail;
+                lbfullname.Text = member.member_fullname;
+                lbmail.Text = member.member_mail;
+                lbphone.Text = member.member_phone;
+                lbusername.Text = member.member_username;
+                avatarImage.Attributes["src"] = member.member_avatar;
+                if (Session["Msg"] != null && !string.IsNullOrEmpty(Session["Msg"].ToString()))
                 {
-                    msg.ForeColor = System.Drawing.Color.Green;
+                    var msgCode = Convert.ToInt16(Session["MsgCode"].ToString());
+                    if (msgCode == 1)
+                    {
+                        msg.ForeColor = System.Drawing.Color.Green;
+                    }
+                    else
+                    {
+                        msg.ForeColor = System.Drawing.Color.Red;
+                    }
+                    msg.Text = Session["Msg"].ToString();
+                    Session["Msg"] = null;
+                    Session["MsgCode"] = null;
                 }
-                else
-                {
-                    msg.ForeColor = System.Drawing.Color.Red;
-                }
-                msg.Text = Session["Msg"].ToString();
-                Session["Msg"] = null;
-                Session["MsgCode"] = null;
             }
+            
         }
     }
 }
