@@ -52,6 +52,12 @@
             width: 350px;
             max-width: 0;
         }
+        img.mfp-img{
+            width: 300px;
+            height: auto !important;
+            height: 300px;
+        }
+
     </style>
 </head>
 <body data-spy="scroll" data-target="#site-navbar" data-offset="200">
@@ -68,14 +74,14 @@
 
                     <div class="collapse navbar-collapse" id="site-nav">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active"><a href="#section-home" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a href="#section-about" class="nav-link">About</a></li>
-                            <li class="nav-item"><a href="#section-offer" class="nav-link">Offer</a></li>
-                            <li class="nav-item"><a href="#section-menu" class="nav-link">Menu</a></li>
-                            <li class="nav-item"><a href="#section-news" class="nav-link">News</a></li>
-                            <li class="nav-item"><a href="#section-gallery" class="nav-link">Gallery</a></li>
-                            <li class="nav-item"><a href="#section-contact" class="nav-link">Contact</a></li>
-                            <li class="nav-item" id="login" runat="server"><a href="/Client/Login.aspx" class="nav-link">Sign in</a></li>
+                            <li class="nav-item active"><a href="#section-home" class="nav-link">Trang chủ</a></li>
+                            <li class="nav-item"><a href="#section-about" class="nav-link">Thông tin</a></li>
+                            <li class="nav-item"><a href="#section-offer" class="nav-link">Khuyến mại</a></li>
+                            <li class="nav-item"><a href="#section-menu" class="nav-link">Món ăn</a></li>
+                            <li class="nav-item"><a href="#section-news" class="nav-link">Mới</a></li>
+                            <li class="nav-item"><a href="#section-gallery" class="nav-link">Thư viện</a></li>
+                            <li class="nav-item"><a href="#section-contact" class="nav-link">Liên hệ</a></li>
+                            <li class="nav-item" id="login" runat="server"><a href="/Client/Login.aspx" class="nav-link">Đăng nhập</a></li>
                             <li id="avatar" runat="server" style="display: none">
                                 <div class="user-profile pull-right">
                                     <asp:Image runat="server" CssClass="avatar user-thumb" ID="avatarImage" />
@@ -84,8 +90,8 @@
                                         <asp:Label runat="server" ID="nameuser"></asp:Label>
                                     </h4>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/Client/Profile.aspx">Profile</a>
-                                        <a class="dropdown-item" href="/Client/ChangePassword.aspx">Change password</a>
+                                        <a class="dropdown-item" href="/Client/Profile.aspx">Trang cá nhân</a>
+                                        <a class="dropdown-item" href="/Client/ChangePassword.aspx">Đổi mật khẩu</a>
                                         <asp:LinkButton ID="Logout" runat="server" CausesValidation="false" OnClick="LogOut_Click" Text="Log out" CssClass="dropdown-item" />
                                     </div>
                                 </div>
@@ -101,7 +107,7 @@
                     <div class="row align-items-center justify-content-center text-center site-vh-100">
                         <div class="col-md-12">
                             <h1 class="site-heading site-animate mb-3">Welcome To EatWell</h1>
-                            <h2 class="h5 site-subheading mb-5 site-animate">Come and eat well with our delicious &amp; healthy foods.</h2>
+                            <h2 class="h5 site-subheading mb-5 site-animate">Hãy nhanh tay đặt các món ăn ngon và chất lượng từ nhà hàng chúng tôi nào!</h2>
                             <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Reservation</a></p>
                         </div>
                     </div>
@@ -192,226 +198,24 @@
 
                                 <%
                                     var liFoType = new DataUtil().getListFoodType();
+                                    var dem = 1;
                                     foreach (var f in liFoType)
                                     {
+
                                         Response.Write("<li class='nav-item site-animate' id='" + f.foodtype_id + "' onclick='funcShowLF(" + f.foodtype_id + ")' >");
-                                        Response.Write("<a class='nav-link' id='pills-lunch-tab' data-toggle='pill' href='#pills-lunch' role='tab' aria-controls='pills-lunch' aria-selected='false'>" + f.foodtype_name + "</a>");
+                                        //if(dem == 1)
+                                        //    Response.Write("<a class='nav-link active' id='pills-lunch-tab' data-toggle='pill' href='#pills-lunch' role='tab' aria-controls='pills-lunch' aria-selected='false'>" + f.foodtype_name + "</a>");
+                                        //else
+                                        //    Response.Write("<a class='nav-link' id='pills-lunch-tab' data-toggle='pill' href='#pills-lunch' role='tab' aria-controls='pills-lunch' aria-selected='false'>" + f.foodtype_name + "</a>");
                                         Response.Write("</li>");
+
+                                        dem++;
                                     }
                                 %>
 
-                                <%--<li class="nav-item site-animate">
-                                    <a class="nav-link active" id="pills-breakfast-tab" data-toggle="pill" href="#pills-breakfast" role="tab" aria-controls="pills-breakfast" aria-selected="true">Breakfast</a>
-                                </li>
-                                <li class="nav-item site-animate">
-                                    <a class="nav-link" id="pills-lunch-tab" data-toggle="pill" href="#pills-lunch" role="tab" aria-controls="pills-lunch" aria-selected="false">Lunch</a>
-                                </li>
-                                <li class="nav-item site-animate">
-                                    <a class="nav-link" id="pills-dinner-tab" data-toggle="pill" href="#pills-dinner" role="tab" aria-controls="pills-dinner" aria-selected="false">Dinner</a>
-                                </li>--%>
                             </ul>
 
-                            <%--<div class="tab-content text-left">
-                                <div class="tab-pane fade show active" id="pills-breakfast" role="tabpanel" aria-labelledby="pills-breakfast-tab">
-                                    <div class="row">
-                                        <div class="col-md-6 site-animate">
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$24.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$14.50</h6>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6 site-animate">
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$12.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_3.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$18.50</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="pills-lunch" role="tabpanel" aria-labelledby="pills-lunch-tab">
-                                    <div class="row">
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_3.jpg" class="img-fluid mr-3" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$14.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$24.50</h6>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$18.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$12.50</h6>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="pills-dinner" role="tabpanel" aria-labelledby="pills-dinner-tab">
-                                    <div class="row">
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$24.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$14.50</h6>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$18.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$12.50</h6>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>--%>
                         </div>
-                        <%-- <div class="col-md-12">
-                            <div class="owl-carousel site-owl" id="cud" style="background: dodgerblue">
-                            </div>
-
-                        </div>--%>
                     </div>
                 </div>
                 <div style="background: #f8f9fa;padding:15px 0px">
@@ -490,38 +294,6 @@
                                 Response.Write("</div>");
                             }
                         %>
-
-                        <%--<div class="col-md-4 site-animate">
-                            <a href="images/menu_1.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_2.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_3.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_2.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_3.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_1.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>--%>
 
                     </div>
                 </div>
@@ -1241,13 +1013,13 @@
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
                 data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 //<<<<<<< HEAD
 //=======
 //                data: "{'ds':'" + ds + "'}",
 //>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
->>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
+//>>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
@@ -1370,6 +1142,8 @@
         // endtrong
 
         // DUC
+
+
         function funcShowLF(id) {
             $.ajax({
                 type: "POST",
