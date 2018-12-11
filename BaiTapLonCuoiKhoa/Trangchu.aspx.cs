@@ -383,4 +383,18 @@ public partial class Tranchu : System.Web.UI.Page
         return C;
     }
     #endregion
+
+    #region DUC
+    [WebMethod]
+    public static List<Food> ShowListFoodType(int IdFoodType)
+    {
+        DataUtil dt = new DataUtil();
+
+        List<Food> li = new List<Food>();
+
+        li = dt.getListFood_FoodType(IdFoodType);
+
+        return li;
+    }
+    #endregion
 }

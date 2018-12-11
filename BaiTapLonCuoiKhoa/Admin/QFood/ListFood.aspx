@@ -14,21 +14,6 @@
                     <div id="dataTable3_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <%--<div class="dataTables_length" id="dataTable3_length">
-=======
-                                <div class="dataTables_length" id="dataTable3_length">
->>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
-                                    <label>
-                                        Show
-                                        <select name="dataTable3_length" aria-controls="dataTable3" class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select>
-                                        entries</label>
-<<<<<<< HEAD
-                                </div>--%>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
