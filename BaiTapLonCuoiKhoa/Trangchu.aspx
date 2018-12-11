@@ -130,11 +130,11 @@
 
                     <div class="row">
                         <div class="col-md-12 text-center mb-5 site-animate">
-                            <h4 class="site-sub-title">Our Offers</h4>
-                            <h2 class="display-4">Our Offer This Summer</h2>
+                            <h4 class="site-sub-title">Khuyến mại đặc biệt</h4>
+                            <h2 class="display-4">Các món ăn đang giảm giá</h2>
                             <div class="row justify-content-center">
                                 <div class="col-md-7">
-                                    <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="lead">Nhanh tay đặt món ăn để nhận được các ưu đãi đặc biệt của chúng tôi các bạn ê !!!</p>
                                 </div>
                             </div>
                         </div>
@@ -174,18 +174,28 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center mb-5 site-animate">
-                            <h2 class="display-4">Delicious Menu</h2>
+                            <h2 class="display-4">Các loại món ăn</h2>
                             <div class="row justify-content-center">
                                 <div class="col-md-7">
-                                    <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="lead">Các món ăn sẽ được chúng tôi liên tục cập nhật...</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-12 text-center">
+                            <ul class="nav site-tab-nav nav-pills mb-5" id="theloai" role="tablist" <%--id="pills-tab"--%>>
 
-                            <ul class="nav site-tab-nav nav-pills mb-5" id="pills-tab" role="tablist">
-                                <li class="nav-item site-animate">
+                                <%
+                                    var liFoType = new DataUtil().getListFoodType();
+                                    foreach (var f in liFoType)
+                                    {
+                                        Response.Write("<li class='nav-item site-animate' id='" + f.foodtype_id + "' onclick='funcShowLF(" + f.foodtype_id + ")' >");
+                                        Response.Write("<a class='nav-link' id='pills-lunch-tab' data-toggle='pill' href='#pills-lunch' role='tab' aria-controls='pills-lunch' aria-selected='false'>" + f.foodtype_name + "</a>");
+                                        Response.Write("</li>");
+                                    }
+                                %>
+
+                                <%--<li class="nav-item site-animate">
                                     <a class="nav-link active" id="pills-breakfast-tab" data-toggle="pill" href="#pills-breakfast" role="tab" aria-controls="pills-breakfast" aria-selected="true">Breakfast</a>
                                 </li>
                                 <li class="nav-item site-animate">
@@ -193,10 +203,10 @@
                                 </li>
                                 <li class="nav-item site-animate">
                                     <a class="nav-link" id="pills-dinner-tab" data-toggle="pill" href="#pills-dinner" role="tab" aria-controls="pills-dinner" aria-selected="false">Dinner</a>
-                                </li>
+                                </li>--%>
                             </ul>
 
-                            <div class="tab-content text-left">
+                            <%--<div class="tab-content text-left">
                                 <div class="tab-pane fade show active" id="pills-breakfast" role="tabpanel" aria-labelledby="pills-breakfast-tab">
                                     <div class="row">
                                         <div class="col-md-6 site-animate">
@@ -258,6 +268,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane fade" id="pills-lunch" role="tabpanel" aria-labelledby="pills-lunch-tab">
                                     <div class="row">
                                         <div class="col-md-6 site-animate">
@@ -323,6 +334,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="tab-pane fade" id="pills-dinner" role="tabpanel" aria-labelledby="pills-dinner-tab">
                                     <div class="row">
                                         <div class="col-md-6 site-animate">
@@ -388,12 +400,23 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>--%>
+                        </div>
+                        <%-- <div class="col-md-12">
+                            <div class="owl-carousel site-owl" id="cud" style="background: dodgerblue">
                             </div>
 
+                        </div>--%>
+                    </div>
+                </div>
+                <div style="background: #f8f9fa;padding:15px 0px">
+                    <div class="container">
+                        <div class="row " id="cud" style="max-height: 550px; width: 100%; overflow: auto;">
                         </div>
                     </div>
                 </div>
             </section>
+            
             <!-- END section -->
 
             <section class="site-section bg-light" id="section-news">
@@ -401,47 +424,40 @@
 
                     <div class="row">
                         <div class="col-md-12 text-center mb-5 site-animate">
-                            <h2 class="display-4">News</h2>
+                            <h2 class="display-4">Món mới</h2>
                             <div class="row justify-content-center">
                                 <div class="col-md-7">
-                                    <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="lead">Nhanh tay đặt các món ăn mới của nhà hàng chúng tôi!</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="media d-block mb-4 text-center site-media site-animate">
-                                <img src="images/offer_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                <div class="media-body p-md-5 p-4">
-                                    <h5 class="mt-0 h4">We Have Dilecious Food</h5>
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                        <div class="col-md-12">
+                            <div class="owl-carousel site-owl">
 
-                                    <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Read More</a></p>
-                                </div>
+                                <%
+                                    var liNewFood = new DataUtil().getNewListFood();
+                                    foreach (var n in liNewFood)
+                                    {
+
+                                        Response.Write("<div class='item'>");
+                                        Response.Write("<div class='media d-block mb-4 text-center site-media site-animate border-0'>");
+                                        Response.Write("<img style='height:250px;cursor: pointer;' onclick='funcOrderNow(" + n.food_id + ")' src='../../Assets/images/" + n.food_avatar + "' class='img-fluid' />");
+
+                                        Response.Write("<div class='media-body p-md-5 p-4'>");
+                                        Response.Write("<h5 class='text-primary'>" + n.food_price + "</h5>");
+                                        Response.Write("<h5 class='mt-0 h4'>" + n.food_name + "</h5>");
+                                        Response.Write("<p class='mb-4'>" + n.food_description + "</p>");
+                                        Response.Write("<p class='mb-0'><a href='javascript:void(0)' class='btn btn-primary btn-sm' onclick='funcOrderNow(" + n.food_id + ")'>Order Now!</a></p>");
+                                        Response.Write("</div>");
+                                        Response.Write("</div>");
+                                        Response.Write("</div>");
+
+                                    }
+                                %>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="media d-block mb-4 text-center site-media site-animate">
-                                <img src="images/offer_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                <div class="media-body p-md-5 p-4">
-                                    <h5 class="mt-0 h4">Chef Special Menu</h5>
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 
-                                    <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Read More</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="media d-block mb-4 text-center site-media site-animate">
-                                <img src="images/offer_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                                <div class="media-body p-md-5 p-4">
-                                    <h5 class="mt-0 h4">Merriage Celebrations</h5>
-                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-
-                                    <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Read More</a></p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -452,15 +468,25 @@
                     <div class="row site-custom-gutters">
 
                         <div class="col-md-12 text-center mb-5 site-animate">
-                            <h2 class="display-4">Gallery</h2>
+                            <h2 class="display-4">Thư viện ảnh</h2>
                             <div class="row justify-content-center">
                                 <div class="col-md-7">
-                                    <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="lead">Bộ sưu tập các bức ảnh đẹp nhất của các món ăn.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-4 site-animate">
+                        <%
+                            var LF = new DataUtil().getList_FoodLimit6();
+                            foreach (var f in LF)
+                            {
+                                Response.Write("<div class='col-md-4 site-animate'>");
+                                Response.Write("<a href='../../Assets/images/" + f.food_avatar + "' class='site-thumbnail image-popup'><img src='../../Assets/images/" + f.food_avatar + "' style='height:250px;width:350px;' alt='" + f.food_name + "' class='img-fluid'></a>");
+                                Response.Write("</div>");
+                            }
+                        %>
+
+                        <%--<div class="col-md-4 site-animate">
                             <a href="images/menu_1.jpg" class="site-thumbnail image-popup">
                                 <img src="images/menu_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
                             </a>
@@ -490,7 +516,7 @@
                             <a href="images/menu_1.jpg" class="site-thumbnail image-popup">
                                 <img src="images/menu_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
                             </a>
-                        </div>
+                        </div>--%>
 
                     </div>
                 </div>
@@ -1194,7 +1220,11 @@
             $("#lb").val("");
             
             var ts = $("#ts").val();
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
             var ds = $("#ds").val();
             $("#omsg").css("color", "red");
             //alert(ds);
@@ -1202,6 +1232,10 @@
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
                 data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
+<<<<<<< HEAD
+=======
+                data: "{'ds':'" + ds + "'}",
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
@@ -1322,6 +1356,43 @@
         })
         //demo1
         // endtrong
+
+        // DUC
+        function funcShowLF(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Trangchu.aspx/ShowListFoodType",
+                data: "{IdFoodType:" + id + "}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                    var f = result.d;
+
+                    //console.log(f);
+
+                    //let liFoType = new DataUtil().getListFood_FoodType(id);
+                    var html = '';
+                    $.each(f, function (index, item) {
+                        html += `
+                                    <div class ="col-md-4">
+                                        <img style="height:250px;cursor: pointer;" src='../../Assets/images/${item.food_avatar}' onclick='funcOrderNow(${item.food_id})' class ="img-fluid" />
+                                        <div class ="media-body p-md-5 p-4">
+			                                <h5 class ="text-primary">${item.food_price}</h5>
+			                                <h5 class ="mt-0 h4">${item.food_name}</h5>
+			                                <p class ="mb-4">${item.food_description}</p>
+			                                <p class ="mb-0"><a href="javascript:void(0)" onclick='funcOrderNow(${item.food_id})' class ="btn btn-primary btn-sm">Order Now!</a></p>
+		                                </div>
+                                    </div>
+                            `
+
+                    });
+                    //console.log(html);
+                    $("#cud").html(html);
+                }
+            });
+        }
+        // END - DUC
     </script>
 </body>
 </html>

@@ -6,33 +6,30 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Services;
 
-public partial class Admin_QFood_ListFood : System.Web.UI.Page
+public partial class Admin_QFoofType_ListFoodType : System.Web.UI.Page
 {
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            List<Food> getListMembers = data.getListFood();
-        }
+
     }
 
     [WebMethod]
-    public static string XoaFood(int idFood)
+    public static string XoaFoodType(int IdFoodType)
     {
         DataUtil data = new DataUtil();
-        data.DeleteFood(idFood);
-        return "Xóa thành công !";
+        data.DeleteFoodType(IdFoodType);
+        return "Bạn đã xóa thể loại món ăn thành công!";
     }
 
     [WebMethod]
-    public static List<Food> TimKiem(string keywords)
+    public static List<FoodType> TimKiemFType(string keywords)
     {
         DataUtil dt = new DataUtil();
 
-        List<Food> li = new List<Food>();
+        List<FoodType> li = new List<FoodType>();
 
-        li = dt.getListFood_Search(keywords);
+        li = dt.getListFood_SearchFType(keywords);
 
         return li;
     }

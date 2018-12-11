@@ -42,15 +42,25 @@ public partial class Client_ChangePassword : System.Web.UI.Page
     {
         try
         {
-            var member = (Member)Session["User"];
-            var user = new Member()
+            var userGet = (Member)Session["User"];
+            var member = data.GetUser(userGet.member_id);
+            var oldPass = Encryptor.MD5Hash(txtoldpassword.Text);
+            if (oldPass.Equals(member.member_password))
             {
-                member_id = member.member_id,
-                member_password = Encryptor.MD5Hash(txtpassword.Text)
-            };
-            data.UpdatePassUser(user);
-            msg.Text = "Update success!";
-            msg.ForeColor = System.Drawing.Color.Green;
+                var user = new Member()
+                {
+                    member_id = member.member_id,
+                    member_password = Encryptor.MD5Hash(txtpassword.Text)
+                };
+                data.UpdatePassUser(user);
+                msg.Text = "Update success!";
+                msg.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                msg.Text = "Old password is wrong!";
+                msg.ForeColor = System.Drawing.Color.Red;
+            }
         }
         catch (Exception ex)
         {

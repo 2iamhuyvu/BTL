@@ -20,14 +20,23 @@ public partial class Admin_QlMembers_ChangePassword : System.Web.UI.Page
         {
             var userGet = (Member)Session["UserAdmin"];
             var member = data.GetUser(userGet.member_id);
-            var user = new Member()
+            var oldPass = Encryptor.MD5Hash(txtoldpassword.Text);
+            if (oldPass.Equals(member.member_password))
             {
-                member_id = member.member_id,
-                member_password = Encryptor.MD5Hash(txtpassword.Text)
-            };
-            data.UpdatePassUser(user);
-            msg.Text = "Update success!";
-            msg.ForeColor = System.Drawing.Color.Green;
+                var user = new Member()
+                {
+                    member_id = member.member_id,
+                    member_password = Encryptor.MD5Hash(txtpassword.Text)
+                };
+                data.UpdatePassUser(user);
+                msg.Text = "Update success!";
+                msg.ForeColor = System.Drawing.Color.Green;
+            }
+            else
+            {
+                msg.Text = "Old password is wrong!";
+                msg.ForeColor = System.Drawing.Color.Red;
+            }
         }
         catch (Exception ex)
         {
