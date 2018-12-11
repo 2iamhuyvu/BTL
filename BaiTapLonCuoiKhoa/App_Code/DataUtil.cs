@@ -21,129 +21,7 @@ public class DataUtil
         con = new SqlConnection(sqlcon);
     }
 
-    public List<table> dsTableNull()
-    {
-        List<table> listTable = new List<table>();
-        string sqlslTable = "select * from qlTable where table_status=0";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sqlslTable, con);
-        SqlDataReader dr = cmd.ExecuteReader();
-        while (dr.Read())
-        {
-            table tb = new table();
-            tb.table_id = (int)dr["table_id"];
-            tb.table_name = (string)dr["table_name"];
-            //tb.table_status = (bool)dr["table_status"];
-            tb.table_description = (int)dr["table_description"];
-
-            listTable.Add(tb);
-
-        }
-        con.Close();
-        return listTable;
-    }
-    public List<table> dsTable()
-    {
-        List<table> listTable = new List<table>();
-        string sqlslTable = "select * from qlTable";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sqlslTable, con);
-        SqlDataReader dr = cmd.ExecuteReader();
-        while (dr.Read())
-        {
-            table tb = new table();
-            tb.table_id = (int)dr["table_id"];
-            tb.table_name = (string)dr["table_name"];
-            tb.table_status = (bool)dr["table_status"];
-            tb.table_description = (int)dr["table_description"];
-
-            listTable.Add(tb);
-
-        }
-        con.Close();
-        return listTable;
-    }
-    public List<table> dsTableL( int l)
-    {
-        List<table> listTable = new List<table>();
-        string sqlslTable = "select * from qlTable where table_description="+l+"";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sqlslTable, con);
-        SqlDataReader dr = cmd.ExecuteReader();
-        while (dr.Read())
-        {
-            table tb = new table();
-            tb.table_id = (int)dr["table_id"];
-            tb.table_name = (string)dr["table_name"];
-            tb.table_status = (bool)dr["table_status"];
-            tb.table_description = (int)dr["table_description"];
-
-            listTable.Add(tb);
-
-        }
-        con.Close();
-        return listTable;
-    }
-
-
-
-    public void AddTable(table tb)
-    {
-        string sqladdtb = "insert into qlTable values(@nametb," + 0 + ",@mota)";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sqladdtb, con);
-        cmd.Parameters.AddWithValue("nametb", tb.table_name);
-        //cmd.Parameters.AddWithValue("stt", tb.table_status);
-        cmd.Parameters.AddWithValue("mota", tb.table_description);
-
-        cmd.ExecuteNonQuery();
-        con.Close();
-    }
-    public void xoatb(int matb)
-    {
-        string sqlxoatb = "delete from qlTable where table_id=@matb";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sqlxoatb, con);
-        cmd.Parameters.AddWithValue("matb", matb);
-        cmd.ExecuteNonQuery();
-        con.Close();
-    }
-    public table lay1tb(int matb)
-    {
-
-        string sqlsl = "select * from qlTable where table_id=@matb";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sqlsl, con);
-        cmd.Parameters.AddWithValue("matb", matb);
-        SqlDataReader dr = cmd.ExecuteReader();
-        table tb = null;
-        while (dr.Read())
-        {
-            tb = new table();
-            tb.table_id = (int)dr["table_id"];
-            tb.table_name = (string)dr["table_name"];
-            tb.table_status = (bool)dr["table_status"];
-            tb.table_description = (int)dr["table_description"];
-
-
-
-        }
-        con.Close();
-        return tb;
-    }
-    public void suatb(table tb)
-    {
-        string sqlsuqtb = "update  qlTable set table_name=@table_name,table_status=@table_status,table_description=@table_description where table_id=@table_id";
-        con.Open();
-        SqlCommand cmd = new SqlCommand(sqlsuqtb, con);
-        cmd.Parameters.AddWithValue("table_name", tb.table_name);
-        cmd.Parameters.AddWithValue("table_status", tb.table_status);
-        cmd.Parameters.AddWithValue("table_description", tb.table_description);
-        cmd.Parameters.AddWithValue("table_id", tb.table_id);
-
-        cmd.ExecuteNonQuery();
-        con.Close();
-    }
+    
 
     #region DatRegion
     /// <summary>
@@ -1294,6 +1172,129 @@ public class DataUtil
     #endregion
 
     #region Trong
+    public List<table> dsTableNull()
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable where table_status=0";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            //tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+    public List<table> dsTable()
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+    public List<table> dsTableL(int l)
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable where table_description=" + l + "";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+
+
+
+    public void AddTable(table tb)
+    {
+        string sqladdtb = "insert into qlTable values(@nametb," + 0 + ",@mota)";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqladdtb, con);
+        cmd.Parameters.AddWithValue("nametb", tb.table_name);
+        //cmd.Parameters.AddWithValue("stt", tb.table_status);
+        cmd.Parameters.AddWithValue("mota", tb.table_description);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+    public void xoatb(int matb)
+    {
+        string sqlxoatb = "delete from qlTable where table_id=@matb";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlxoatb, con);
+        cmd.Parameters.AddWithValue("matb", matb);
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+    public table lay1tb(int matb)
+    {
+
+        string sqlsl = "select * from qlTable where table_id=@matb";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlsl, con);
+        cmd.Parameters.AddWithValue("matb", matb);
+        SqlDataReader dr = cmd.ExecuteReader();
+        table tb = null;
+        while (dr.Read())
+        {
+            tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+
+
+        }
+        con.Close();
+        return tb;
+    }
+    public void suatb(table tb)
+    {
+        string sqlsuqtb = "update  qlTable set table_name=@table_name,table_status=@table_status,table_description=@table_description where table_id=@table_id";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlsuqtb, con);
+        cmd.Parameters.AddWithValue("table_name", tb.table_name);
+        cmd.Parameters.AddWithValue("table_status", tb.table_status);
+        cmd.Parameters.AddWithValue("table_description", tb.table_description);
+        cmd.Parameters.AddWithValue("table_id", tb.table_id);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
     public List<table> dslb()
     {
         List<table> listTable = new List<table>();
@@ -1484,7 +1485,7 @@ public class DataUtil
 
 
             //string sqlsltbo = "select * from qlTable where table_id !=( select ordertable_idtable from OrderTable where ordertable_dateset='"+DateTime.Parse( ds).ToString("yyyy-MM-dd")+"' and ((ordertable_timeset>='"+TimeSpan.Parse(ts)+ "' and ordertable_timeset<='" + TimeSpan.Parse(ts) + "') or (ordertable_timereturn>='" + TimeSpan.Parse(tr) + "' and ordertable_timereturn<='" + TimeSpan.Parse(tr) + "'))) and table_description="+lb+" ";
-            string sl = " select ordertable_idtable from OrderTable where ordertable_dateset = '" + DateTime.Parse(ds).ToString("yyyy-MM-dd") + "' and((ordertable_timeset >= '" + TimeSpan.Parse(ts) + "' and ordertable_timeset <= '" + TimeSpan.Parse(ts) + "') or(ordertable_timereturn >= '" + TimeSpan.Parse(tr) + "' and ordertable_timereturn <= '" + TimeSpan.Parse(tr) + "'))";
+            string sl = " select ordertable_idtable from OrderTable where ordertable_dateset = '" + DateTime.Parse(ds).ToString("yyyy-MM-dd") + "' and(('" + TimeSpan.Parse(ts) + "' BETWEEN  ordertable_timeset and ordertable_timereturn) or('" + TimeSpan.Parse(tr) + "' BETWEEN  ordertable_timeset and ordertable_timereturn)  or (ordertable_timeset >='" + TimeSpan.Parse(ts) + "' and ordertable_timereturn <='" + TimeSpan.Parse(tr) + "'))";
             con.Open();
             SqlCommand cmd = new SqlCommand(sl, con);
             SqlDataReader dr = cmd.ExecuteReader();

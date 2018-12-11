@@ -1220,11 +1220,6 @@
             $("#lb").val("");
             
             var ts = $("#ts").val();
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
             var ds = $("#ds").val();
             $("#omsg").css("color", "red");
             //alert(ds);
@@ -1232,10 +1227,6 @@
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
                 data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
-<<<<<<< HEAD
-=======
-                data: "{'ds':'" + ds + "'}",
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
