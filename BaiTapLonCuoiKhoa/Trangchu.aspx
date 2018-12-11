@@ -1192,23 +1192,17 @@
         $("#ts").change(function () {
             $("#tr").val("");
             $("#lb").val("");
-<<<<<<< HEAD
             
             var ts = $("#ts").val();
             
-=======
->>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
             var ds = $("#ds").val();
             $("#omsg").css("color", "red");
             //alert(ds);
             $.ajax({
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
-<<<<<<< HEAD
                 data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
-=======
-                data: "{'ds':'" + ds + "'}",
->>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
+                //data: "{'ds':'" + ds + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
@@ -1327,11 +1321,9 @@
             });
             
         })
-<<<<<<< HEAD
 		// DeMO DUC
         //demo1
-=======
->>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
+
         // endtrong
     </script>
 </body>
