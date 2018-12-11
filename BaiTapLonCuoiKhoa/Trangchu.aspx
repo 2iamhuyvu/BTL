@@ -762,14 +762,7 @@
                         <label style="color: black; font-size: 16px; cursor: pointer; margin-left: 50px">
                             Đặt bàn tại nhà hàng
                             <input type="radio" name="hinhthuc" value="1" /></label>
-                        <select id="selectTableid" style="display: none">
-                            <option value="">--Chọn bàn--</option>
-                            <% var litbl = new DataUtil().dsTableNull();
-                                foreach (var item in litbl)
-                                {
-                                    Response.Write("<option value='" + item.table_id + "'>" + item.table_name + "</option>");
-                                }
-                            %>
+                        <select id="selectTableid" style="display: none">                            
                         </select>
                     </div>
                 </div>
@@ -800,6 +793,22 @@
         // Huy
         $("input[name='hinhthuc']").click(function () {
             if (parseInt($("input[name='hinhthuc']:checked").val()) == 1) {
+                $.ajax({
+                    type: "post",
+                    url: "/Trangchu.aspx/ListTableNull",
+                    data:"{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (rs) {
+                        let list = rs.d
+                        console.log(list);
+                        let html = `<option value="">--Chọn bàn--</option>`;
+                        list.forEach(function (item) {
+                             html +=`<option value="${item.table_id}">${ item.table_name}</option>`
+                        })
+                        $("#selectTableid").html(html);
+                    }
+                });
                 $("#selectTableid").show();
             }
             else {
@@ -947,7 +956,7 @@
             if (USER == null) {
                 if (CheckFormKH() == 1) {
                     if ((parseInt($("input[name='hinhthuc']:checked").val()) == 1) && $("#selectTableid").val() == "") {
-                        $.notify("Hãy chọn hình thức mua hàng", "error")
+                        $.notify("Bạn chưa chọn bàn", "error")
                     } else {
                         $.ajax({
                             type: "post",
@@ -975,7 +984,7 @@
             }
             else {
                 if ((parseInt($("input[name='hinhthuc']:checked").val()) == 1) && $("#selectTableid").val() == "") {
-                    $.notify("Hãy chọn hình thức mua hàng", "error")
+                     $.notify("Bạn chưa chọn bàn", "error")
                 } else {
                     $.ajax({
                         type: "post",

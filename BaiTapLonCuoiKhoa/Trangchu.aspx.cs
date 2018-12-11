@@ -205,7 +205,14 @@ public partial class Tranchu : System.Web.UI.Page
     #endregion
 
     #region Huy
-
+    [WebMethod(EnableSession = true)]
+    public static List<table> ListTableNull()
+    {
+        DataUtil dt = new DataUtil();
+        List<table> rs = new List<table>();
+        rs=dt.dsTableNull();
+        return rs;
+    }
     [WebMethod(EnableSession = true)]
     public static Food getFoodOrderNow(int idfood)
     {

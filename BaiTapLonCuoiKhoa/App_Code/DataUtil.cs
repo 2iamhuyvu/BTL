@@ -22,7 +22,7 @@ public class DataUtil
     public List<table> dsTableNull()
     {
         List<table> listTable = new List<table>();
-        string sqlslTable = "select * from qlTable where table_status=0";
+        string sqlslTable = "select * from qlTable where table_status='False'";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlslTable, con);
         SqlDataReader dr = cmd.ExecuteReader();
@@ -521,8 +521,7 @@ public class DataUtil
             cmd.ExecuteNonQuery();
             conn.Close();            
         }
-    }
-
+    }    
     public List<OrderVM> TimHoaDon(DateTime ngaybd, DateTime ngaykt, int ttthanhtoan)
     {
         using (var conn = new SqlConnection(sqlcon))
@@ -603,6 +602,36 @@ public class DataUtil
                 dr.Close();
             }
             return listRS;
+        }
+    }
+    public void XoaOrderTbl(int idodtbl)
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {
+            string query = "delete from OrderTable where ordertable_id=" + idodtbl;
+            string query1 = "delete from OrderDetail where ordertableid=" + idodtbl;
+            string query2 = "select top 1 ordertable_idtable from OrderTable where ordertable_id=" + idodtbl;
+            conn.Open();            
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader dr2 = cmd2.ExecuteReader();
+            int idtbl = -1;
+            if (dr2.Read())
+            {
+                idtbl = (int)dr2["ordertable_idtable"];
+            }
+            conn.Close();
+            conn.Open();
+            if (idtbl != -1)
+            {
+                string query3 = "update  qlTable set table_status='false' where table_id=" + idtbl;
+                SqlCommand cmd3 = new SqlCommand(query3, conn);
+                cmd3.ExecuteNonQuery();
+            }            
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlCommand cmd1 = new SqlCommand(query1, conn);            
+            cmd.ExecuteNonQuery();
+            cmd1.ExecuteNonQuery();
+            conn.Close();
         }
     }
     public void ThanhToanOrderTbl(int idodtbl)
@@ -969,7 +998,7 @@ public class DataUtil
                 SqlCommand cmd2 = new SqlCommand(query2, conn);
                 cmd2.ExecuteNonQuery();
             }
-            string query1 = "select top 1 * from OrderTable order by ordertable_timeset desc";
+            string query1 = "select top 1 * from OrderTable order by ordertable_dateset desc";
             SqlCommand cmd1 = new SqlCommand(query1, conn);
             SqlDataReader dr = cmd1.ExecuteReader();
             int idOrderTbl = -1;
