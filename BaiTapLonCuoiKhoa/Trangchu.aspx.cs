@@ -79,8 +79,12 @@ public partial class Tranchu : System.Web.UI.Page
     }
     [WebMethod(EnableSession = true)]
 
+<<<<<<< HEAD
     public static string ckeds(string ds ,string ts)
 
+=======
+    public static string ckeds(string ds, string ts)
+>>>>>>> 4e65ca7dddb3d22605d6433b04417e99676444c4
 
     {
         if (ds == "")
@@ -121,8 +125,11 @@ public partial class Tranchu : System.Web.UI.Page
         
         DateTime to = DateTime.Parse(ds).Date;
         if (tn>to)
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4e65ca7dddb3d22605d6433b04417e99676444c4
         {
             return "ngày chọn không hợp lệ";
         }
@@ -217,12 +224,17 @@ public partial class Tranchu : System.Web.UI.Page
             var todn = DateTime.Now.TimeOfDay;
             TimeSpan tso = TimeSpan.Parse(ts);
             DateTime to = DateTime.Parse(ds).Date;
+<<<<<<< HEAD
 
 
             if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
 
 
 
+=======
+
+            if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
+>>>>>>> 4e65ca7dddb3d22605d6433b04417e99676444c4
             {
                 return "1";
             }
@@ -237,7 +249,10 @@ public partial class Tranchu : System.Web.UI.Page
                     return "true";
                 }
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4e65ca7dddb3d22605d6433b04417e99676444c4
 
             return "true";
         }
