@@ -12,8 +12,10 @@ using System.Data.Odbc;
 public class DataUtil
 {
     SqlConnection con;
-    string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
-    //string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";        
+    //string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+
+    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+
     public DataUtil()
     {
         con = new SqlConnection(sqlcon);
@@ -40,11 +42,54 @@ public class DataUtil
         con.Close();
         return listTable;
     }
+    public List<table> dsTable()
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+    public List<table> dsTableL( int l)
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable where table_description="+l+"";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+
 
 
     public void AddTable(table tb)
     {
-        string sqladdtb = "insert into qlTable values(@nametb,@mota)";
+        string sqladdtb = "insert into qlTable values(@nametb," + 0 + ",@mota)";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqladdtb, con);
         cmd.Parameters.AddWithValue("nametb", tb.table_name);
@@ -77,7 +122,7 @@ public class DataUtil
             tb = new table();
             tb.table_id = (int)dr["table_id"];
             tb.table_name = (string)dr["table_name"];
-            //tb.table_status = (bool)dr["table_status"];
+            tb.table_status = (bool)dr["table_status"];
             tb.table_description = (int)dr["table_description"];
 
 
@@ -88,11 +133,11 @@ public class DataUtil
     }
     public void suatb(table tb)
     {
-        string sqlsuqtb = "update  qlTable set table_name=@table_name,table_description=@table_description where table_id=@table_id";
+        string sqlsuqtb = "update  qlTable set table_name=@table_name,table_status=@table_status,table_description=@table_description where table_id=@table_id";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlsuqtb, con);
         cmd.Parameters.AddWithValue("table_name", tb.table_name);
-        //cmd.Parameters.AddWithValue("table_status", tb.table_status);
+        cmd.Parameters.AddWithValue("table_status", tb.table_status);
         cmd.Parameters.AddWithValue("table_description", tb.table_description);
         cmd.Parameters.AddWithValue("table_id", tb.table_id);
 
@@ -109,7 +154,7 @@ public class DataUtil
     public List<Member> GetListMembers()
     {
         List<Member> listMember = new List<Member>();
-        string sqlslTable = "select * from Member";
+        string sqlslTable = "SELECT * FROM MEMBER;";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlslTable, con);
         SqlDataReader dr = cmd.ExecuteReader();
@@ -251,6 +296,18 @@ public class DataUtil
         con.Close();
     }
 
+    public void UpdatePassUserByEmail(string pass, string email)
+    {
+        string sql = "update Member set member_password=@password where member_mail=@mail";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sql, con);
+        cmd.Parameters.AddWithValue("password", pass);
+        cmd.Parameters.AddWithValue("mail", email);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
 
 
     public bool CheckLogin(string username, string password, int type)
@@ -283,6 +340,24 @@ public class DataUtil
         cmd.Parameters.AddWithValue("username", username);
         cmd.Parameters.AddWithValue("mail", mail);
         cmd.Parameters.AddWithValue("phone", phone);
+
+        Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
+        con.Close();
+
+        if (count > 0)
+            return true;
+        else
+            return false;
+    }
+
+
+    public bool CheckMail(string mail)
+    {
+        string sql = "select * from Member where member_mail = @mail";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sql, con);
+
+        cmd.Parameters.AddWithValue("mail", mail);
 
         Int32 count = Convert.ToInt32(cmd.ExecuteScalar());
         con.Close();
@@ -429,11 +504,123 @@ public class DataUtil
         con.Close();
     }
 
-    // Select theo THẺ lOẠI MÓN ĂN
-    public List<Food> getListFoodDiscount(int foodtype_id)
+    //FOOD_TYPE
+    public void AddFoodType(FoodType ft)
+    {
+        string strSql = "insert into FoodType values(@name)";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("name", ft.foodtype_name);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    public FoodType get1FoodType(int foodtype_id)
+    {
+        List<FoodType> li_ft = new List<FoodType>();
+        string strSql = "select * from FoodType where foodtype_id=@id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("id", foodtype_id);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+
+        FoodType ft = new FoodType(); ;
+        while (dr.Read())
+        {
+            ft.foodtype_id = (int)dr["foodtype_id"];
+            ft.foodtype_name = (string)dr["foodtype_name"];
+        }
+        con.Close();
+        return ft;
+    }
+
+    public void EditFoodType(FoodType ft)
+    {
+        string strSql = "update FoodType set foodtype_name=@name where foodtype_id=@id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("name", ft.foodtype_name);
+        cmd.Parameters.AddWithValue("id", ft.foodtype_id);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    public void DeleteFoodType(int foodtype_id)
+    {
+        string strSql = "delete from Food where foodtype_id=@id delete from FoodType where foodtype_id=@id ";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("id", foodtype_id);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+
+    // Client
+    public List<Food> getListFoodDiscount()
+    {
+        List<Food> li = new List<Food>();
+        string strSql = "select * from Food where food_sale > 0";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            li.Add(f);
+        }
+        con.Close();
+        return li;
+    }
+    public List<Food> getNewListFood()
+    {
+        List<Food> li = new List<Food>();
+        string strSql = "SELECT * FROM Food ORDER BY food_id DESC";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            li.Add(f);
+        }
+        con.Close();
+        return li;
+    }
+    public List<Food> getList_FoodLimit6()
     {
         List<Food> liFoDiscount = new List<Food>();
-        string strSql = "select * from Food where foodtype_id=@foodtype_id";
+        string strSql = "SELECT TOP 6 * FROM Food";
         con.Open();
 
         SqlCommand cmd = new SqlCommand(strSql, con);
@@ -453,6 +640,129 @@ public class DataUtil
         }
         con.Close();
         return liFoDiscount;
+    }
+    // Select theo THẺ lOẠI MÓN ĂN
+
+    //public void DeleteFood(int idFood)
+    //{
+    //    string strSql = "delete from Food where food_id=@idFood";
+    //    con.Open();
+    //    SqlCommand cmd = new SqlCommand(strSql, con);
+
+    //    cmd.Parameters.AddWithValue("idFood", idFood);
+    //    cmd.ExecuteNonQuery();
+
+    //    con.Close();
+    //}
+
+    //public List<Food> getListFood_FoodType(int foodtype_id)
+    public List<Food> getListFood_FoodType(int foodtype_id)
+    {
+        List<Food> liFoDiscount = new List<Food>();
+        string strSql = "select * from Food where foodtype_id=@foodtype_id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("foodtype_id", foodtype_id);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            liFoDiscount.Add(f);
+        }
+        con.Close();
+        return liFoDiscount;
+    }
+    // Select theo THẺ lOẠI MÓN ĂN
+    public List<Food> getListFoodDiscount(int foodtype_id)
+    {
+        List<Food> liFoDiscount = new List<Food>();
+        string strSql = "select * from Food where foodtype_id=@foodtype_id";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("foodtype_id", foodtype_id);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            liFoDiscount.Add(f);
+        }
+        con.Close();
+        return liFoDiscount;
+    }
+
+
+
+    public List<Food> getListFood_Search(string key)
+    {
+        List<Food> liF = new List<Food>();
+        string strSql = "SELECT * FROM Food where food_name LIKE '%'+@SearchText+'%'";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("SearchText", key);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            Food f = new Food();
+            f.food_id = (int)dr["food_id"];
+            f.food_name = (string)dr["food_name"];
+            f.food_price = (double)dr["food_price"];
+            f.food_sale = (int)dr["food_sale"];
+            f.food_avatar = (string)dr["food_avatar"];
+            f.food_description = (string)dr["food_description"];
+            f.foodtype_id = (int)dr["foodtype_id"];
+
+            liF.Add(f);
+        }
+        con.Close();
+        return liF;
+    }
+
+    public List<FoodType> getListFood_SearchFType(string key)
+    {
+        List<FoodType> liF = new List<FoodType>();
+        string strSql = "SELECT * FROM FoodType where foodtype_name LIKE '%'+@SearchText+'%'";
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("SearchText", key);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            FoodType f = new FoodType();
+            f.foodtype_id = (int)dr["foodtype_id"];
+            f.foodtype_name = (string)dr["foodtype_name"];
+
+            liF.Add(f);
+        }
+        con.Close();
+        return liF;
     }
     #endregion
 
@@ -493,12 +803,12 @@ public class DataUtil
             conn.Close();
             return list;
         }
-    }    
+    }
     public bool ReplyLienHe(int idLienHe, string EmailLienHe, string SbEmail, string ContentEmail)
     {
         using (var conn = new SqlConnection(sqlcon))
-        {            
-            bool rs= MailProvider.sendEmail(ContentEmail, SbEmail, EmailLienHe);
+        {
+            bool rs = MailProvider.sendEmail(ContentEmail, SbEmail, EmailLienHe);
             if (rs)
             {
                 string query = "update  Contact set noidungTraloi='" + ContentEmail + "' ,thoigianTraloi='" + DateTime.Now + "',tinhtrangTraloi='true' where idContact=" + idLienHe;
@@ -519,7 +829,7 @@ public class DataUtil
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.ExecuteNonQuery();
-            conn.Close();            
+            conn.Close();
         }
     }    
     public List<OrderVM> TimHoaDon(DateTime ngaybd, DateTime ngaykt, int ttthanhtoan)
@@ -1032,6 +1342,7 @@ public class DataUtil
         con.Close();
         return listTable;
     }
+
     public void xoaotb(int maotb)
     {
         string sqlxoatb = "delete from OrderTable where ordertable_id=@maotb";
@@ -1071,6 +1382,7 @@ public class DataUtil
         string sqlsuotb = "update  OrderTable set ordertable_iduser=@ordertable_iduser,ordertable_dateset=@ordertable_dateset,ordertable_timeset=@ordertable_timeset,ordertable_timereturn=@ordertable_timereturn,ordertable_idtable=@ordertable_idtable,ordertable_status=@ordertable_status where ordertable_id=@ordertable_id";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlsuotb, con);
+
         cmd.Parameters.AddWithValue("ordertable_iduser", otb.ordertable_iduser);
         cmd.Parameters.AddWithValue("ordertable_dateset", otb.ordertable_dateset);
         cmd.Parameters.AddWithValue("ordertable_timeset", otb.ordertable_timeset);
@@ -1098,6 +1410,86 @@ public class DataUtil
             tb.ordertable_timeset = (TimeSpan)dr["ordertable_timeset"];
             tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
             tb.ordertable_idtable = (int)dr["ordertable_idtable"];
+            tb.ordertable_status = (bool)dr["ordertable_status"];
+
+
+
+
+            listOrderTable.Add(tb);
+
+        }
+        con.Close();
+        return listOrderTable;
+    }
+    public List<OrderTable> dsOTableN(string n)
+    {
+         
+        List<OrderTable> listOrderTable = new List<OrderTable>();
+        string ds= DateTime.Parse(n).ToString("yyyy - MM - dd")+" 00:00:00.000";
+        string sqlslOrderTable = "select * from OrderTable where ordertable_dateset='"+ds+"'";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslOrderTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            OrderTable tb = new OrderTable();
+            tb.ordertable_id = (int)dr["ordertable_id"];
+            tb.ordertable_iduser = (int)dr["ordertable_iduser"];
+            tb.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+            tb.ordertable_timeset = (TimeSpan)dr["ordertable_timeset"];
+            tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
+            tb.ordertable_idtable = (int)dr["ordertable_idtable"];
+            tb.ordertable_status = (bool)dr["ordertable_status"];
+
+
+
+
+            listOrderTable.Add(tb);
+
+        }
+        con.Close();
+        return listOrderTable;
+    }
+    public List<OrderTable> dsngay()
+    {
+        List<OrderTable> listOrderTable = new List<OrderTable>();
+        string sqlslOrderTable = "select ordertable_dateset from OrderTable group by ordertable_dateset";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslOrderTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            OrderTable tb = new OrderTable();
+            
+            tb.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+            
+
+
+
+
+            listOrderTable.Add(tb);
+
+        }
+        con.Close();
+        return listOrderTable;
+    }
+    public List<OrderTable> dsOrderTableMa(int ma)
+    {
+        List<OrderTable> listOrderTable = new List<OrderTable>();
+        string sqlslOrderTable = "select * from OrderTable where ordertable_idtable=@ma ";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslOrderTable, con);
+        cmd.Parameters.AddWithValue("ma", ma);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            OrderTable tb = new OrderTable();
+            tb.ordertable_id = (int)dr["ordertable_id"];
+            tb.ordertable_iduser = (int)dr["ordertable_iduser"];
+            tb.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+            tb.ordertable_timeset = (TimeSpan)dr["ordertable_timeset"];
+            tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
+            //tb.ordertable_idtable = (int)dr["ordertable_idtable"];
             tb.ordertable_status = (bool)dr["ordertable_status"];
 
 

@@ -60,7 +60,7 @@
                             <div class="col-6">
                             </div>
                             <div class="col-6 text-right">
-                                <a>Forgot Password?</a>
+                                <a href="/Client/ForgotPassword.aspx">Forgot Password?</a>
                             </div>
                         </div>
                         <div class="submit-btn-area">

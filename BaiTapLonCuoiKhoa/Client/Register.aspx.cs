@@ -26,9 +26,10 @@ public partial class Client_Register : System.Web.UI.Page
                 member_phone = txtphone.Text,
                 member_username = txtusername.Text,
                 member_status = 1, ///Active
-                member_type = 0 ///user
+                member_type = 0, ///user
+                member_avatar = "/Assets/UploadAvatar/avatar.jpg"
             };
-            if(data.CheckRegister(user.member_fullname, user.member_mail, user.member_phone))
+            if(data.CheckRegister(user.member_username, user.member_mail, user.member_phone))
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Sign up fail! Username or email or phone exists!')", true);
             }

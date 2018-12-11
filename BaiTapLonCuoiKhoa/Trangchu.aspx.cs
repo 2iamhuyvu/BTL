@@ -9,14 +9,14 @@ using System.Web.UI.WebControls;
 public partial class Tranchu : System.Web.UI.Page
 {
     DataUtil data = new DataUtil();
-    
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
         if (!IsPostBack)
         {
             //trong
-            var cko= Session["cko"] = false;
+            var cko = Session["cko"] = false;
             //end trong
             var user = (Member)Session["User"];
             if (user != null)
@@ -54,14 +54,14 @@ public partial class Tranchu : System.Web.UI.Page
         Response.Redirect("TrangChu.aspx");
     }
     #region trong
-    
+
 
     [WebMethod(EnableSession = true)]
-    public static string sltb(string ds,string ts,string tr,string lb)
+    public static string sltb(string ds, string ts, string tr, string lb)
     {
-        if (ds!=""||ts!=""||tr!="")
+        if (ds != "" || ts != "" || tr != "")
         {
-            
+
             DataUtil dt = new DataUtil();
             int lb1 = int.Parse(lb);
             //Food food = new Food();
@@ -75,10 +75,14 @@ public partial class Tranchu : System.Web.UI.Page
         {
             return "";
         }
-        
+
     }
     [WebMethod(EnableSession = true)]
-    public static string ckeds(string ds)
+<<<<<<< HEAD
+    public static string ckeds(string ds ,string ts)
+=======
+    public static string ckeds(string ds, string ts)
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
     {
         if (ds == "")
         {
@@ -87,25 +91,50 @@ public partial class Tranchu : System.Web.UI.Page
         }
         else
         {
+            DateTime tn = DateTime.Now.Date;
+            var todn = DateTime.Now.TimeOfDay;
+            TimeSpan tso = TimeSpan.Parse(ts);
+            DateTime to = DateTime.Parse(ds).Date;
+            if (tn == to)
+            {
+<<<<<<< HEAD
+                if (TimeSpan.Compare(tso,todn)<0)
+=======
+                if (TimeSpan.Compare(tso, todn) < 0)
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
+                {
+                    return "thời gian đặt không hợp lệ";
+                }
+                else
+                {
+                    return "";
+                }
+            }
             return "";
         }
-        
 
-       
     }
+
     [WebMethod(EnableSession = true)]
-    public static string ckd(string ds,string ts, string tr)
+    public static string ckd(string ds, string ts, string tr)
     {
 
-        var tn = DateTime.Now;
-        var to = DateTime.Parse(ds);
+        DateTime tn = DateTime.Now.Date;
+<<<<<<< HEAD
+        
+        DateTime to = DateTime.Parse(ds).Date;
+        if (tn>to)
+=======
+
+        DateTime to = DateTime.Parse(ds).Date;
         if (tn > to)
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
         {
             return "ngày chọn không hợp lệ";
         }
         else
         {
-            if (ts!=""||tr!="")
+            if (ts != "" || tr != "")
             {
                 if (TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
                 {
@@ -120,7 +149,7 @@ public partial class Tranchu : System.Web.UI.Page
             {
                 return "";
             }
-            
+
         }
 
 
@@ -148,6 +177,7 @@ public partial class Tranchu : System.Web.UI.Page
                 }
                 else
                 {
+
                     if (TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
                     {
                         return "thời gian đặt và trả không hợp lệ";
@@ -166,7 +196,7 @@ public partial class Tranchu : System.Web.UI.Page
     public static string ckedststr(string ds, string ts, string tr)
     {
 
-        if (ds==""||ts==""||tr=="")
+        if (ds == "" || ts == "" || tr == "")
         {
             return "Bạn phải nhập đủ thời gian đặt và trả";
 
@@ -179,29 +209,51 @@ public partial class Tranchu : System.Web.UI.Page
 
     }
     [WebMethod(EnableSession = true)]
-    public static string cko(string ds, string ts, string tr, string lb,string tb )
+    public static string cko(string ds, string ts, string tr, string lb, string tb)
     {
-        
-        if (ds == "" || ts == "" || tr == ""||lb=="")
+
+        if (ds == "" || ts == "" || tr == "" || lb == "")
         {
             return "0";
-            
+
         }
         else
         {
-            var tn = DateTime.Now;
-            var to = DateTime.Parse(ds);
-            if (tn > to || TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
+            DateTime tn = DateTime.Now.Date;
+            var todn = DateTime.Now.TimeOfDay;
+            TimeSpan tso = TimeSpan.Parse(ts);
+            DateTime to = DateTime.Parse(ds).Date;
+<<<<<<< HEAD
+            if (tn==to && (TimeSpan.Compare(tso, todn) < 0))
+=======
+            if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
+
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
             {
                 return "1";
             }
             else
             {
-                return "true";
+                if (tn > to || TimeSpan.Parse(ts) > TimeSpan.Parse(tr))
+                {
+                    return "1";
+                }
+                else
+                {
+                    return "true";
+                }
             }
+<<<<<<< HEAD
+            
         }
+=======
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
 
+
+            return "true";
+        }
     }
+
     #endregion
 
     #region Huy
@@ -225,7 +277,7 @@ public partial class Tranchu : System.Web.UI.Page
     [System.Web.Script.Services.ScriptMethod()]
     public static Cart AddToCart(int idfood, int soluong)
     {
-        DataUtil dt = new DataUtil();        
+        DataUtil dt = new DataUtil();
         if ((Cart)HttpContext.Current.Session["Cart"] == null)
         {
             Cart CART = new Cart()
@@ -329,13 +381,13 @@ public partial class Tranchu : System.Web.UI.Page
             ordertable_idtable = cart.idtable ?? -1,
             ordertable_iduser = cart.idmember ?? -1,
             ordertable_status = false,
-            ordertable_timeset=TimeSpan.Parse("5:30"),
-            dienthoaiKH= dienthoaiKH,
-            emailKH=emailKH,
-            tenKH=tenKH,
-            loaiKH=cart.idmember>0?true:false,
-            loaiHD=cart.idtable>0?true:false,
-            ordertable_dateset = DateTime.Now,                                
+            ordertable_timeset = TimeSpan.Parse("5:30"),
+            dienthoaiKH = dienthoaiKH,
+            emailKH = emailKH,
+            tenKH = tenKH,
+            loaiKH = cart.idmember > 0 ? true : false,
+            loaiHD = cart.idtable > 0 ? true : false,
+            ordertable_dateset = DateTime.Now,
         };
         int idordertbl = dt.ThemOrderTable(odtbl);
         if (idordertbl > 0)
@@ -359,6 +411,20 @@ public partial class Tranchu : System.Web.UI.Page
         };
         HttpContext.Current.Session["Cart"] = C;
         return C;
+    }
+    #endregion
+
+    #region DUC
+    [WebMethod]
+    public static List<Food> ShowListFoodType(int IdFoodType)
+    {
+        DataUtil dt = new DataUtil();
+
+        List<Food> li = new List<Food>();
+
+        li = dt.getListFood_FoodType(IdFoodType);
+
+        return li;
     }
     #endregion
 }

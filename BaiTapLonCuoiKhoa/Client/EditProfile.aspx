@@ -74,11 +74,10 @@
                     <div class="form-group">
                         <label for="example-tel-input" class="col-form-label">
                             Avatar
-                            <%--<label style="color: red">(*)</label>--%>
                         </label>
                         <div class="avatarDiv">
-                            <input id="oFile" type="file" runat="server" name="oFile" />
-                            <img src="" alt="Alternate Text" id="avatarUpdate" runat="server" class="avatarCss"/>
+                            <asp:FileUpload ID="FileUpload" runat="server" />
+                            <img src="" alt="Alternate Text" id="avatarUpdate" runat="server" class="avatarCss" style="width: 95px; height: 150px; float:left; margin: 10px;" />
                         </div>
                     </div>
                     <asp:Button CssClass="btn btn-primary mt-4 pr-4 pl-4" runat="server" ID="btnUpdate" Text="UPDATE" OnClick="btnUpdate_Click" />
@@ -86,8 +85,8 @@
             </div>
         </div>
     </form>
-    <script src="../Client/js/jquery.min.js"></script>
-    <script src="../Client/js/popper.min.js"></script>
-    <script src="../Client/js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -46,8 +46,21 @@ public partial class Client_EditProfile : System.Web.UI.Page
     {
         try
         {
-            var pic = Request.Files["oFile"];
+            string avatar = "";
             var member = (Member)Session["User"];
+            if (Page.IsValid && FileUpload.HasFile)
+            {
+                string fileName = "images/" + FileUpload.FileName;
+
+                // Xử lý upload lưu vào sv
+                FileUpload.SaveAs(Server.MapPath("~/Assets/UploadAvatar/" + FileUpload.FileName));
+                avatar = "/Assets/UploadAvatar/" + FileUpload.FileName;
+
+            }
+            else
+            {
+                avatar = member.member_avatar;
+            }
             var user = new Member()
             {
                 member_fullname = txtfullname.Text,
@@ -55,7 +68,8 @@ public partial class Client_EditProfile : System.Web.UI.Page
                 member_phone = txtphone.Text,
                 member_status = 1,
                 member_type = 0,
-                member_id = member.member_id
+                member_id = member.member_id,
+                member_avatar = avatar
             };
             data.UpdateUser(user);
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Update success!')", true);
@@ -67,5 +81,5 @@ public partial class Client_EditProfile : System.Web.UI.Page
         }
     }
 
-   
+
 }

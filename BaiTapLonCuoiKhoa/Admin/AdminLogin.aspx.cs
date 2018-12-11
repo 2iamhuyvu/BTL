@@ -26,7 +26,7 @@ public partial class Admin_AdminLogin : System.Web.UI.Page
         }
         else
         {
-
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Sign in fail! Username or email invalid!')", true);
         }
     }
 }

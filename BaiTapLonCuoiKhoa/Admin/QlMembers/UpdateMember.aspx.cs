@@ -10,7 +10,11 @@ public partial class Admin_QlMembers_UpdateMember : System.Web.UI.Page
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        ShowInfoUser();
+        if (!IsPostBack)
+        {
+            ShowInfoUser();
+
+        }
     }
 
     private void ShowInfoUser()
@@ -26,6 +30,7 @@ public partial class Admin_QlMembers_UpdateMember : System.Web.UI.Page
             txtusername.Text = member.member_username;
             ddltype.SelectedValue = member.member_type.ToString();
             ddlstatus.SelectedValue = member.member_status.ToString();
+            avatarUpdate.Attributes["src"] = member.member_avatar;
         }
     }
 
@@ -33,7 +38,25 @@ public partial class Admin_QlMembers_UpdateMember : System.Web.UI.Page
     {
         try
         {
+            string avatar = "";
+            if (Page.IsValid && FileUpload.HasFile)
+            {
+                string fileName = "images/" + FileUpload.FileName;
+                //string filePath = MapPath(fileName);
+                //string strFolder = Server.MapPath("./");
+                //FileUpload.SaveAs(filePath);
 
+                var pic = System.Web.HttpContext.Current.Request.Files["file"];
+                // Validate
+                // Xử lý upload lưu vào sv
+                FileUpload.SaveAs(Server.MapPath("~/Assets/UploadAvatar/" + FileUpload.FileName));
+                avatar = "/Assets/UploadAvatar/" + FileUpload.FileName;
+
+            }
+            else
+            {
+                avatar = data.GetUser(Convert.ToInt16((Session["IdUser"].ToString()))).member_avatar;
+            }
             var user = new Member()
             {
                 member_fullname = txtfullname.Text,
@@ -41,7 +64,8 @@ public partial class Admin_QlMembers_UpdateMember : System.Web.UI.Page
                 member_phone = txtphone.Text,
                 member_status = Convert.ToInt16(ddlstatus.SelectedValue.ToString()), ///Active
                 member_type = Convert.ToInt16(ddltype.SelectedValue.ToString()),
-                member_id = Convert.ToInt16(Session["IdUser"].ToString())
+                member_id = Convert.ToInt16(Session["IdUser"].ToString()),
+                member_avatar = avatar
             };
             data.UpdateUser(user);
             msg.Text = "Update success!";
