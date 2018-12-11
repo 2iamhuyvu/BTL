@@ -62,18 +62,7 @@ public partial class Admin_QFood_EditFood : System.Web.UI.Page
             food.food_price = double.Parse(txtGia.Text);
             food.food_sale = int.Parse(txtKhuyenmai.Text);
 
-            if (Page.IsValid && FileUpload1.HasFile)
-            {
-                string fileName = "../../Assets/images/" + DateTime.Now.ToString("ddMMyyyy_hhmmss_tt_") + FileUpload1.FileName;
-                string filePath = MapPath(fileName);
-                FileUpload1.SaveAs(filePath);
-                //Image1.ImageUrl = fileName;
-                food.food_avatar = fileName;
-            }
-            else
-            {
-                food.food_avatar = food1.food_avatar;
-            }
+             
 
 
             ////food.food_avatar = txtAvt.Text;

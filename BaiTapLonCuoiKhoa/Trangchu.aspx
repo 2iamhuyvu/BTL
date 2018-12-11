@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Colorlib Template - EatWell</title>
+    <title><% var web = new DataUtil().qlweb(); Response.Write(web.ten_nh); %>  </title>
     <base href="Assets/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -55,13 +55,14 @@
     </style>
 </head>
 <body data-spy="scroll" data-target="#site-navbar" data-offset="200">
+    
     <form id="form1" runat="server" action="/Trangchu.aspx">
         <span id="on_top" style="width:50px;height:50px;bottom:30px;right:20px;position:fixed;display:none;background:#ccc;border-radius:50%;cursor:pointer" title="Đầu trang"><img style="width:100%" src="images/btop.jpg" /></span>
         <span id="btnCart"onclick="ViewCart()" style="width:70px;height:70px;z-index:9;top:60px;right:20px;position:fixed;border-radius:50%;cursor:pointer" title="Xem giỏ hàng"><img style="width:100%" src="images/giohang.png" /></span>        
         <div>            
             <nav class="navbar navbar-expand-lg navbar-dark site_navbar bg-dark site-navbar-light" id="site-navbar">
                 <div class="container">
-                    <a class="navbar-brand" href="/TrangChu.aspx">EatWell</a>
+                    <a class="navbar-brand" href="/TrangChu.aspx"><% var web = new DataUtil().qlweb(); Response.Write(web.ten_nh); %></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#site-nav" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="oi oi-menu"></span>Menu
                     </button>
@@ -96,11 +97,11 @@
             </nav>
             <!-- END nav -->
 
-            <section class="site-cover" style="background-image: url(images/bg_3.jpg);" id="section-home">
+            <section class="site-cover" style="background-image: url(../../Assets/images/<% Response.Write(web.banner_nh); %>);" id="section-home">
                 <div class="container">
                     <div class="row align-items-center justify-content-center text-center site-vh-100">
                         <div class="col-md-12">
-                            <h1 class="site-heading site-animate mb-3">Welcome To EatWell</h1>
+                            <h1 class="site-heading site-animate mb-3">Welcome To <%  Response.Write(web.ten_nh); %></h1>
                             <h2 class="h5 site-subheading mb-5 site-animate">Come and eat well with our delicious &amp; healthy foods.</h2>
                             <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Reservation</a></p>
                         </div>
@@ -117,12 +118,12 @@
                             <h2 class="site-primary-title display-4">Welcome</h2>
                             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 
-                            <p class="mb-4">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                            <p class="mb-4"><% Response.Write(web.gt_nh); %></p>
                             <p><a href="#" class="btn btn-secondary btn-lg">Learn More About Us</a></p>
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-6 site-animate img" data-animate-effect="fadeInRight">
-                            <img src="images/about_img_1.jpg" alt="Free Template by colorlib.com" class="img-fluid" />
+                            <img src='../../Assets/images/<% Response.Write(web.anh_nh); %>' alt="Free Template by colorlib.com" class="img-fluid" />
                         </div>
                     </div>
                 </div>
@@ -563,24 +564,23 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-4 site-animate">
                             <p>
-                                <img src="images/about_img_1.jpg" alt="" class="img-fluid">
+                                <img src='../../Assets/images/<% Response.Write(web.anh_nh); %>' alt="" class="img-fluid">
                             </p>
                             <p class="text-black">
                                 Địa chỉ:
                             <br>
-                                Nhổn city
-                            <br>
-                                30 Phố Nhổn
+                                <%  Response.Write(web.diachi_nh); %>
+                            
                             <br>
                                 <br>
                                 SĐT:
                             <br>
-                                90 987 65 44
+                                <%  Response.Write(web.sdt_nh); %>
                             <br>
                                 <br>
                                 Email:
                             <br>
-                                <a href="mailto:info@yoursite.com">info@yoursite.com</a>
+                                <a href="mailto:<%  Response.Write(web.ten_nh); %>"><%  Response.Write(web.email_nh); %></a>
                             </p>
 
                         </div>
@@ -1241,13 +1241,6 @@
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
                 data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
-<<<<<<< HEAD
-=======
-//<<<<<<< HEAD
-//=======
-//                data: "{'ds':'" + ds + "'}",
-//>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
->>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
