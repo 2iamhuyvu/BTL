@@ -20,6 +20,13 @@ public partial class Admin_QLHoaDon_OrderPage : System.Web.UI.Page
         return "Thanh toán thành công";
     }
     [WebMethod]
+    public static string XoaHoaDon(int idodtbl)
+    {
+        DataUtil dt = new DataUtil();
+        dt.XoaOrderTbl(idodtbl);
+        return "Xóa thành công";
+    }
+    [WebMethod]
     public static List<OrderVM> TimHoaDon(DateTime ngaybd, DateTime ngaykt,int ttthanhtoan)
     {
         List<OrderVM> rs = new List<OrderVM>();

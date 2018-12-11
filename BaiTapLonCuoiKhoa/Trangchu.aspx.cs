@@ -78,8 +78,12 @@ public partial class Tranchu : System.Web.UI.Page
 
     }
     [WebMethod(EnableSession = true)]
+<<<<<<< HEAD
 
     public static string ckeds(string ds, string ts)
+=======
+    public static string ckeds(string ds ,string ts)
+>>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
 
     {
         if (ds == "")
@@ -121,6 +125,10 @@ public partial class Tranchu : System.Web.UI.Page
         DateTime to = DateTime.Parse(ds).Date;
         if (tn>to)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
         {
             return "ngày chọn không hợp lệ";
         }
@@ -215,8 +223,15 @@ public partial class Tranchu : System.Web.UI.Page
             var todn = DateTime.Now.TimeOfDay;
             TimeSpan tso = TimeSpan.Parse(ts);
             DateTime to = DateTime.Parse(ds).Date;
+<<<<<<< HEAD
 
             if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
+=======
+
+            if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
+
+
+>>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
             {
                 return "1";
             }
@@ -231,6 +246,11 @@ public partial class Tranchu : System.Web.UI.Page
                     return "true";
                 }
             }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
 
             return "true";
         }
@@ -239,7 +259,14 @@ public partial class Tranchu : System.Web.UI.Page
     #endregion
 
     #region Huy
-
+    [WebMethod(EnableSession = true)]
+    public static List<table> ListTableNull()
+    {
+        DataUtil dt = new DataUtil();
+        List<table> rs = new List<table>();
+        rs=dt.dsTableNull();
+        return rs;
+    }
     [WebMethod(EnableSession = true)]
     public static Food getFoodOrderNow(int idfood)
     {
@@ -400,6 +427,14 @@ public partial class Tranchu : System.Web.UI.Page
         li = dt.getListFood_FoodType(IdFoodType);
 
         return li;
+    }
+    [WebMethod]
+    public static string Contact(string Name, string Email, string Message)
+    {
+        DataUtil data = new DataUtil();
+        Contact ct = new Contact { email = Email, name = Name, message = Message, thoigiangui = DateTime.Now };
+        data.AddContact(ct);
+        return "Bạn đã gửi liên hệ thành công!";
     }
     #endregion
 }

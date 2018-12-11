@@ -76,11 +76,15 @@
                         Response.Write("<td><button onclick='Thanhtoan(" + item.ordertable_id + ")' class='btn btn-sm' type=button' style='background:#ffc107;padding:5px 10px'>Thanh toán</button></td>");
                     }
                     Response.Write("<td>" +
-                                        "<a title='Xem hóa đơn' class='' style='display:block;padding:5px 10px;' href='javascript:void(0)' onclick='ModalDetailTable(" + item.ordertable_id + ")'>" +
+                                        "<a title='Xem hóa đơn' class='' style='display:inline-block;padding:5px 5px;' href='javascript:void(0)' onclick='ModalDetailTable(" + item.ordertable_id + ")'>" +
                                         "<i class='fa fa-eye fa-lg'></i>" +
                                         "</a>" +
+                                        "&nbsp;<a title='Xóa hóa đơn' class='' style='display:inline-block;padding:5px 5px;' href='javascript:void(0)' onclick='XoaHoaDon(" + item.ordertable_id + ")'>" +
+                                        "<i class='fa fa-trash fa-lg' style='color:red'></i>" +
+                                        "</a>"+
                                     "</td>");
                     Response.Write("</tr>");
+                    i++;
                 }
             %>
         </tbody>
@@ -94,7 +98,7 @@
                     <h4 class=" modal-title">Chi tiết Hóa đơn</h4>
                     <button type="button" class="close" onclick="closeModalDetaiTable()">&times;</button>
                 </div>
-                <div class="modal-body" style="padding: 0px">
+                <div class="modal-body" style="padding: 0px;max-height:500px;overflow:auto">
                 </div>
                 <div class="modal-footer" style="padding: 10px">
                     <button type="button" class="btn btn-warning btn-sm" style="background: white; padding: 5px 10px;" onclick="closeModalDetaiTable()">Đóng</button>
@@ -103,23 +107,44 @@
         </div>
     </div>
     <script>
+        function XoaHoaDon(id) {
+            let kt = confirm("Bạn có chắc chắn Xóa hóa đơn này không");
+            if (kt) {
+                $.ajax({
+                    type: "post",
+                    url: "/Admin/QLHoaDon/OrderPage.aspx/XoaHoaDon",
+                    data: "{idodtbl:" + id + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (rs) {
+                        $.notify("Xóa thành công", "success")
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                });
+            }
+        }
         function closeModalDetaiTable() {
             $("#ModalDetaiTable").modal("hide");
         }
         function Thanhtoan(id) {
-            $.ajax({
-                type: "post",
-                url: "/Admin/QLHoaDon/OrderPage.aspx/ThanhToan",
-                data: "{idodtbl:" + id + "}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (rs) {
-                    $.notify("Thanh toán thành công", "success")
-                    setTimeout(function () {
-                        location.reload();
-                    }, 1500);
-                }
-            });
+            let kt = confirm("Bạn có chắc chắn thanh toán hóa đơn này không");
+            if (kt) {
+                $.ajax({
+                    type: "post",
+                    url: "/Admin/QLHoaDon/OrderPage.aspx/ThanhToan",
+                    data: "{idodtbl:" + id + "}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (rs) {
+                        $.notify("Thanh toán thành công", "success")
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                });
+            }
         }
         function TatCaHoaDon() {
             location.reload();

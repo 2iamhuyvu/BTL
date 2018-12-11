@@ -35,6 +35,7 @@
                     Response.Write("<td>" + item.quantity + "</td>");
                     Response.Write("<td>" + item.thanhtien + "</td>");
                     Response.Write("</tr>");
+                    i++;
                 }
             %>
         </tbody>
@@ -48,10 +49,10 @@
                     <h4 class=" modal-title">Chi tiết Hóa đơn</h4>
                     <button type="button" class="close" onclick="closeModalDetaiTable()">&times;</button>
                 </div>
-                <div class="modal-body" style="padding: 0px">
+                <div class="modal-body" style="padding: 0px;max-height:500px;overflow:auto">
                 </div>
                 <div class="modal-footer" style="padding: 10px">
-                    <button type="button" class="btn btn-default btn-sm" style="background: white; color: black" onclick="closeModalDetaiTable()">Đóng</button>
+                    <button  type="button" class="btn btn-warning btn-sm" style="background: white; padding: 5px 10px;" onclick="closeModalDetaiTable()">Đóng</button>
                 </div>
             </div>
         </div>

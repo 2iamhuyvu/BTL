@@ -21,7 +21,133 @@ public class DataUtil
         con = new SqlConnection(sqlcon);
     }
 
+<<<<<<< HEAD
     
+=======
+    public List<table> dsTableNull()
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable where table_status='False'";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            //tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+    public List<table> dsTable()
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+    public List<table> dsTableL( int l)
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable where table_description="+l+"";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
+
+
+
+    public void AddTable(table tb)
+    {
+        string sqladdtb = "insert into qlTable values(@nametb," + 0 + ",@mota)";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqladdtb, con);
+        cmd.Parameters.AddWithValue("nametb", tb.table_name);
+        //cmd.Parameters.AddWithValue("stt", tb.table_status);
+        cmd.Parameters.AddWithValue("mota", tb.table_description);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+    public void xoatb(int matb)
+    {
+        string sqlxoatb = "delete from qlTable where table_id=@matb";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlxoatb, con);
+        cmd.Parameters.AddWithValue("matb", matb);
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+    public table lay1tb(int matb)
+    {
+
+        string sqlsl = "select * from qlTable where table_id=@matb";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlsl, con);
+        cmd.Parameters.AddWithValue("matb", matb);
+        SqlDataReader dr = cmd.ExecuteReader();
+        table tb = null;
+        while (dr.Read())
+        {
+            tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+
+
+        }
+        con.Close();
+        return tb;
+    }
+    public void suatb(table tb)
+    {
+        string sqlsuqtb = "update  qlTable set table_name=@table_name,table_status=@table_status,table_description=@table_description where table_id=@table_id";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlsuqtb, con);
+        cmd.Parameters.AddWithValue("table_name", tb.table_name);
+        cmd.Parameters.AddWithValue("table_status", tb.table_status);
+        cmd.Parameters.AddWithValue("table_description", tb.table_description);
+        cmd.Parameters.AddWithValue("table_id", tb.table_id);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+    }
+>>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
 
     #region DatRegion
     /// <summary>
@@ -590,8 +716,6 @@ public class DataUtil
         return liFoDiscount;
     }
 
-
-
     public List<Food> getListFood_Search(string key)
     {
         List<Food> liF = new List<Food>();
@@ -642,6 +766,60 @@ public class DataUtil
         con.Close();
         return liF;
     }
+
+    // CONTACT
+    //public List<Contact> getListContact()
+    //{
+    //    List<Contact> li = new List<Contact>();
+    //    string strSql = "select * from Contact";
+    //    con.Open();
+
+    //    SqlCommand cmd = new SqlCommand(strSql, con);
+    //    SqlDataReader dr = cmd.ExecuteReader();
+
+    //    while (dr.Read())
+    //    {
+    //        Contact c = new Contact();
+    //        c.idContact = (int)dr["idContact"];
+    //        c.name = (string)dr["name"];
+    //        c.email = (string)dr["email"];
+    //        c.message = (string)dr["message"];
+    //        c.thoigiangui = (DateTime)dr["ngaygui"];
+
+    //        li.Add(c);
+    //    }
+    //    con.Close();
+    //    return li;
+    //}
+    public void AddContact(Contact c)
+    {
+        string strSql = "insert into Contact(name, email, message, thoigiangui) values(@name, @email, @message, @thoigiangui)";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("name", c.name);
+        cmd.Parameters.AddWithValue("email", c.email);
+        cmd.Parameters.AddWithValue("message", c.message);
+        cmd.Parameters.AddWithValue("thoigiangui", c.thoigiangui);
+
+        cmd.ExecuteNonQuery();
+
+        con.Close();
+    }
+
+    //public void DeleteContact(int idContact)
+    //{
+    //    string strSql = "delete from Contact where idContact=@idContact";
+    //    con.Open();
+
+    //    SqlCommand cmd = new SqlCommand(strSql, con);
+
+    //    cmd.Parameters.AddWithValue("idContact", idContact);
+
+    //    cmd.ExecuteNonQuery();
+    //    con.Close();
+    //}
+
     #endregion
 
     #region Huy
@@ -709,8 +887,7 @@ public class DataUtil
             cmd.ExecuteNonQuery();
             conn.Close();
         }
-    }
-
+    }    
     public List<OrderVM> TimHoaDon(DateTime ngaybd, DateTime ngaykt, int ttthanhtoan)
     {
         using (var conn = new SqlConnection(sqlcon))
@@ -791,6 +968,36 @@ public class DataUtil
                 dr.Close();
             }
             return listRS;
+        }
+    }
+    public void XoaOrderTbl(int idodtbl)
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {
+            string query = "delete from OrderTable where ordertable_id=" + idodtbl;
+            string query1 = "delete from OrderDetail where ordertableid=" + idodtbl;
+            string query2 = "select top 1 ordertable_idtable from OrderTable where ordertable_id=" + idodtbl;
+            conn.Open();            
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader dr2 = cmd2.ExecuteReader();
+            int idtbl = -1;
+            if (dr2.Read())
+            {
+                idtbl = (int)dr2["ordertable_idtable"];
+            }
+            conn.Close();
+            conn.Open();
+            if (idtbl != -1)
+            {
+                string query3 = "update  qlTable set table_status='false' where table_id=" + idtbl;
+                SqlCommand cmd3 = new SqlCommand(query3, conn);
+                cmd3.ExecuteNonQuery();
+            }            
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlCommand cmd1 = new SqlCommand(query1, conn);            
+            cmd.ExecuteNonQuery();
+            cmd1.ExecuteNonQuery();
+            conn.Close();
         }
     }
     public void ThanhToanOrderTbl(int idodtbl)
@@ -1157,7 +1364,7 @@ public class DataUtil
                 SqlCommand cmd2 = new SqlCommand(query2, conn);
                 cmd2.ExecuteNonQuery();
             }
-            string query1 = "select top 1 * from OrderTable order by ordertable_timeset desc";
+            string query1 = "select top 1 * from OrderTable order by ordertable_dateset desc";
             SqlCommand cmd1 = new SqlCommand(query1, conn);
             SqlDataReader dr = cmd1.ExecuteReader();
             int idOrderTbl = -1;

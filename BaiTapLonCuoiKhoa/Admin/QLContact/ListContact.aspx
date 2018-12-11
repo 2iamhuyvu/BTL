@@ -53,6 +53,7 @@
                     }
                     Response.Write("<td><button type='button' style='height: 30px; padding: 0px 5px; border: 1px solid #ccc; border-radius: 5px; background: #ccc' title='Xóa liên hệ' onclick='XoaContact(" + item.idContact + ")'>Xóa</button></td>");
                     Response.Write("</tr>");
+                    i++;
                 }
             %>
         </tbody>
