@@ -10,9 +10,12 @@ public partial class Admin_QlTable_UpdateTable : System.Web.UI.Page
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            ShowInfoTable();
+            txtidtb.Enabled = false;
+        }
         
-        ShowInfoTable();
-        txtidtb.Enabled = false;
     }
     private void ShowInfoTable()
     {

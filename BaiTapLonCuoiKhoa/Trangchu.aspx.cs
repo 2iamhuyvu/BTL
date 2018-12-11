@@ -78,7 +78,8 @@ public partial class Tranchu : System.Web.UI.Page
 
     }
     [WebMethod(EnableSession = true)]
-    public static string ckeds(string ds, string ts)
+    public static string ckeds(string ds ,string ts)
+
     {
         if (ds == "")
         {
@@ -93,7 +94,9 @@ public partial class Tranchu : System.Web.UI.Page
             DateTime to = DateTime.Parse(ds).Date;
             if (tn == to)
             {
+
                 if (TimeSpan.Compare(tso, todn) < 0)
+
                 {
                     return "thời gian đặt không hợp lệ";
                 }
@@ -113,8 +116,11 @@ public partial class Tranchu : System.Web.UI.Page
 
         DateTime tn = DateTime.Now.Date;
 
+        
         DateTime to = DateTime.Parse(ds).Date;
-        if (tn > to)
+        if (tn>to)
+
+
         {
             return "ngày chọn không hợp lệ";
         }
@@ -209,7 +215,9 @@ public partial class Tranchu : System.Web.UI.Page
             var todn = DateTime.Now.TimeOfDay;
             TimeSpan tso = TimeSpan.Parse(ts);
             DateTime to = DateTime.Parse(ds).Date;
+
             if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
+
 
             {
                 return "1";
@@ -227,6 +235,7 @@ public partial class Tranchu : System.Web.UI.Page
             }
 
 
+
             return "true";
         }
     }
@@ -234,7 +243,14 @@ public partial class Tranchu : System.Web.UI.Page
     #endregion
 
     #region Huy
-
+    [WebMethod(EnableSession = true)]
+    public static List<table> ListTableNull()
+    {
+        DataUtil dt = new DataUtil();
+        List<table> rs = new List<table>();
+        rs=dt.dsTableNull();
+        return rs;
+    }
     [WebMethod(EnableSession = true)]
     public static Food getFoodOrderNow(int idfood)
     {

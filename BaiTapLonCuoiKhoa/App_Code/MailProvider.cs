@@ -10,8 +10,8 @@ public class MailProvider
     //private static string PASS_MAIL = WebConfigurationManager.AppSettings["PASS_MAIL"];
     //private static string HOST_WEB = WebConfigurationManager.AppSettings["HOST_WEB"];
 
-    public static string ACCOUNT_MAIL = "vudinhhuy97tn@gmail.com";
-    public static string PASS_MAIL = "gmail212072024";
+    public static string ACCOUNT_MAIL = "";
+    public static string PASS_MAIL = "";
 
     public static bool sendEmail(string body, string subject, string address)
     {
