@@ -396,5 +396,13 @@ public partial class Tranchu : System.Web.UI.Page
 
         return li;
     }
+    [WebMethod]
+    public static string Contact(string Name, string Email, string Message)
+    {
+        DataUtil data = new DataUtil();
+        Contact ct = new Contact { email = Email, name = Name, message = Message, thoigiangui = DateTime.Now };
+        data.AddContact(ct);
+        return "Bạn đã gửi liên hệ thành công!";
+    }
     #endregion
 }

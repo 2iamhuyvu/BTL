@@ -691,8 +691,6 @@ public class DataUtil
         return liFoDiscount;
     }
 
-
-
     public List<Food> getListFood_Search(string key)
     {
         List<Food> liF = new List<Food>();
@@ -743,6 +741,60 @@ public class DataUtil
         con.Close();
         return liF;
     }
+
+    // CONTACT
+    //public List<Contact> getListContact()
+    //{
+    //    List<Contact> li = new List<Contact>();
+    //    string strSql = "select * from Contact";
+    //    con.Open();
+
+    //    SqlCommand cmd = new SqlCommand(strSql, con);
+    //    SqlDataReader dr = cmd.ExecuteReader();
+
+    //    while (dr.Read())
+    //    {
+    //        Contact c = new Contact();
+    //        c.idContact = (int)dr["idContact"];
+    //        c.name = (string)dr["name"];
+    //        c.email = (string)dr["email"];
+    //        c.message = (string)dr["message"];
+    //        c.thoigiangui = (DateTime)dr["ngaygui"];
+
+    //        li.Add(c);
+    //    }
+    //    con.Close();
+    //    return li;
+    //}
+    public void AddContact(Contact c)
+    {
+        string strSql = "insert into Contact(name, email, message, thoigiangui) values(@name, @email, @message, @thoigiangui)";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(strSql, con);
+
+        cmd.Parameters.AddWithValue("name", c.name);
+        cmd.Parameters.AddWithValue("email", c.email);
+        cmd.Parameters.AddWithValue("message", c.message);
+        cmd.Parameters.AddWithValue("thoigiangui", c.thoigiangui);
+
+        cmd.ExecuteNonQuery();
+
+        con.Close();
+    }
+
+    //public void DeleteContact(int idContact)
+    //{
+    //    string strSql = "delete from Contact where idContact=@idContact";
+    //    con.Open();
+
+    //    SqlCommand cmd = new SqlCommand(strSql, con);
+
+    //    cmd.Parameters.AddWithValue("idContact", idContact);
+
+    //    cmd.ExecuteNonQuery();
+    //    con.Close();
+    //}
+
     #endregion
 
     #region Huy

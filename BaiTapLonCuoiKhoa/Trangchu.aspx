@@ -47,6 +47,11 @@
         label {
             margin-bottom: 2px !important
         }
+        .img.mfp-img{
+            height: 300px;
+            width: 350px;
+            max-width: 0;
+        }
     </style>
 </head>
 <body data-spy="scroll" data-target="#site-navbar" data-offset="200">
@@ -528,32 +533,32 @@
                     <div class="row">
 
                         <div class="col-md-12 text-center mb-5 site-animate">
-                            <h2 class="display-4">Get In Touch</h2>
+                            <h2 class="display-4">Liên hệ với chúng tôi</h2>
                             <div class="row justify-content-center">
                                 <div class="col-md-7">
-                                    <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="lead">Ý kiến của bạn sẽ góp phần cho dịch vụ chúng tôi được tốt hơn</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-7 mb-5 site-animate">
-                            <form action="" method="post">
+                            <div id="SendContactSubmit">
                                 <div class="form-group">
                                     <label for="name" class="sr-only">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                    <input type="text" class="form-control" id="name" placeholder="Tên của bạn..."/>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="sr-only">Email</label>
-                                    <input type="text" class="form-control" id="email" placeholder="Email">
+                                    <input type="text" class="form-control" id="email" placeholder="Email của bạn..." />
                                 </div>
                                 <div class="form-group">
                                     <label for="message" class="sr-only">Message</label>
-                                    <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write your message"></textarea>
+                                    <textarea name="Message" id="message" cols="30" rows="10" class="form-control" placeholder="Nội dung..."></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-primary btn-lg" value="Send Message">
+                                    <input type="button" class="btn btn-primary btn-lg" onclick="funcContact()" value="Gửi tin nhắn"/>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-4 site-animate">
@@ -561,14 +566,14 @@
                                 <img src="images/about_img_1.jpg" alt="" class="img-fluid">
                             </p>
                             <p class="text-black">
-                                Address:
+                                Địa chỉ:
                             <br>
-                                121 Street, Melbourne Victoria
+                                Nhổn city
                             <br>
-                                3000 Australia
+                                30 Phố Nhổn
                             <br>
                                 <br>
-                                Phone:
+                                SĐT:
                             <br>
                                 90 987 65 44
                             <br>
@@ -1383,6 +1388,68 @@
                     $("#cud").html(html);
                 }
             });
+        }
+
+        function CheckFormContact() {
+            if ($("#SendContactSubmit #name").val().trim() == "") {
+                return 0;
+            } else if ($("#SendContactSubmit #email").val().trim() == "") {
+                return -1;
+            } else if ($("#SendContactSubmit #message").val().trim() == "") {
+                return -2;
+            }else {
+                let regEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+                if (!regEmail.test($("#SendContactSubmit #email").val().trim()))
+                    return -3;
+            }
+            return 1;
+        }
+
+        function funcContact() {
+            if (USER == null) {
+                if (CheckFormContact() == 1) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Trangchu.aspx/Contact",
+                        data: "{Name:'" + $("#SendContactSubmit #name").val() + "', Email:'" + $("#SendContactSubmit #email").val() + "', Message:'" + $("#SendContactSubmit #message").val() + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            alert(result.d);
+                            $("#SendContactSubmit #name").val("");
+                            $("#SendContactSubmit #email").val("");
+                            $("#SendContactSubmit #message").val("");
+                        }
+                    });
+                } else {
+                    if (CheckFormContact() == 0) {
+                        $.notify("Bạn muốn liên hệ với chúng tôi. Vui lòng nhập tên của bạn!", "error")
+                    } else if (CheckFormContact() == -1) {
+                        $.notify("Bạn chưa nhập email !", "error")
+                    } else if (CheckFormContact() == -3) {
+                        $.notify("Sai định dạng email !", "error")
+                    } else {
+                        $.notify("Nhập vào nội dung !", "error")
+                    }
+                }
+            } else {
+                $.ajax({
+                    type: "POST",
+                    //data: "{Name:'" + $("#SendContactSubmit #name").val() + "', Email:'" + $("#SendContactSubmit #email").val() + "', Message:'" + $("#SendContactSubmit #message").val() + "'}",
+                    data: "{Name:'" + CART.tenKH + "', Email:'" + CART.emailKH + "', Message:'" + $("#SendContactSubmit #message").val() + "'}",
+                    url: "/Trangchu.aspx/Contact",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $.notify("Gửi liên hệ thành công", "success");
+                        //alert(data.d);
+                        $("#SendContactSubmit #name").val("");
+                        $("#SendContactSubmit #email").val("");
+                        $("#SendContactSubmit #message").val("");
+                    }
+                });
+            }
+            
         }
         // END - DUC
     </script>
