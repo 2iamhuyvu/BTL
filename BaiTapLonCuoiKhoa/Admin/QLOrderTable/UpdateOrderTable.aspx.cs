@@ -10,8 +10,13 @@ public partial class Admin_OrderTable_UpdateOrderTable : System.Web.UI.Page
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-        ShowInfooTable();
-        txtidotb.Enabled = false;
+        if (!IsPostBack)
+        {
+            ShowInfooTable();
+            txtidotb.Enabled = false;
+
+        }
+        
     }
     private void ShowInfooTable()
     {

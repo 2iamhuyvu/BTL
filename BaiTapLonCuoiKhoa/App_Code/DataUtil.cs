@@ -63,6 +63,27 @@ public class DataUtil
         con.Close();
         return listTable;
     }
+    public List<table> dsTableL( int l)
+    {
+        List<table> listTable = new List<table>();
+        string sqlslTable = "select * from qlTable where table_description="+l+"";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            table tb = new table();
+            tb.table_id = (int)dr["table_id"];
+            tb.table_name = (string)dr["table_name"];
+            tb.table_status = (bool)dr["table_status"];
+            tb.table_description = (int)dr["table_description"];
+
+            listTable.Add(tb);
+
+        }
+        con.Close();
+        return listTable;
+    }
 
 
 
@@ -1292,6 +1313,7 @@ public class DataUtil
         con.Close();
         return listTable;
     }
+
     public void xoaotb(int maotb)
     {
         string sqlxoatb = "delete from OrderTable where ordertable_id=@maotb";
@@ -1360,6 +1382,58 @@ public class DataUtil
             tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
             tb.ordertable_idtable = (int)dr["ordertable_idtable"];
             tb.ordertable_status = (bool)dr["ordertable_status"];
+
+
+
+
+            listOrderTable.Add(tb);
+
+        }
+        con.Close();
+        return listOrderTable;
+    }
+    public List<OrderTable> dsOTableN(string n)
+    {
+         
+        List<OrderTable> listOrderTable = new List<OrderTable>();
+        string ds= DateTime.Parse(n).ToString("yyyy - MM - dd")+" 00:00:00.000";
+        string sqlslOrderTable = "select * from OrderTable where ordertable_dateset='"+ds+"'";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslOrderTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            OrderTable tb = new OrderTable();
+            tb.ordertable_id = (int)dr["ordertable_id"];
+            tb.ordertable_iduser = (int)dr["ordertable_iduser"];
+            tb.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+            tb.ordertable_timeset = (TimeSpan)dr["ordertable_timeset"];
+            tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
+            tb.ordertable_idtable = (int)dr["ordertable_idtable"];
+            tb.ordertable_status = (bool)dr["ordertable_status"];
+
+
+
+
+            listOrderTable.Add(tb);
+
+        }
+        con.Close();
+        return listOrderTable;
+    }
+    public List<OrderTable> dsngay()
+    {
+        List<OrderTable> listOrderTable = new List<OrderTable>();
+        string sqlslOrderTable = "select ordertable_dateset from OrderTable group by ordertable_dateset";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlslOrderTable, con);
+        SqlDataReader dr = cmd.ExecuteReader();
+        while (dr.Read())
+        {
+            OrderTable tb = new OrderTable();
+            
+            tb.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+            
 
 
 

@@ -10,8 +10,12 @@
 <<<<<<< HEAD
             
 =======
+<<<<<<< HEAD
+            
+=======
             <form action="/Admin/QLOrderTable/UpdateOrderTable.aspx" runat="server">
 >>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
                 <div class="card-body">
                     <h4 class="header-title">Update this OrderTable </h4>
                     <asp:Label ID="mss" runat="server" />
@@ -72,12 +76,17 @@
                     
                     <br />
                 </div>
+                <a  href="ListOrderTable.aspx" style="text-align:center; font-size:30px; padding-bottom:10px;">List OrderTable</a>
                 <%--<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="listtb" >Danh sách bàn</button>--%>
+<<<<<<< HEAD
+           
+=======
 <<<<<<< HEAD
            
 =======
             </form>
 >>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
+>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
 
         </div>
     </div>

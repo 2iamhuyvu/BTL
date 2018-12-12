@@ -112,7 +112,6 @@ public partial class Tranchu : System.Web.UI.Page
     {
 
         DateTime tn = DateTime.Now.Date;
-
         DateTime to = DateTime.Parse(ds).Date;
         if (tn > to)
         {
@@ -210,7 +209,6 @@ public partial class Tranchu : System.Web.UI.Page
             TimeSpan tso = TimeSpan.Parse(ts);
             DateTime to = DateTime.Parse(ds).Date;
             if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
-
             {
                 return "1";
             }
@@ -226,8 +224,6 @@ public partial class Tranchu : System.Web.UI.Page
                 }
             }
 
-
-            return "true";
         }
     }
 
@@ -381,6 +377,20 @@ public partial class Tranchu : System.Web.UI.Page
         };
         HttpContext.Current.Session["Cart"] = C;
         return C;
+    }
+    #endregion
+
+    #region DUC
+    [WebMethod]
+    public static List<Food> ShowListFoodType(int IdFoodType)
+    {
+        DataUtil dt = new DataUtil();
+
+        List<Food> li = new List<Food>();
+
+        li = dt.getListFood_FoodType(IdFoodType);
+
+        return li;
     }
     #endregion
 }

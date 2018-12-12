@@ -15,31 +15,6 @@ public partial class Admin_OrderTable_AddTable : System.Web.UI.Page
     }
 
 
-
-
-
-    //protected void addtb_Click(object sender, EventArgs e)
-    ////{
-    ////    try
-    ////    {
-    ////        table tb = new table();
-    ////        tb.table_name = .Text;
-    ////        s.diachi = txtdiachi.Text;
-    ////        s.dienthoai = txtdienthoai.Text;
-    ////        s.malop = int.Parse(drlop.SelectedValue);
-    ////        data.them(s);
-    ////        mss.Text = "them thanh cong";
-    ////        mss.ForeColor = System.Drawing.Color.Blue;
-    ////    }
-    ////    catch (Exception)
-    ////    {
-
-    ////        mss.Text = "them khong thanh cong";
-    ////        mss.ForeColor = System.Drawing.Color.Red;
-    ////    }
-
-    //}
-
     protected void btnsubmit_Click(object sender, EventArgs e)
     {
         try
@@ -51,6 +26,7 @@ public partial class Admin_OrderTable_AddTable : System.Web.UI.Page
             mss.Text = "Update success!";
             mss.ForeColor = System.Drawing.Color.Green;
             
+            
         }
         catch (Exception ex)
         {
@@ -60,4 +36,6 @@ public partial class Admin_OrderTable_AddTable : System.Web.UI.Page
         }
 
     }
+
+    
 }

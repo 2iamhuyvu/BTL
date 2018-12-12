@@ -23,12 +23,10 @@ public partial class Client_EditProfile : System.Web.UI.Page
             else
             {
                 var member = data.GetUser(user.member_id);
-                nameuser.Text = member.member_fullname;
                 txtemail.Text = member.member_mail;
                 txtfullname.Text = member.member_fullname;
                 txtusername.Text = member.member_username;
                 txtphone.Text = member.member_phone;
-                avatarImageTop.Attributes["src"] = member.member_avatar;
                 avatarUpdate.Attributes["src"] = member.member_avatar;
 
             }
