@@ -12,9 +12,9 @@ using System.Data.Odbc;
 public class DataUtil
 {
     SqlConnection con;
-    //string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+    string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
 
-    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+    //string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
 
     public DataUtil()
     {
@@ -1288,11 +1288,12 @@ public class DataUtil
     {
         using (var conn = new SqlConnection(sqlcon))
         {
-            string query = "insert into OrderTable (ordertable_iduser,ordertable_dateset,ordertable_timeset,ordertable_idtable,ordertable_status,tenKH,emailKH,dienthoaiKH,loaiKH,loaiHD) values(@ordertable_iduser,@ordertable_dateset,@ordertable_timeset,@ordertable_idtable,@ordertable_status,@tenKH,@emailKH,@dienthoaiKH,@loaiKH,@loaiHD)";
+            string query = "insert into OrderTable (ordertable_iduser,ordertable_dateset,ordertable_timeset,ordertable_timereturn,ordertable_idtable,ordertable_status,tenKH,emailKH,dienthoaiKH,loaiKH,loaiHD) values(@ordertable_iduser,@ordertable_dateset,@ordertable_timeset,@ordertable_timereturn,@ordertable_idtable,@ordertable_status,@tenKH,@emailKH,@dienthoaiKH,@loaiKH,@loaiHD)";
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("ordertable_iduser", odtbl.ordertable_iduser);
             cmd.Parameters.AddWithValue("ordertable_timeset", odtbl.ordertable_timeset);
+            cmd.Parameters.AddWithValue("ordertable_timereturn", odtbl.ordertable_timereturn);
             cmd.Parameters.AddWithValue("ordertable_dateset", odtbl.ordertable_dateset);
             cmd.Parameters.AddWithValue("ordertable_idtable", odtbl.ordertable_idtable);
             cmd.Parameters.AddWithValue("ordertable_status", odtbl.ordertable_status);
@@ -1308,7 +1309,7 @@ public class DataUtil
                 SqlCommand cmd2 = new SqlCommand(query2, conn);
                 cmd2.ExecuteNonQuery();
             }
-            string query1 = "select top 1 * from OrderTable order by ordertable_dateset desc";
+            string query1 = "select top 1 * from OrderTable order by ordertable_id desc";
             SqlCommand cmd1 = new SqlCommand(query1, conn);
             SqlDataReader dr = cmd1.ExecuteReader();
             int idOrderTbl = -1;
@@ -1548,8 +1549,7 @@ public class DataUtil
                 SqlDataReader dr2 = cmd1.ExecuteReader();
                 while (dr2.Read())
                 {
-                    st += "<option value = " + (int)dr2["table_id"] + " > " + (string)dr2["table_name"] + "</option>";
-
+                    st += "<option tenban="+ (string)dr2["table_name"] + " value = " + (int)dr2["table_id"] + " > " + (string)dr2["table_name"] + "</option>";
 
                 }
 

@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <link href="css/StyleCustom.css" rel="stylesheet" />
-    <style>        
+    <style>
         #listFoodCart tr th, td {
             font-size: 14px;
             color: black;
@@ -51,9 +51,11 @@
 </head>
 <body data-spy="scroll" data-target="#site-navbar" data-offset="200">
     <form id="form1" runat="server" action="/Trangchu.aspx">
-        <span id="on_top" style="width:50px;height:50px;bottom:30px;right:20px;position:fixed;display:none;background:#ccc;border-radius:50%;cursor:pointer" title="Đầu trang"><img style="width:100%" src="images/btop.jpg" /></span>
-        <span id="btnCart"onclick="ViewCart()" style="width:70px;height:70px;z-index:9;top:60px;right:20px;position:fixed;border-radius:50%;cursor:pointer" title="Xem giỏ hàng"><img style="width:100%" src="images/giohang.png" /></span>        
-        <div>            
+        <span id="on_top" style="width: 50px; height: 50px; bottom: 30px; right: 20px; position: fixed; display: none; background: #ccc; border-radius: 50%; cursor: pointer" title="Đầu trang">
+            <img style="width: 100%" src="images/btop.jpg" /></span>
+        <span id="btnCart" onclick="ViewCart()" style="width: 70px; height: 70px; z-index: 9; top: 60px; right: 20px; position: fixed; border-radius: 50%; cursor: pointer" title="Xem giỏ hàng">
+            <img style="width: 100%" src="images/giohang.png" /></span>
+        <div>
             <nav class="navbar navbar-expand-lg navbar-dark site_navbar bg-dark site-navbar-light" id="site-navbar">
                 <div class="container">
                     <a class="navbar-brand" href="/TrangChu.aspx">EatWell</a>
@@ -97,7 +99,7 @@
                         <div class="col-md-12">
                             <h1 class="site-heading site-animate mb-3">Welcome To EatWell</h1>
                             <h2 class="h5 site-subheading mb-5 site-animate">Come and eat well with our delicious &amp; healthy foods.</h2>
-                            <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Reservation</a></p>
+                            <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal">Reservation</a></p>
                         </div>
                     </div>
                 </div>
@@ -161,7 +163,7 @@
 
 
                                     }
-                                %>                                
+                                %>
                             </div>
                         </div>
 
@@ -194,229 +196,19 @@
                                         Response.Write("</li>");
                                     }
                                 %>
-
-                                <%--<li class="nav-item site-animate">
-                                    <a class="nav-link active" id="pills-breakfast-tab" data-toggle="pill" href="#pills-breakfast" role="tab" aria-controls="pills-breakfast" aria-selected="true">Breakfast</a>
-                                </li>
-                                <li class="nav-item site-animate">
-                                    <a class="nav-link" id="pills-lunch-tab" data-toggle="pill" href="#pills-lunch" role="tab" aria-controls="pills-lunch" aria-selected="false">Lunch</a>
-                                </li>
-                                <li class="nav-item site-animate">
-                                    <a class="nav-link" id="pills-dinner-tab" data-toggle="pill" href="#pills-dinner" role="tab" aria-controls="pills-dinner" aria-selected="false">Dinner</a>
-                                </li>--%>
                             </ul>
 
-                            <%--<div class="tab-content text-left">
-                                <div class="tab-pane fade show active" id="pills-breakfast" role="tabpanel" aria-labelledby="pills-breakfast-tab">
-                                    <div class="row">
-                                        <div class="col-md-6 site-animate">
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$24.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$14.50</h6>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6 site-animate">
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img class="mr-3" src="images/menu_1.jpg" class="img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$12.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_3.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$18.50</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="pills-lunch" role="tabpanel" aria-labelledby="pills-lunch-tab">
-                                    <div class="row">
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_3.jpg" class="img-fluid mr-3" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$14.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$24.50</h6>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$18.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$12.50</h6>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="pills-dinner" role="tabpanel" aria-labelledby="pills-dinner-tab">
-                                    <div class="row">
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$24.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$14.50</h6>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6 site-animate">
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Fried Potato w/ Garlic</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$18.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Italian Sauce Mushroom</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$35.50</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="media menu-item">
-                                                <img src="images/menu_1.jpg" class="mr-3 img-fluid" alt="Free Template by colorlib.com" />
-                                                <div class="media-body">
-                                                    <h5 class="mt-0">Salted Fried Chicken</h5>
-                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                                    <h6 class="text-primary menu-price">$12.50</h6>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>--%>
                         </div>
-                        <%-- <div class="col-md-12">
-                            <div class="owl-carousel site-owl" id="cud" style="background: dodgerblue">
-                            </div>
-
-                        </div>--%>
                     </div>
                 </div>
-                <div style="background: #f8f9fa;padding:15px 0px">
+                <div style="background: #f8f9fa; padding: 15px 0px">
                     <div class="container">
                         <div class="row " id="cud" style="max-height: 550px; width: 100%; overflow: auto;">
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <!-- END section -->
 
             <section class="site-section bg-light" id="section-news">
@@ -484,40 +276,7 @@
                                 Response.Write("<a href='../../Assets/images/" + f.food_avatar + "' class='site-thumbnail image-popup'><img src='../../Assets/images/" + f.food_avatar + "' style='height:250px;width:350px;' alt='" + f.food_name + "' class='img-fluid'></a>");
                                 Response.Write("</div>");
                             }
-                        %>
-
-                        <%--<div class="col-md-4 site-animate">
-                            <a href="images/menu_1.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_2.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_3.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_2.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_2.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_3.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_3.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>
-                        <div class="col-md-4 site-animate">
-                            <a href="images/menu_1.jpg" class="site-thumbnail image-popup">
-                                <img src="images/menu_1.jpg" alt="Free Template by colorlib.com" class="img-fluid">
-                            </a>
-                        </div>--%>
-
+                        %>                       
                     </div>
                 </div>
             </section>
@@ -659,11 +418,8 @@
                 </div>
             </footer>
 
-
-
-
             <!-- Modal -->
-            <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
+            <div class="modal fade" id="reservationModal" style="overflow:auto" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
@@ -692,14 +448,14 @@
                                             <div class="col-md-6 form-group">
                                                 <label for="m_email">Time return</label>
                                                 <input type="time" class="form-control" id="tr" />
-                                                
+
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="m_people">Loại bàn</label>
                                                 <select name="" id="lb" class="form-control">
-                                                    
+
                                                     <%
                                                         var listTable = new DataUtil().dslb();
                                                         foreach (var tb in listTable)
@@ -712,19 +468,16 @@
                                             </div>
                                             <div class="col-md-6 form-group">
                                                 <label for="m_phone">Bàn</label>
-                                                <div id="tb">
-                                                    <select class="form-control">
+                                                <div id="Divtb">
+                                                    <select id="idTable" class="form-control">
                                                     </select>
                                                 </div>
 
                                             </div>
                                         </div>
-
-
-
                                         <div class="row">
                                             <div class="col-md-12 form-group">
-                                                <label id="omsg" style="color:red;"></label>
+                                                <label id="omsg" style="color: red;"></label>
                                             </div>
                                             <div class="col-md-12 form-group">
                                                 <input id="ordertb" type="button" class="btn btn-primary btn-lg btn-block" value="Reserve Now" />
@@ -787,9 +540,24 @@
                             <input type="radio" name="hinhthuc" value="0" checked="checked" /></label>
                         <label style="color: black; font-size: 16px; cursor: pointer; margin-left: 50px">
                             Đặt bàn tại nhà hàng
-                            <input type="radio" name="hinhthuc" value="1" /></label>
-                        <select id="selectTableid" style="display: none">                            
-                        </select>
+                            <input type="radio" name="hinhthuc" value="1" />
+                        </label>
+                        <%
+                            Cart cart = (Cart)HttpContext.Current.Session["Cart"];
+                            if (cart.idtable > 0)
+                            {
+                                Response.Write("<span id='ChooseTable' style='display:none'>");
+                                Response.Write("<span>Bạn đã chọn bàn:</span><span style='color:green;font-weight:bold'>" + cart.tenBan + "</span>");
+                                Response.Write("<input id='selectTableid' type='hidden' value="+cart.idtable+"/>");
+                                Response.Write("</span>");
+                            }
+                            else
+                            {
+                                Response.Write("<span id='ChooseTable' style='display:none'>");
+                                Response.Write("<span>Bạn chưa chọn bàn nào:</span><button type='button' onclick='openChonBan()'>Đặt bàn</button>");
+                                Response.Write("</span>");
+                            }
+                       %>
                     </div>
                 </div>
                 <div class="modal-footer" style="padding: 10px; justify-content: center!important">
@@ -818,27 +586,11 @@
     <script>
         // Huy
         $("input[name='hinhthuc']").click(function () {
-            if (parseInt($("input[name='hinhthuc']:checked").val()) == 1) {
-                $.ajax({
-                    type: "post",
-                    url: "/Trangchu.aspx/ListTableNull",
-                    data:"{}",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (rs) {
-                        let list = rs.d
-                        console.log(list);
-                        let html = `<option value="">--Chọn bàn--</option>`;
-                        list.forEach(function (item) {
-                             html +=`<option value="${item.table_id}">${ item.table_name}</option>`
-                        })
-                        $("#selectTableid").html(html);
-                    }
-                });
-                $("#selectTableid").show();
+            if (parseInt($("input[name='hinhthuc']:checked").val()) == 1) {                
+                $("#ChooseTable").show();
             }
             else {
-                $("#selectTableid").hide();
+                $("#ChooseTable").hide();
                 changeTableCart(-1);
             }
         })
@@ -1010,7 +762,7 @@
             }
             else {
                 if ((parseInt($("input[name='hinhthuc']:checked").val()) == 1) && $("#selectTableid").val() == "") {
-                     $.notify("Bạn chưa chọn bàn", "error")
+                    $.notify("Bạn chưa chọn bàn", "error")
                 } else {
                     $.ajax({
                         type: "post",
@@ -1187,22 +939,22 @@
                 }
             });
         }
-        $(document).ready(function(){
-	        $(window).scroll(function(){
-		        if ($(this).scrollTop() > 100) {
-			        $('#on_top').fadeIn();
-		        } else {
-			        $('#on_top').fadeOut();
-		        }
-	        });
-	        $('#on_top').click(function(){
-		        $("html, body").animate({ scrollTop: 0 }, 600);
-		        return false;
-	        });
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#on_top').fadeIn();
+                } else {
+                    $('#on_top').fadeOut();
+                }
+            });
+            $('#on_top').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            });
         });
         // endHuy
         // trong
-       
+
         $("#lb").change(function () {
             var ds = $("#ds").val();
             var ts = $("#ts").val();
@@ -1216,7 +968,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
-                    $("#tb").html(dt.d);
+                    $("#Divtb").html(dt.d);
 
                 },
                 error: function () {
@@ -1227,24 +979,15 @@
         $("#ts").change(function () {
             $("#tr").val("");
             $("#lb").val("");
-            
-            var ts = $("#ts").val();
-<<<<<<< HEAD
-            
-=======
 
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
+            var ts = $("#ts").val();
             var ds = $("#ds").val();
             $("#omsg").css("color", "red");
             //alert(ds);
             $.ajax({
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
-                data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
-<<<<<<< HEAD
-=======
-                data: "{'ds':'" + ds + "'}",
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
+                data: "{'ds':'" + ds + "','ts':'" + ts + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
@@ -1253,14 +996,14 @@
 
                 },
                 error: function () {
-                    alert ("loi");
+                    alert("loi");
                 }
             });
         })
         $("#ds").change(function () {
             var ds = $("#ds").val();
             var ts = $("#ts").val();
-            var tr = $("#tr").val();
+            var tr = $("#tr").val();            
             $("#omsg").css("color", "red");
             $.ajax({
                 type: "post",
@@ -1281,7 +1024,7 @@
             var ds = $("#ds").val();
             var ts = $("#ts").val();
             var tr = $("#tr").val();
-            
+
             $("#lb").val("");
             $.ajax({
                 type: "post",
@@ -1303,7 +1046,7 @@
             var ds = $("#ds").val();
             var ts = $("#ts").val();
             var tr = $("#tr").val();
-            
+
             $.ajax({
                 type: "post",
                 url: "/Trangchu.aspx/ckedststr",
@@ -1315,54 +1058,54 @@
 
                 },
                 error: function () {
-                    alert ("Phải nhập đầy đủ thông tin order");
+                    $.notify("Phải nhập đầy đủ thông tin order", "error");
                 }
             });
         })
         $("#ordertb").click(function () {
-           
+
             var ds = $("#ds").val();
             var ts = $("#ts").val();
             var tr = $("#tr").val();
             var lb = $("#lb").val();
             var tb = $("#tb").val();
+            var tenban = $("#tb option[value='"+tb+"']").attr("tenban");
             $("#omsg").css("color", "red");
-            
+
             $.ajax({
                 type: "post",
                 url: "/Trangchu.aspx/cko",
-                data: "{'ds':'" + ds + "','ts':'" + ts + "','tr':'" + tr + "','lb':'" + lb + "','tb':'" + tb + "'}",
+                data: "{'ds':'" + ds + "','ts':'" + ts + "','tr':'" + tr + "','lb':'" + lb + "','tb':'" + tb + "','tenban':'"+tenban+"'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
-                    if (dt.d=="0") {
-                        $("#omsg").html("Chưa điền đủ thông tin cần đặt bàn");
+                    if (dt.d == "0") {
+                        $.notify("Chưa điền đủ thông tin cần đặt bàn", "error");
                     }
                     else {
-                        if (dt.d=="1") {
-                            $("#omsg").html("Dữ liệu nhập vào không thỏa mãn");
+                        if (dt.d == "1") {
+                            $.notify("Dữ liệu nhập vào không thỏa mãn", "error");
                         }
                         else {
-                            $("#ds").val("");
-                            $("#ts").val("");
-                            $("#tr").val("");
-                            $("#lb").val("");
-                            $("#tb").val("");
-
-                            $("#omsg").html("Bàn bạn đặt đã được thêm vào giỏ hàng");
-                            $("#omsg").css("color", "green");
-                            $("#tb").html("");
+                            $.notify("Đã thêm lựa chọn bàn", "success");
+                            $("#reservationModal").modal("hide");
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
                         }
-                        
                     }
 
                 },
                 error: function () {
-                    alert("Phải nhập đầy đủ thông tin order");
+                    $.notify("Phải nhập đầy đủ thông tin order", "error");
                 }
             });
-            
+
         })
+        function openChonBan() {
+            $("#ModalViewCart").modal("hide");
+            $("#reservationModal").modal("show");
+        }
         //demo1
         // endtrong
 

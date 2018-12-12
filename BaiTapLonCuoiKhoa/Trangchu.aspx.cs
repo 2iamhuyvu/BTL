@@ -77,12 +77,8 @@ public partial class Tranchu : System.Web.UI.Page
         }
 
     }
-    [WebMethod(EnableSession = true)]
-<<<<<<< HEAD
-    public static string ckeds(string ds ,string ts)
-=======
+    [WebMethod(EnableSession = true)]   
     public static string ckeds(string ds, string ts)
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
     {
         if (ds == "")
         {
@@ -97,11 +93,7 @@ public partial class Tranchu : System.Web.UI.Page
             DateTime to = DateTime.Parse(ds).Date;
             if (tn == to)
             {
-<<<<<<< HEAD
-                if (TimeSpan.Compare(tso,todn)<0)
-=======
                 if (TimeSpan.Compare(tso, todn) < 0)
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
                 {
                     return "thời gian đặt không hợp lệ";
                 }
@@ -120,15 +112,8 @@ public partial class Tranchu : System.Web.UI.Page
     {
 
         DateTime tn = DateTime.Now.Date;
-<<<<<<< HEAD
-        
         DateTime to = DateTime.Parse(ds).Date;
         if (tn>to)
-=======
-
-        DateTime to = DateTime.Parse(ds).Date;
-        if (tn > to)
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
         {
             return "ngày chọn không hợp lệ";
         }
@@ -209,7 +194,7 @@ public partial class Tranchu : System.Web.UI.Page
 
     }
     [WebMethod(EnableSession = true)]
-    public static string cko(string ds, string ts, string tr, string lb, string tb)
+    public static string cko(string ds, string ts, string tr, string lb, string tb,string tenban)
     {
 
         if (ds == "" || ts == "" || tr == "" || lb == "")
@@ -223,12 +208,7 @@ public partial class Tranchu : System.Web.UI.Page
             var todn = DateTime.Now.TimeOfDay;
             TimeSpan tso = TimeSpan.Parse(ts);
             DateTime to = DateTime.Parse(ds).Date;
-<<<<<<< HEAD
             if (tn==to && (TimeSpan.Compare(tso, todn) < 0))
-=======
-            if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
-
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
             {
                 return "1";
             }
@@ -240,17 +220,16 @@ public partial class Tranchu : System.Web.UI.Page
                 }
                 else
                 {
+                    Cart cart = (Cart)HttpContext.Current.Session["Cart"];
+                    cart.idtable = Convert.ToInt32(tb);
+                    cart.tenBan = tenban;
+                    cart.ordertable_dateset = DateTime.Parse(ds);
+                    cart.ordertable_timeset = TimeSpan.Parse(ts);
+                    cart.ordertable_timereturn = TimeSpan.Parse(tr);
+                    HttpContext.Current.Session["Cart"] = cart;
                     return "true";
                 }
-            }
-<<<<<<< HEAD
-            
-        }
-=======
->>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
-
-
-            return "true";
+            }            
         }
     }
 
@@ -380,8 +359,7 @@ public partial class Tranchu : System.Web.UI.Page
         {
             ordertable_idtable = cart.idtable ?? -1,
             ordertable_iduser = cart.idmember ?? -1,
-            ordertable_status = false,
-            ordertable_timeset = TimeSpan.Parse("5:30"),
+            ordertable_status = false,            
             dienthoaiKH = dienthoaiKH,
             emailKH = emailKH,
             tenKH = tenKH,
@@ -389,6 +367,12 @@ public partial class Tranchu : System.Web.UI.Page
             loaiHD = cart.idtable > 0 ? true : false,
             ordertable_dateset = DateTime.Now,
         };
+        if (cart.idtable > 0)
+        {
+            odtbl.ordertable_dateset = cart.ordertable_dateset;
+            odtbl.ordertable_timeset = cart.ordertable_timeset;
+            odtbl.ordertable_timereturn = cart.ordertable_timereturn;
+        }
         int idordertbl = dt.ThemOrderTable(odtbl);
         if (idordertbl > 0)
         {
@@ -407,7 +391,7 @@ public partial class Tranchu : System.Web.UI.Page
             dienthoaiKH = HttpContext.Current.Session["User"] == null ? "" : ((Member)HttpContext.Current.Session["User"]).member_phone,
             idtable = -1,
             idmember = HttpContext.Current.Session["User"] == null ? -1 : ((Member)HttpContext.Current.Session["User"]).member_id,
-            tenBan = "",
+            tenBan = "",           
         };
         HttpContext.Current.Session["Cart"] = C;
         return C;
