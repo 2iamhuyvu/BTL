@@ -1149,6 +1149,74 @@ public class DataUtil
         }
     }
 
+    public List<OrderVM> GetListOrderVMByIdUser(int idUser)
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {
+            List<OrderVM> listRS = new List<OrderVM>();
+            string query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_iduser = @iduser";
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("iduser", idUser);
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                OrderVM tbVM = new OrderVM();
+                tbVM.ordertable_id = (int)dr["ordertable_id"];
+                tbVM.ordertable_status = (Boolean)dr["ordertable_status"];
+                if (dr["ordertable_iduser"] != System.DBNull.Value)
+                {
+                    tbVM.ordertable_iduser = (int)(dr["ordertable_iduser"] ?? -1);
+                }
+                tbVM.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+                if (dr["ordertable_idtable"] != System.DBNull.Value)
+                {
+                    tbVM.ordertable_idtable = (int)(dr["ordertable_idtable"]);
+                }
+                if (dr["tenKH"] != System.DBNull.Value)
+                {
+                    tbVM.tenKH = (string)dr["tenKH"];
+                }
+                if (dr["emailKH"] != System.DBNull.Value)
+                {
+                    tbVM.emailKH = (string)(dr["emailKH"]);
+                }
+                if (dr["dienthoaiKH"] != System.DBNull.Value)
+                {
+                    tbVM.dienthoaiKH = (string)(dr["dienthoaiKH"]);
+                }
+                if (dr["table_name"] != System.DBNull.Value)
+                {
+                    tbVM.table_name = (string)(dr["table_name"]);
+                }
+                if (dr["loaiHD"] != System.DBNull.Value)
+                {
+                    tbVM.loaiHD = (bool)(dr["loaiHD"]);
+                }
+                if (dr["loaiKH"] != System.DBNull.Value)
+                {
+                    tbVM.loaiKH = (bool)(dr["loaiKH"] ?? false);
+                }
+                tbVM.TotalMoney = 0;
+                tbVM.ListOrderDetail = this.dsOrderDetailByTable((int)dr["ordertable_id"]);
+                var li = tbVM.ListOrderDetail;
+                if (li.Count > 0)
+                {
+                    Double t = 0;
+                    foreach (var item in li)
+                    {
+                        t += (Double)(item.quantity * item.food_price * (Double)(100 - item.food_sale) / 100);
+                    }
+                    tbVM.TotalMoney = t;
+                }
+                listRS.Add(tbVM);
+            }
+            conn.Close();
+            dr.Close();
+            return listRS;
+        }
+    }
+
     public OrderVM GetOrderVM(int idorderTable)
     {
         using (var conn = new SqlConnection(sqlcon))

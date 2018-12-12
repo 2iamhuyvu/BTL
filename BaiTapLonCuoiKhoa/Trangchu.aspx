@@ -107,8 +107,6 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center text-center site-vh-100">
                         <div class="col-md-12">
-                            <h1 class="site-heading site-animate mb-3">Welcome To <%  Response.Write(web.ten_nh); %></h1>
-                            <h2 class="h5 site-subheading mb-5 site-animate">Come and eat well with our delicious &amp; healthy foods.</h2>
                             <h1 class="site-heading site-animate mb-3">Welcome To EatWell</h1>
                             <h2 class="h5 site-subheading mb-5 site-animate">Hãy nhanh tay đặt các món ăn ngon và chất lượng từ nhà hàng chúng tôi nào!</h2>
                             <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Reservation</a></p>

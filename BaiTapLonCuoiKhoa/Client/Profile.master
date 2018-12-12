@@ -9,9 +9,16 @@
         </asp:ContentPlaceHolder>
     </title>
 
+    <link rel="stylesheet" href="~/Assets/AssetsAdmin/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Assets/AssetsAdmin/css/themify-icons.css" />
+
+
     <link href="~/Assets/css/profile.css" rel="stylesheet" />
     <link href="~/Assets/css/StyleCustom.css" rel="stylesheet" />
     <link href="~/Assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/Assets/AssetsAdmin/css/default-css.css" rel="stylesheet" />
+    <link href="../Assets/fontawesome/css/fontawesome.css" rel="stylesheet" />
     <%--<base href="../Assets/" />--%>
 </head>
 <body>
@@ -23,7 +30,7 @@
                     <div class="collapse navbar-collapse" id="site-nav">
                         <ul class="navbar-nav ml-auto">
                             <li id="avatar" runat="server">
-                                <div class="user-profile pull-right" style="margin-top: 35px;">
+                                <div class="user-profile pull-right">
                                     <asp:Image runat="server" CssClass="avatar user-thumb" ID="avatarImageTop" />
                                     <%--<img class="avatar user-thumb" src="/Assets/AssetsAdmin/images/author/avatar.png" alt="avatar" />--%>
                                     <h4 class="user-name dropdown-toggle nav-link" data-toggle="dropdown">
