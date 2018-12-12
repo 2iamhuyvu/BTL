@@ -150,6 +150,14 @@
                                             <li><a href="500.html">Error 500</a></li>
                                         </ul>
                                     </li>
+                                    <li>
+                                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
+                                            <span>QL Web</span></a>
+                                        <ul class="collapse">
+                                            <li><a href="/Admin/QLWeb/QLWeb.aspx">QL Web</a></li>
+                                            <%--<li><a href="~//Admin/QLOrderTable/AddTOrderable.aspx">Add OrderTable</a></li>--%>
+                                        </ul>
+                                    </li>
 
                                 </ul>
                             </nav>
@@ -224,13 +232,9 @@
                 </footer>
                 <!-- footer area end-->
             </div>
-            <<<<<<< HEAD
 
         </form>
 
-        =======
-        </form>
->>>>>>> dedcc05f51962a4fd0d72e03837989d3b4ce7864
         <!-- page container area end -->
         <!-- offset area start -->
 

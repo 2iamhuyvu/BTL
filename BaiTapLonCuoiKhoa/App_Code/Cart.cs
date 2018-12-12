@@ -15,6 +15,9 @@ public class Cart
     public string tenKH { get; set; }
     public string dienthoaiKH { get; set; }
     public string emailKH { get; set; }
+    public DateTime ordertable_dateset { get; set; }
+    public TimeSpan ordertable_timeset { get; set; }
+    public TimeSpan ordertable_timereturn { get; set; }
     public Cart()
     {
         //

@@ -12,9 +12,9 @@ using System.Data.Odbc;
 public class DataUtil
 {
     SqlConnection con;
-    //string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+    string sqlcon = @"Data Source=VUHUY;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
 
-    string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
+    //string sqlcon = @"Data Source=.\SQLEXPRESS;Initial Catalog=WebsiteNhaHang;Integrated Security=True";
 
     public DataUtil()
     {
@@ -1166,6 +1166,74 @@ public class DataUtil
         }
     }
 
+    public List<OrderVM> GetListOrderVMByIdUser(int idUser)
+    {
+        using (var conn = new SqlConnection(sqlcon))
+        {
+            List<OrderVM> listRS = new List<OrderVM>();
+            string query = "select odtbl.ordertable_id,odtbl.ordertable_iduser,odtbl.ordertable_timeset,odtbl.ordertable_dateset,odtbl.ordertable_timereturn,odtbl.ordertable_idtable,odtbl.ordertable_status,odtbl.tenKH,odtbl.emailKH,odtbl.emailKH,odtbl.dienthoaiKH,odtbl.loaiHD,odtbl.loaiKH,tbl.table_name from OrderTable odtbl left join qlTable tbl on odtbl.ordertable_idtable= tbl.table_id where odtbl.ordertable_iduser = @iduser";
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("iduser", idUser);
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                OrderVM tbVM = new OrderVM();
+                tbVM.ordertable_id = (int)dr["ordertable_id"];
+                tbVM.ordertable_status = (Boolean)dr["ordertable_status"];
+                if (dr["ordertable_iduser"] != System.DBNull.Value)
+                {
+                    tbVM.ordertable_iduser = (int)(dr["ordertable_iduser"] ?? -1);
+                }
+                tbVM.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
+                if (dr["ordertable_idtable"] != System.DBNull.Value)
+                {
+                    tbVM.ordertable_idtable = (int)(dr["ordertable_idtable"]);
+                }
+                if (dr["tenKH"] != System.DBNull.Value)
+                {
+                    tbVM.tenKH = (string)dr["tenKH"];
+                }
+                if (dr["emailKH"] != System.DBNull.Value)
+                {
+                    tbVM.emailKH = (string)(dr["emailKH"]);
+                }
+                if (dr["dienthoaiKH"] != System.DBNull.Value)
+                {
+                    tbVM.dienthoaiKH = (string)(dr["dienthoaiKH"]);
+                }
+                if (dr["table_name"] != System.DBNull.Value)
+                {
+                    tbVM.table_name = (string)(dr["table_name"]);
+                }
+                if (dr["loaiHD"] != System.DBNull.Value)
+                {
+                    tbVM.loaiHD = (bool)(dr["loaiHD"]);
+                }
+                if (dr["loaiKH"] != System.DBNull.Value)
+                {
+                    tbVM.loaiKH = (bool)(dr["loaiKH"] ?? false);
+                }
+                tbVM.TotalMoney = 0;
+                tbVM.ListOrderDetail = this.dsOrderDetailByTable((int)dr["ordertable_id"]);
+                var li = tbVM.ListOrderDetail;
+                if (li.Count > 0)
+                {
+                    Double t = 0;
+                    foreach (var item in li)
+                    {
+                        t += (Double)(item.quantity * item.food_price * (Double)(100 - item.food_sale) / 100);
+                    }
+                    tbVM.TotalMoney = t;
+                }
+                listRS.Add(tbVM);
+            }
+            conn.Close();
+            dr.Close();
+            return listRS;
+        }
+    }
+
     public OrderVM GetOrderVM(int idorderTable)
     {
         using (var conn = new SqlConnection(sqlcon))
@@ -1234,11 +1302,12 @@ public class DataUtil
     {
         using (var conn = new SqlConnection(sqlcon))
         {
-            string query = "insert into OrderTable (ordertable_iduser,ordertable_dateset,ordertable_timeset,ordertable_idtable,ordertable_status,tenKH,emailKH,dienthoaiKH,loaiKH,loaiHD) values(@ordertable_iduser,@ordertable_dateset,@ordertable_timeset,@ordertable_idtable,@ordertable_status,@tenKH,@emailKH,@dienthoaiKH,@loaiKH,@loaiHD)";
+            string query = "insert into OrderTable (ordertable_iduser,ordertable_dateset,ordertable_timeset,ordertable_timereturn,ordertable_idtable,ordertable_status,tenKH,emailKH,dienthoaiKH,loaiKH,loaiHD) values(@ordertable_iduser,@ordertable_dateset,@ordertable_timeset,@ordertable_timereturn,@ordertable_idtable,@ordertable_status,@tenKH,@emailKH,@dienthoaiKH,@loaiKH,@loaiHD)";
             conn.Open();
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("ordertable_iduser", odtbl.ordertable_iduser);
             cmd.Parameters.AddWithValue("ordertable_timeset", odtbl.ordertable_timeset);
+            cmd.Parameters.AddWithValue("ordertable_timereturn", odtbl.ordertable_timereturn);
             cmd.Parameters.AddWithValue("ordertable_dateset", odtbl.ordertable_dateset);
             cmd.Parameters.AddWithValue("ordertable_idtable", odtbl.ordertable_idtable);
             cmd.Parameters.AddWithValue("ordertable_status", odtbl.ordertable_status);
@@ -1254,7 +1323,7 @@ public class DataUtil
                 SqlCommand cmd2 = new SqlCommand(query2, conn);
                 cmd2.ExecuteNonQuery();
             }
-            string query1 = "select top 1 * from OrderTable order by ordertable_dateset desc";
+            string query1 = "select top 1 * from OrderTable order by ordertable_id desc";
             SqlCommand cmd1 = new SqlCommand(query1, conn);
             SqlDataReader dr = cmd1.ExecuteReader();
             int idOrderTbl = -1;
@@ -1617,8 +1686,7 @@ public class DataUtil
                 SqlDataReader dr2 = cmd1.ExecuteReader();
                 while (dr2.Read())
                 {
-                    st += "<option value = " + (int)dr2["table_id"] + " > " + (string)dr2["table_name"] + "</option>";
-
+                    st += "<option tenban="+ (string)dr2["table_name"] + " value = " + (int)dr2["table_id"] + " > " + (string)dr2["table_name"] + "</option>";
 
                 }
 
@@ -1633,6 +1701,78 @@ public class DataUtil
             con.Close();
 
         }
+    }
+    //Web
+    public QLWeb qlweb()
+    {
+
+        string sqlsl = "select * from QLWeb";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlsl, con);
+        
+        SqlDataReader dr = cmd.ExecuteReader();
+        QLWeb tb = null;
+        while (dr.Read())
+        {
+            tb = new QLWeb();
+            tb.id_nh = (int)dr["id_nh"];
+            tb.ten_nh = (string)dr["ten_nh"];
+            tb.diachi_nh = (string)dr["diachi_nh"];
+            tb.sdt_nh = (string)dr["sdt_nh"];
+            tb.email_nh = (string)dr["email_nh"];
+            tb.gt_nh = (string)dr["gt_nh"];
+            tb.banner_nh = (string)dr["banner_nh"];
+            tb.anh_nh = (string)dr["anh_nh"];
+            
+
+        }
+        con.Close();
+        return tb;
+    }
+    public QLWeb qlwebn(int id_nh)
+    {
+
+        string sqlsl = "select * from QLWeb where id_nh='"+ id_nh + "'";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlsl, con);
+
+        SqlDataReader dr = cmd.ExecuteReader();
+        QLWeb tb = null;
+        while (dr.Read())
+        {
+            tb = new QLWeb();
+            tb.id_nh = (int)dr["id_nh"];
+            tb.ten_nh = (string)dr["ten_nh"];
+            tb.diachi_nh = (string)dr["diachi_nh"];
+            tb.sdt_nh = (string)dr["sdt_nh"];
+            tb.email_nh = (string)dr["email_nh"];
+            tb.banner_nh = (string)dr["banner_nh"];
+            tb.gt_nh = (string)dr["gt_nh"];
+            tb.anh_nh = (string)dr["anh_nh"];
+
+
+        }
+        con.Close();
+        return tb;
+    }
+    public void suaif(QLWeb nh)
+    {
+        string sqlsua = "update  QLWeb set ten_nh=@ten_nh,diachi_nh=@diachi_nh,sdt_nh=@sdt_nh,email_nh=@email_nh,gt_nh=@gt_nh,banner_nh=@banner_nh,anh_nh=@anh_nh where id_nh=@id_nh";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(sqlsua, con);
+
+        cmd.Parameters.AddWithValue("diachi_nh", nh.diachi_nh);
+        cmd.Parameters.AddWithValue("sdt_nh", nh.sdt_nh);
+        cmd.Parameters.AddWithValue("email_nh",nh.email_nh);
+        cmd.Parameters.AddWithValue("gt_nh", nh.gt_nh);
+        cmd.Parameters.AddWithValue("banner_nh", nh.banner_nh);
+        cmd.Parameters.AddWithValue("anh_nh",nh.anh_nh);
+        cmd.Parameters.AddWithValue("ten_nh", nh.ten_nh);
+        cmd.Parameters.AddWithValue("id_nh", nh.id_nh);
+
+
+        cmd.ExecuteNonQuery();
+        con.Close();
     }
 
 

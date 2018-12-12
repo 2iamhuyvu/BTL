@@ -309,3 +309,16 @@
 .avatarCss{
     width: 100%;
 }
+
+.form-group label, .form-group .form-control, .form-group span, .table-user-information {
+    font-size: 1.5rem;
+}
+.card-body .btn-submit-css {
+    width: 85px;
+    height: 40px;
+    font-size: 1.5rem;
+}
+.table-user-information-showinfo .btn-link-to {
+    padding: 5px;
+    font-size: 1.5rem;
+}
