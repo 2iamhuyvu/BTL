@@ -201,18 +201,11 @@
 
                                 <%
                                     var liFoType = new DataUtil().getListFoodType();
-                                    var dem = 1;
                                     foreach (var f in liFoType)
                                     {
-
                                         Response.Write("<li class='nav-item site-animate' id='" + f.foodtype_id + "' onclick='funcShowLF(" + f.foodtype_id + ")' >");
-                                        //if(dem == 1)
-                                        //    Response.Write("<a class='nav-link active' id='pills-lunch-tab' data-toggle='pill' href='#pills-lunch' role='tab' aria-controls='pills-lunch' aria-selected='false'>" + f.foodtype_name + "</a>");
-                                        //else
-                                        //    Response.Write("<a class='nav-link' id='pills-lunch-tab' data-toggle='pill' href='#pills-lunch' role='tab' aria-controls='pills-lunch' aria-selected='false'>" + f.foodtype_name + "</a>");
+                                        Response.Write("<a class='nav-link' id='pills-lunch-tab' data-toggle='pill' href='#pills-lunch' role='tab' aria-controls='pills-lunch' aria-selected='false'>" + f.foodtype_name + "</a>");
                                         Response.Write("</li>");
-
-                                        dem++;
                                     }
                                 %>
                             </ul>
@@ -1122,7 +1115,10 @@
         function openChonBan() {
             $("#ModalViewCart").modal("hide");
             $("#reservationModal").modal("show");
-        }        
+        }
+
+
+        // ------- DUC --------
         function funcShowLF(id) {
             $.ajax({
                 type: "POST",

@@ -62,35 +62,34 @@ public partial class Admin_QFood_EditFood : System.Web.UI.Page
             food.food_price = double.Parse(txtGia.Text);
             food.food_sale = int.Parse(txtKhuyenmai.Text);
 
-             
-
-
+            if (Page.IsValid && FileUpload1.HasFile)
+            {
+                string fileName = "../../Assets/images/" + DateTime.Now.ToString("ddMMyyyy_hhmmss_tt_") + FileUpload1.FileName;
+                string filePath = MapPath(fileName);
+                FileUpload1.SaveAs(filePath);
+                //Image1.ImageUrl = fileName;
+                food.food_avatar = fileName;
+            }
+            else
+            {
+                food.food_avatar = food1.food_avatar;
+            }
+          
             ////food.food_avatar = txtAvt.Text;
             food.food_description = txtMieuta.Text;
             food.foodtype_id = int.Parse(ddlFoodTypeID.SelectedValue.ToString());
 
             food.food_id = int.Parse(Session["IdFood"].ToString());
 
-            //var food = new Food()
-            //{
-            //    food_name = txtName.Text,
-            //    food_price = double.Parse(txtGia.Text),
-            //    food_sale = int.Parse(txtKhuyenmai.Text),
-            //    food_avatar = txtAvt.Text,
-            //    food_description = txtMieuta.Text,
-            //    foodtype_id = Convert.ToInt16(ddlFoodTypeID.SelectedValue.ToString()),
-            //    food_id = Convert.ToInt16(Session["IdFood"].ToString())
-            //};
             data.EditFood(food);
 
-            msg.Text = "Update success!";
+            msg.Text = "Cập nhật thành công!";
             msg.ForeColor = System.Drawing.Color.Green;
-            ShowInfoFood();
             ShowInfoFood();
         }
         catch (Exception ex)
         {
-            msg.Text = "Update Fail. Erorr: " + ex.Message + ". Let try!";
+            msg.Text = "Cập nhật lỗi: " + ex.Message + ". Let try!";
             msg.ForeColor = System.Drawing.Color.Red;
         }
     }

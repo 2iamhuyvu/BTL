@@ -21,31 +21,6 @@ public partial class Admin_QFood_AddFood : System.Web.UI.Page
 
     protected void submit_Click(object sender, EventArgs e)
     {
-        //try
-        //{
-        //    Food f = new Food();
-
-        //    f.food_name = txtName.Text;
-        //    f.food_price = double.Parse(txtGia.Text);
-        //    f.food_sale = int.Parse(txtKhuyenmai.Text);
-        //    f.food_avatar = txtAvt.Text;
-
-        //    f.food_description = txtMieuta.Text;
-
-        //    //f.foodtype_id = int.Parse(txtKieu.Text);
-        //    f.foodtype_id = int.Parse(ddlFoodTypeID.SelectedValue);
-
-        //    data.AddFood(f);
-
-        //    msg.ForeColor = System.Drawing.Color.Blue;
-        //    msg.Text = "Thêm mới món ăn thành công!";
-
-        //}
-        //catch (Exception ex)
-        //{
-        //    msg.Text = "Có lỗi xảy ra: " + ex.Message;
-        //}
-
         try
         {
             Food f = new Food();
@@ -67,9 +42,6 @@ public partial class Admin_QFood_AddFood : System.Web.UI.Page
                 f.food_avatar = "../../Assets/images/no-image.png";
             }
 
-            //f.food_avatar = txtAvt.Text;
-
-            f.food_description = txtMieuta.Text;
             //f.food_avatar = txtAvt.Text;
 
             f.food_description = txtMieuta.Text;
