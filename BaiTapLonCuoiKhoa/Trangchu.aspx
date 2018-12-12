@@ -107,13 +107,10 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center text-center site-vh-100">
                         <div class="col-md-12">
-<<<<<<< HEAD
                             <h1 class="site-heading site-animate mb-3">Welcome To <%  Response.Write(web.ten_nh); %></h1>
                             <h2 class="h5 site-subheading mb-5 site-animate">Come and eat well with our delicious &amp; healthy foods.</h2>
-=======
                             <h1 class="site-heading site-animate mb-3">Welcome To EatWell</h1>
                             <h2 class="h5 site-subheading mb-5 site-animate">Hãy nhanh tay đặt các món ăn ngon và chất lượng từ nhà hàng chúng tôi nào!</h2>
->>>>>>> 4e65ca7dddb3d22605d6433b04417e99676444c4
                             <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Reservation</a></p>
                         </div>
                     </div>
@@ -345,18 +342,18 @@
                             </p>
                             <p class="text-black">
                                 Địa chỉ:
-                            <br>
+                            <br />
                                 <%  Response.Write(web.diachi_nh); %>
                             
-                            <br>
-                                <br>
+                            <br />
+                                <br />
                                 SĐT:
-                            <br>
+                            <br />
                                 <%  Response.Write(web.sdt_nh); %>
-                            <br>
-                                <br>
+                            <br />
+                                <br />
                                 Email:
-                            <br>
+                            <br />
                                 <a href="mailto:<%  Response.Write(web.ten_nh); %>"><%  Response.Write(web.email_nh); %></a>
                             </p>
 
@@ -1018,21 +1015,6 @@
                 type: "post",
                 url: "/Trangchu.aspx/ckeds",
                 data: "{'ds':'" + ds + "','ts':'" +  ts + "'}",
-<<<<<<< HEAD
-                //data: "{'ds':'" + ds + "'}",
-                //data: "{'ds':'" + ds + "'}",
-=======
-<<<<<<< HEAD
-=======
-//<<<<<<< HEAD
-//=======
-//<<<<<<< HEAD
-//=======
-//                data: "{'ds':'" + ds + "'}",
-//>>>>>>> 468726f95a32fb374484b209ac81f4dfd659439b
-//>>>>>>> 3a20fc7ebb60b8287932c3dd131926da9816125e
->>>>>>> 4e65ca7dddb3d22605d6433b04417e99676444c4
->>>>>>> 8d2add821d1e3555eb6de298d7479fddecfd45d1
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dt) {
