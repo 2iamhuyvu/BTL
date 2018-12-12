@@ -733,22 +733,37 @@ public class DataUtil
             return list;
         }
     }
-    public bool ReplyLienHe(int idLienHe, string EmailLienHe, string SbEmail, string ContentEmail)
+    //public bool ReplyLienHe(int idLienHe, string EmailLienHe, string SbEmail, string ContentEmail)
+    //{
+
+    //    using (var conn = new SqlConnection(sqlcon))
+    //    {
+    //        bool rs = MailProvider.sendEmail(ContentEmail, SbEmail, EmailLienHe);
+    //        if (rs)
+    //        {
+    //            string query = "update Contact set noidungTraloi='" + ContentEmail + "' ,thoigianTraloi='" + DateTime.Now + "', tinhtrangTraloi='true' where idContact=" + idLienHe;
+    //            conn.Open();
+    //            SqlCommand cmd = new SqlCommand(query, conn);
+    //            cmd.ExecuteNonQuery();
+    //            conn.Close();
+    //            return true;
+    //        }
+    //        return false;
+    //    }
+    //}
+    public void ReplyLienHe(Contact c)
     {
-        using (var conn = new SqlConnection(sqlcon))
-        {
-            bool rs = MailProvider.sendEmail(ContentEmail, SbEmail, EmailLienHe);
-            if (rs)
-            {
-                string query = "update  Contact set noidungTraloi='" + ContentEmail + "' ,thoigianTraloi='" + DateTime.Now + "',tinhtrangTraloi='true' where idContact=" + idLienHe;
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.ExecuteNonQuery();
-                conn.Close();
-                return true;
-            }
-            return false;
-        }
+        string query = "update Contact set noidungTraloi=@nd ,thoigianTraloi=@tgtl, tinhtrangTraloi='true' where idContact=@idContact";
+        con.Open();
+        SqlCommand cmd = new SqlCommand(query, con);
+
+        cmd.Parameters.AddWithValue("tgtl", c.thoigianTraloi);
+        cmd.Parameters.AddWithValue("nd", c.noidungTraloi); 
+        cmd.Parameters.AddWithValue("idContact", c.idContact);
+
+        cmd.ExecuteNonQuery();
+        con.Close();
+               
     }
     public void XoaLienHe(int idLienHe)
     {
@@ -760,7 +775,9 @@ public class DataUtil
             cmd.ExecuteNonQuery();
             conn.Close();
         }
-    }    
+    }   
+    
+    // ---------------------- END CONTACT --------------------------- 
     public List<OrderVM> TimHoaDon(DateTime ngaybd, DateTime ngaykt, int ttthanhtoan)
     {
         using (var conn = new SqlConnection(sqlcon))

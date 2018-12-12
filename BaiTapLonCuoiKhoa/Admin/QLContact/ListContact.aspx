@@ -58,6 +58,7 @@
             %>
         </tbody>
     </table>
+
     <div class="modal fade" id="ModalReplyLienHe">
         <div class="modal-dialog" role="dialog" style="min-width: 700px">
             <!-- Modal content-->
@@ -94,18 +95,23 @@
             </div>
         </div>
     </div>
+
     <script>
         function closeModalReplyLienHe() {
             $("#ModalReplyLienHe").modal("hide");
         }
+
         function openModalReplyLienHe(idLienHe, EmailLienHe, TenLienHe) {
             $("#ModalReplyLienHe #idLienHe").val(idLienHe);
             $("#ModalReplyLienHe #EmailLienHe").text(EmailLienHe);
             $("#ModalReplyLienHe #TenLienHe").text(TenLienHe);
+
             $("#ModalReplyLienHe #SbEmail").val("");
             $("#ModalReplyLienHe #ContentEmail").val("");
+
             $("#ModalReplyLienHe").modal("show");
         }
+
         function SubmitReply() {
             if ($("#SbEmail").val().trim() == "" || $("#ContentEmail").val().trim() == "") {
                 $.notify("Không được để trống nội dung trả lời", "error");
@@ -113,7 +119,7 @@
                 $.ajax({
                     type: "post",
                     url: "/Admin/QLContact/ListContact.aspx/ReplyLienHe",
-                    data: "{idLienHe:'" + parseInt($("#idLienHe").val()) + "',EmailLienHe:'" + $("#EmailLienHe").text() + "',SbEmail:'" + $("#SbEmail").val().trim() + "',ContentEmail:'" + $("#ContentEmail").val().trim() + "'}",
+                    data: "{idLienHe:'" + parseInt($("#idLienHe").val()) + "',EmailLienHe:'" + $("#EmailLienHe").text() + "', SbEmail:'" + $("#SbEmail").val().trim() + "', ContentEmail:'" + $("#ContentEmail").val().trim() + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (rs) {
