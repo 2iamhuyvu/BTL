@@ -223,14 +223,20 @@ public partial class Tranchu : System.Web.UI.Page
                     return "true";
                 }
             }
-
         }
     }
 
     #endregion
 
     #region Huy
-
+    [WebMethod(EnableSession = true)]
+    public static List<table> ListTableNull()
+    {
+        DataUtil dt = new DataUtil();
+        List<table> rs = new List<table>();
+        rs=dt.dsTableNull();
+        return rs;
+    }
     [WebMethod(EnableSession = true)]
     public static Food getFoodOrderNow(int idfood)
     {
@@ -391,6 +397,14 @@ public partial class Tranchu : System.Web.UI.Page
         li = dt.getListFood_FoodType(IdFoodType);
 
         return li;
+    }
+    [WebMethod]
+    public static string Contact(string Name, string Email, string Message)
+    {
+        DataUtil data = new DataUtil();
+        Contact ct = new Contact { email = Email, name = Name, message = Message, thoigiangui = DateTime.Now };
+        data.AddContact(ct);
+        return "Bạn đã gửi liên hệ thành công!";
     }
     #endregion
 }
