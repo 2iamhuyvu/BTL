@@ -11,26 +11,6 @@ public partial class Client_ChangePassword : System.Web.UI.Page
     DataUtil data = new DataUtil();
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        if (!IsPostBack)
-        {
-            var user = (Member)Session["User"];
-            if (user == null)
-            {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Notice", "alert('Please login first!')", true);
-                Response.Redirect("/Client/Login.aspx");
-            }
-            else
-            {
-                var member = data.GetUser(user.member_id);
-                nameuser.Text = member.member_fullname;
-                avatarImageTop.Attributes["src"] = member.member_avatar;
-            }
-        }
-        else
-        {
-            msg.Text = "";
-        }
     }
     protected void LogOut_Click(Object sender, EventArgs e)
     {

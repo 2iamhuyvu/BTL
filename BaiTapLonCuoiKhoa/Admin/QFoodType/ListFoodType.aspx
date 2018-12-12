@@ -13,19 +13,7 @@
                 <div class="data-tables datatable-dark">
                     <div id="dataTable3_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="dataTables_length" id="dataTable3_length">
-                                    <label>
-                                        Show
-                                        <select name="dataTable3_length" aria-controls="dataTable3" class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select>
-                                        entries</label>
-                                </div>
-                            </div>
+                            <div class="col-sm-12 col-md-6"></div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="dataTable3_filter" class="dataTables_filter" style="line-height: 30px;">
                                     <label style="display: inline-flex;">
@@ -34,10 +22,10 @@
                                                     <i class="ti-search" ></i>
                                                 </form>
                                     </label>
-
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-sm-12">
                                 <table id="dataTable3" class="text-center dataTable no-footer dtr-inline" role="grid" aria-describedby="dataTable3_info" style="width: 959px;">
@@ -134,7 +122,7 @@
 	                            <td tabindex=0  class ="sorting_1">${item.foodtype_id}</td>
 	                            <td>${item.foodtype_name}</td>
 
-	                            <td><a href='javascript:void(0)' onclick='funcXoa(${item.foodtype_id})'>Xóa</a> | <a href='Admin/QFoodType/EditFoodType.aspx?IdFoodType=${item.foodtype_id}'>Sửa</a></td>");
+	                            <td><a href='javascript:void(0)' onclick='funcXoa(${item.foodtype_id})'>Xóa</a> | <a href='/Admin/QFoodType/EditFoodType.aspx?IdFoodType=${item.foodtype_id}'>Sửa</a></td>");
 
                             </tr>
                         `

@@ -21,13 +21,11 @@ public partial class Client_Profile : System.Web.UI.Page
             else
             {
                 var member = data.GetUser(user.member_id);
-                nameuser.Text = member.member_fullname;
                 amail.HRef = "mailto:" + member.member_mail;
                 lbfullname.Text = member.member_fullname;
                 lbmail.Text = member.member_mail;
                 lbphone.Text = member.member_phone;
                 lbusername.Text = member.member_username;
-                avatarImageTop.Attributes["src"] = member.member_avatar;
                 avatarImage.Attributes["src"] = member.member_avatar;
             }
         }

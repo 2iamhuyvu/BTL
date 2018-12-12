@@ -12,26 +12,22 @@
                 <h4 class="header-title">Danh sách món ăn</h4>
                 <div class="data-tables datatable-dark">
                     <div id="dataTable3_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div id="dataTable3_filter" class="dataTables_filter" style="line-height: 30px;">
-                                <label style="display: inline-flex;">
-                                    Search:<form>
-                                        <input type="text" id="txtkey" onchange="ABC()" class="form-control form-control-sm" placeholder="Search..." aria-controls="dataTable3">
-                                        <i class="ti-search"></i>
-                                    </form>
-                                </label>
-                                <%--Search:<form action="#">
-                                    <input type="search" class="form-control form-control-sm" placeholder="Search" aria-controls="dataTable3">
-                                    <i class="ti-search"></i>
-                                </form>
-                                </label>--%>
 
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6"></div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="dataTable3_filter" class="dataTables_filter" style="line-height: 30px;">
+                                    <label style="display: inline-flex;">
+                                        Search:<form>
+                                                    <input type="text" id="txtkey" onchange="ABC()" class="form-control form-control-sm" placeholder="Search..." aria-controls="dataTable3">
+                                                    <i class="ti-search"></i>
+                                                </form>
+                                    </label>
+
+                                </div>
                             </div>
                         </div>
+                        
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -49,7 +45,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="cud1">
-                                    <tbody>
                                         <%
                                             var listFoods = new DataUtil().getListFood();
                                             foreach (var f in listFoods)
@@ -81,8 +76,8 @@
                                         %>
                                     </tbody>
 
-                                    <tbody id="cud2">
-                                    </tbody>
+                                    <tbody id="cud2"></tbody>
+
                             </table>
                         </div>
                     </div>
@@ -105,6 +100,7 @@
         </div>
     </div>
     </div>
+
     <script>
         function funcXoa(id) {
             var kt = confirm("Bạn chắc chắn xóa chứ ?")
@@ -124,7 +120,6 @@
         }
 
         function ABC() {
-
             $.ajax({
 
                 type: "POST",
@@ -168,11 +163,12 @@
 
                                 <td>${item.h}</td>
 
-	                            <td><a href='javascript:void(0)' onclick='funcXoa(${item.food_id})'>Xóa</a> | <a href='Admin/QFood/EditFood.aspx?IdFood=${item.food_id}'>Sửa</a></td>");
+	                            <td><a href='javascript:void(0)' onclick='funcXoa(${item.food_id})'>Xóa</a> | <a href='/Admin/QFood/EditFood.aspx?IdFood=${item.food_id}'>Sửa</a></td>");
 
                             </tr>
                     `
                     });
+
                     $("#cud2").html(html);
                     $("#cud1").hide();
                 }

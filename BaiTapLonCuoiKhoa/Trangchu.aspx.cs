@@ -113,7 +113,7 @@ public partial class Tranchu : System.Web.UI.Page
 
         DateTime tn = DateTime.Now.Date;
         DateTime to = DateTime.Parse(ds).Date;
-        if (tn>to)
+        if (tn > to)
         {
             return "ngày chọn không hợp lệ";
         }
@@ -208,7 +208,7 @@ public partial class Tranchu : System.Web.UI.Page
             var todn = DateTime.Now.TimeOfDay;
             TimeSpan tso = TimeSpan.Parse(ts);
             DateTime to = DateTime.Parse(ds).Date;
-            if (tn==to && (TimeSpan.Compare(tso, todn) < 0))
+            if (tn == to && (TimeSpan.Compare(tso, todn) < 0))
             {
                 return "1";
             }
@@ -409,6 +409,14 @@ public partial class Tranchu : System.Web.UI.Page
         li = dt.getListFood_FoodType(IdFoodType);
 
         return li;
+    }
+    [WebMethod]
+    public static string Contact(string Name, string Email, string Message)
+    {
+        DataUtil data = new DataUtil();
+        Contact ct = new Contact { email = Email, name = Name, message = Message, thoigiangui = DateTime.Now };
+        data.AddContact(ct);
+        return "Bạn đã gửi liên hệ thành công!";
     }
     #endregion
 }

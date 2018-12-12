@@ -8,6 +8,13 @@ using System.Web;
 /// </summary>
 public class Contact
 {
+    public Contact()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
     public int? idContact { get; set; }
     public string name { get; set; }
     public string email { get; set; }
@@ -16,10 +23,5 @@ public class Contact
     public  Boolean tinhtrangTraloi { get; set; }
     public DateTime thoigianTraloi { get; set; }
     public string noidungTraloi { get; set; }
-    public Contact()
-    {
-        //
-        // TODO: Add constructor logic here
-        //
-    }
+    
 }
