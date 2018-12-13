@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <div id="dataTable3_filter" class="dataTables_filter" style="line-height: 30px;">
+                                <%--<div id="dataTable3_filter" class="dataTables_filter" style="line-height: 30px;">
                                     <label style="display: inline-flex;">
                                         Search:<form action="#">
                                             <input type="search" class="form-control form-control-sm" placeholder="Search" aria-controls="dataTable3">
@@ -36,7 +36,7 @@
                                         </form>
                                     </label>
 
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                         <div class="row">
