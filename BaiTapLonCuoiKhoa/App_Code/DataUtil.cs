@@ -907,14 +907,30 @@ public class DataUtil
             }
             conn.Close();
             conn.Open();
-            if (idtbl != -1)
-            {
-                string query3 = "update  qlTable set table_status='false' where table_id=" + idtbl;
-                SqlCommand cmd3 = new SqlCommand(query3, conn);
-                cmd3.ExecuteNonQuery();
-            }
             cmd.ExecuteNonQuery();
             conn.Close();
+            conn.Close();            
+            if (idtbl != -1)
+            {
+                bool kt = false;
+                conn.Open();
+                string query4 = "select *  from OrderTable where ordertable_idtable=" + idtbl+ "and ordertable_status='false'";
+                SqlCommand cmd4 = new SqlCommand(query4, conn);
+                SqlDataReader dr4 = cmd4.ExecuteReader();
+                if (!dr4.Read())
+                {
+                    kt = true;
+                }
+                conn.Close();
+                if (kt)
+                {
+                    conn.Open();
+                    string query3 = "update  qlTable set table_status='false' where table_id=" + idtbl;
+                    SqlCommand cmd3 = new SqlCommand(query3, conn);
+                    cmd3.ExecuteNonQuery();
+                    conn.Close();
+                }                
+            }                        
         }
     }
     public List<OrderDetail> dsOrderDetail()
@@ -1614,7 +1630,7 @@ public class DataUtil
     public List<OrderTable> dsOrderTableMa(int ma)
     {
         List<OrderTable> listOrderTable = new List<OrderTable>();
-        string sqlslOrderTable = "select * from OrderTable where ordertable_idtable=@ma ";
+        string sqlslOrderTable = "select * from OrderTable where ordertable_idtable=@ma and ordertable_status='false'";
         con.Open();
         SqlCommand cmd = new SqlCommand(sqlslOrderTable, con);
         cmd.Parameters.AddWithValue("ma", ma);
@@ -1626,7 +1642,7 @@ public class DataUtil
             tb.ordertable_iduser = (int)dr["ordertable_iduser"];
             tb.ordertable_dateset = (DateTime)dr["ordertable_dateset"];
             tb.ordertable_timeset = (TimeSpan)dr["ordertable_timeset"];
-            tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];
+            tb.ordertable_timereturn = (TimeSpan)dr["ordertable_timereturn"];            
             //tb.ordertable_idtable = (int)dr["ordertable_idtable"];
             tb.ordertable_status = (bool)dr["ordertable_status"];
 
@@ -1651,7 +1667,7 @@ public class DataUtil
 
 
             //string sqlsltbo = "select * from qlTable where table_id !=( select ordertable_idtable from OrderTable where ordertable_dateset='"+DateTime.Parse( ds).ToString("yyyy-MM-dd")+"' and ((ordertable_timeset>='"+TimeSpan.Parse(ts)+ "' and ordertable_timeset<='" + TimeSpan.Parse(ts) + "') or (ordertable_timereturn>='" + TimeSpan.Parse(tr) + "' and ordertable_timereturn<='" + TimeSpan.Parse(tr) + "'))) and table_description="+lb+" ";
-            string sl = " select ordertable_idtable from OrderTable where ordertable_dateset = '" + DateTime.Parse(ds).ToString("yyyy-MM-dd") + "' and(('" + TimeSpan.Parse(ts) + "' BETWEEN  ordertable_timeset and ordertable_timereturn) or('" + TimeSpan.Parse(tr) + "' BETWEEN  ordertable_timeset and ordertable_timereturn)  or (ordertable_timeset >='" + TimeSpan.Parse(ts) + "' and ordertable_timereturn <='" + TimeSpan.Parse(tr) + "'))";
+            string sl = " select ordertable_idtable from OrderTable where ordertable_dateset = '" + DateTime.Parse(ds).ToString("yyyy-MM-dd") + "' and(('" + TimeSpan.Parse(ts) + "' BETWEEN  ordertable_timeset and ordertable_timereturn) or('" + TimeSpan.Parse(tr) + "' BETWEEN  ordertable_timeset and ordertable_timereturn)  or (ordertable_timeset >='" + TimeSpan.Parse(ts) + "' and ordertable_timereturn <='" + TimeSpan.Parse(tr) + "')) and ordertable_status='false'";
             con.Open();
             SqlCommand cmd = new SqlCommand(sl, con);
             SqlDataReader dr = cmd.ExecuteReader();
