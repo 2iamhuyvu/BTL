@@ -8,7 +8,7 @@
      <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title">Data Table Dark</h4>
+                <h4 class="header-title">Danh sách bàn</h4>
                 <div class="data-tables datatable-dark">
                     <div id="dataTable3_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                         <div class="row">

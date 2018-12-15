@@ -8,10 +8,9 @@
         <div class="col-12 mt-5">
         <div class="card">
 
-            <form action="/Admin/QLOrderTable/UpdateOrderTable.aspx" runat="server">
 
                 <div class="card-body">
-                    <h4 class="header-title">Update this OrderTable </h4>
+                    <h4 class="header-title">Cập nhật thông tin đặt bàn </h4>
                     <asp:Label ID="mss" runat="server" />
                     <div class="form-group">
                         <label for="example-text-input" class="col-form-label">ID OrderTable <label style="color: red">(*)</label></label>
@@ -73,7 +72,7 @@
                 <a  href="ListOrderTable.aspx" style="text-align:center; font-size:30px; padding-bottom:10px;">List OrderTable</a>
                 <%--<button type="submit" class="btn btn-primary mt-4 pr-4 pl-4" id="listtb" >Danh sách bàn</button>--%>
 
-            </form>
+           
 
 
         </div>
