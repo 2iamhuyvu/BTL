@@ -31,6 +31,15 @@
         #listFoodCart tr th {
             font-weight: bold;
         }
+        
+        element.style {
+        }
+        select.form-control:not([size]):not([multiple]) {
+            height: calc(2.25rem + 2px);
+        }
+        .form-group label, .form-group .form-control, .form-group span, .table-user-information {
+             font-size: 1rem; 
+        }
 
         .form-control {
             background: white !important;
@@ -109,9 +118,9 @@
                 <div class="container">
                     <div class="row align-items-center justify-content-center text-center site-vh-100">
                         <div class="col-md-12">
-                            <h1 class="site-heading site-animate mb-3">Welcome To EatWell</h1>
+                            <h1 class="site-heading site-animate mb-3">Chào mừng bạn đến với <% Response.Write(web.ten_nh); %></h1>
                             <h2 class="h5 site-subheading mb-5 site-animate">Hãy nhanh tay đặt các món ăn ngon và chất lượng từ nhà hàng chúng tôi nào!</h2>
-                            <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Reservation</a></p>
+                            <p><a href="https://colorlib.com/" id="otb" target="_blank" class="btn btn-outline-white btn-lg site-animate" data-toggle="modal" data-target="#reservationModal" >Đặt bàn</a></p>
                         </div>
                     </div>
                 </div>
@@ -122,12 +131,12 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-5 site-animate mb-5">
-                            <h4 class="site-sub-title">Our Story</h4>
-                            <h2 class="site-primary-title display-4">Welcome</h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                            <h4 class="site-sub-title">Giới thiệu</h4>
+                            <h2 class="site-primary-title display-4">Xin chào</h2>
+                            
 
                             <p class="mb-4"><% Response.Write(web.gt_nh); %></p>
-                            <p><a href="#" class="btn btn-secondary btn-lg">Learn More About Us</a></p>
+                            
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-6 site-animate img" data-animate-effect="fadeInRight">
@@ -442,7 +451,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <small>CLOSE </small><span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h1 class="mb-4">Reserve A Table</h1>
+                                    <h1 class="mb-4">Đặt bàn</h1>
                                     <form action="#" method="post">
                                         <div class="row">
                                             <div class="col-md-12 form-group">
@@ -453,11 +462,11 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 form-group">
-                                                <label for="m_lname">Time order</label>
+                                                <label for="m_lname">Thời gian đặt</label>
                                                 <input type="time" class="form-control" id="ts" />
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label for="m_email">Time return</label>
+                                                <label for="m_email">Thời gian trả</label>
                                                 <input type="time" class="form-control" id="tr" />
 
                                             </div>
@@ -465,13 +474,13 @@
                                         <div class="row">
                                             <div class="col-md-6 form-group">
                                                 <label for="m_people">Loại bàn</label>
-                                                <select name="" id="lb" class="form-control">
+                                                <select name="" id="lb" class="form-control" >
 
                                                     <%
                                                         var listTable = new DataUtil().dslb();
                                                         foreach (var tb in listTable)
                                                         {
-                                                            Response.Write("<option >" + tb.table_description + "</option>");
+                                                            Response.Write("<option style='padding:5px'>" + tb.table_description + "</option>");
 
                                                         }
                                                     %>
@@ -491,7 +500,7 @@
                                                 <label id="omsg" style="color: red;"></label>
                                             </div>
                                             <div class="col-md-12 form-group">
-                                                <input id="ordertb" type="button" class="btn btn-primary btn-lg btn-block" value="Reserve Now" />
+                                                <input id="ordertb" type="button" class="btn btn-primary btn-lg btn-block" value="Thêm bàn vào giỏ hàng" />
                                             </div>
                                         </div>
 
