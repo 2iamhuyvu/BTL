@@ -8,7 +8,7 @@
     <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title">Add a new table to website</h4>
+                <h4 class="header-title">Thêm bàn</h4>
                 <asp:Label runat="server" ID="mss" />
                 <asp:Label ID="msg" runat="server" />
 

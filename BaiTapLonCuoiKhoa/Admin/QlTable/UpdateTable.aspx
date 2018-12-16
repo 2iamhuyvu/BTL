@@ -8,7 +8,7 @@
     <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title">Update this Table </h4>
+                <h4 class="header-title">Cập nhật thông tin bàn</h4>
                 <asp:Label ID="mss" runat="server" />
                 <div class="form-group">
                     <label for="example-text-input" class="col-form-label">ID Table

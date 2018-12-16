@@ -8,11 +8,11 @@
         <div class="col-12 mt-5">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title">Chỉnh sửa</h4>
+                <%--<h4 class="header-title">Chỉnh sửa</h4>--%>
                 <%--<p class="text-muted font-14 mb-4">Here are examples of <code>.form-control</code> applied to each textual HTML5 <code>&lt;input&gt;</code> <code>type</code>.</p>--%>
                 <%-- <form id="formEditFood" runat="server" action="/Admin/QFood/EditFood.aspx">--%>
                 <div>
-                    <h4 class="header-title">Edit Infor Nhà Hàng </h4>
+                    <h4 class="header-title">Chỉnh sửa thông tin Nhà Hàng </h4>
                     <asp:Label ID="msg" runat="server" />
 
                     
