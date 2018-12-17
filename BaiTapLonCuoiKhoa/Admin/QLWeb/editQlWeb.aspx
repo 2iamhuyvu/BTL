@@ -47,6 +47,7 @@
                         </label>
                         <asp:TextBox ID="txtmail" runat="server" class="form-control" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="The field is required" ControlToValidate="txtmail" Display="Dynamic" ForeColor="Red" />
+                        <asp:RegularExpressionValidator ID="regemail" runat="server" ControlToValidate="txtmail" ErrorMessage="Wrong format" Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="Red" />
                     </div>
 
                     <div class="form-group">
@@ -69,7 +70,7 @@
                    
 
                     <asp:Button runat="server" ID="btnSuaif" class="btn btn-primary mt-4 pr-4 pl-4" Text="Sửa" OnClick="btnSua_Click" />
-                    <asp:Button runat="server" ID="btnrs" class="btn btn-primary mt-4 pr-4 pl-4" Text="Làm mới" />
+                    <asp:Button runat="server" ID="btnrs" class="btn btn-primary mt-4 pr-4 pl-4" Text="Hủy" OnClick="btnLammoi_Click" />
 
                 </div>
                

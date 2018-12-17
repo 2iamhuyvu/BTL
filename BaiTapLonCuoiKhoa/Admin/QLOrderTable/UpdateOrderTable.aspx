@@ -65,7 +65,7 @@
 
                     
                     <asp:Button Text="Update" runat="server" class="btn btn-primary mt-4 pr-4 pl-4" ID="updatotb" OnClick="updatotb_Click"    />
-                    <asp:Button Text="Cancel" runat="server" class="btn btn-primary mt-4 pr-4 pl-4" ID="resetaaddotb"  />
+                    
                     
                     <br />
                 </div>
